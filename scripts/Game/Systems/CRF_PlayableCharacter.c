@@ -37,16 +37,29 @@ class CRF_PlayableCharacter : ScriptComponent
 	{
 		super.EOnInit(owner);
 		GetGame().GetCallqueue().CallLater(SetInitialEntity, 500, false, owner);
+		if(m_bIsPlayable)
+			GetGame().GetCallqueue().CallLater(DisableAI, 0, false, owner);
+	}
+	
+	void DisableAI(IEntity owner)
+	{
+		if(AIControlComponent.Cast(owner.FindComponent(AIControlComponent)).GetAIAgent())
+			AIControlComponent.Cast(owner.FindComponent(AIControlComponent)).GetAIAgent().DeactivateAI();
+		GetGame().GetCallqueue().CallLater(DisableAIWrap, 0, false, owner)
+	}
+	
+	void DisableAIWrap(IEntity owner)
+	{
+		if(AIControlComponent.Cast(owner.FindComponent(AIControlComponent)).GetAIAgent())
+			AIControlComponent.Cast(owner.FindComponent(AIControlComponent)).GetAIAgent().DeactivateAI();
 	}
 	
 	void SetInitialEntity(IEntity owner)
 	{
 		//Logs entity on server and disables AI
-		if(CRF_PlayableCharacter.Cast(owner.FindComponent(CRF_PlayableCharacter)).IsPlayable() && Replication.IsServer())
+		if(m_bIsPlayable && Replication.IsServer())
 		{
 			CRF_Gamemode.GetInstance().AddPlayableEntity(owner);
-			AIControlComponent.Cast(owner.FindComponent(AIControlComponent)).GetAIAgent().DeactivateAI();			
-			Print(AIControlComponent.Cast(owner.FindComponent(AIControlComponent)).GetAIAgent().IsAIActivated());
 		}
 			
 		//Sets location and all the physics BS on all machines

@@ -102,36 +102,28 @@ CRF_Gamemode CRF_GamemodeLobby1 : "{53772A6C6990A2FC}Prefabs/MP/Modes/CRF_Gamemo
  }
 }
 SCR_AIGroup : "{350C8DE227E3C030}Prefabs/Groups/BLUFOR/BLUFOR_PL.et" {
- components {
-  SCR_EditableGroupComponent "{50D291F6C83FA532}" {
-   m_UIInfo SCR_EditableGroupUIInfo "{5298E609432D192D}" {
-    m_MilitarySymbol SCR_MilitarySymbol "{630A25AAB5D44B3B}" {
-     m_Amplifier PLATOON
-    }
-   }
-  }
- }
- coords 1990.643 46.247 2179.76
+ coords 1260.911 39 2321.863
  m_faction "BLUFOR"
- m_aUnitPrefabSlots {
-  "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et"
- }
- m_bDeleteWhenEmpty 0
- m_iMaxMembers 1
- m_bPlayable 1
- m_bDeleteIfNoPlayer 0
  m_bIsPlayable 1
  {
   SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
-   coords -3.918 -8.481 -1.106
+   coords 1.263 0.081 -25.448
    m_faction "BLUFOR"
-   m_aUnitPrefabSlots {
-    "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et"
-   }
-   m_bDeleteWhenEmpty 0
-   m_bPlayable 1
-   m_bDeleteIfNoPlayer 0
    m_bIsPlayable 1
+   {
+    SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
+     coords 0.775 2.413 -25.019
+     m_faction "BLUFOR"
+     m_bIsPlayable 1
+     {
+      SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
+       coords 0.37 -0.09 -15.203
+       m_faction "BLUFOR"
+       m_bIsPlayable 1
+      }
+     }
+    }
+   }
   }
  }
 }
