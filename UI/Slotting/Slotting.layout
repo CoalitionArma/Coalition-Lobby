@@ -1,18 +1,50 @@
 FrameWidgetClass {
  Name "rootFrame"
  {
+  ImageWidgetClass "{62F14B800E3DDDD0}" {
+   Name "HUDBackground"
+   Slot FrameWidgetSlot "{62F14B800E3DDDB1}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   Texture "{B98FB2CD75200E57}UI/Textures/MainMenu/MenuBackgroundBlank_UI.edds"
+   Size 3840 2160
+  }
+  TextWidgetClass "{62F205680596FE21}" {
+   Name "PlayerListText"
+   Slot FrameWidgetSlot "{630A25D3C2DA91C1}" {
+    Anchor 1 0 1 1
+    PositionX -468.523
+    OffsetLeft -468.523
+    PositionY 121.358
+    OffsetTop 121.358
+    SizeX 100
+    OffsetRight 368.523
+    SizeY -1050
+    OffsetBottom 928.64
+   }
+   "Z Order" 10
+   Text "Players"
+  }
   OverlayWidgetClass "{630A25D01F4DF8C5}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
    Name "PlayerList"
    Slot FrameWidgetSlot "{62F20566BC4B2A18}" {
-    Anchor 0 1 1 1
-    PositionX 1224.81
-    OffsetLeft 1224.81
-    PositionY -786.55
-    OffsetTop -786.55
-    SizeX -1714.98
-    OffsetRight 490.173
-    SizeY 787.161
-    OffsetBottom -0.611
+    Anchor 1 0 1 1
+    PositionX -468.444
+    OffsetLeft -468.444
+    PositionY 151.38
+    OffsetTop 151.38
+    SizeX 248.69
+    OffsetRight 219.754
+    SizeY -163.778
+    OffsetBottom 12.398
    }
    "Z Order" 10
    components {
@@ -46,37 +78,68 @@ FrameWidgetClass {
     }
    }
   }
-  TextWidgetClass "{62F205680596FE21}" {
-   Name "PlayerListText"
-   Slot FrameWidgetSlot "{630A25D3C2DA91C1}" {
-    Anchor 0 1 1 1
-    PositionX 1228.19
-    OffsetLeft 1228.19
-    PositionY -818.518
-    OffsetTop -818.518
-    SizeX -1820
-    OffsetRight 591.81
-    SizeY 30
-    OffsetBottom 788.518
+  OverlayWidgetClass "{630C43F16E0A9EFA}" {
+   Name "UnslottedPlayers"
+   Slot FrameWidgetSlot "{630C43F16E0A9ECB}" {
+    Anchor 1 0 1 1
+    PositionX -207.05
+    OffsetLeft -207.05
+    PositionY 227.806
+    OffsetTop 227.806
+    SizeX 205.78
+    OffsetRight 1.27
+    SizeY -240.449
+    OffsetBottom 12.643
    }
-   "Z Order" 10
-   Text "Players"
-  }
-  ImageWidgetClass "{62F14B800E3DDDD0}" {
-   Name "HUDBackground"
-   Slot FrameWidgetSlot "{62F14B800E3DDDB1}" {
-    Anchor 0 0 1 1
-    PositionX 0
-    OffsetLeft 0
-    PositionY 0
-    OffsetTop 0
-    SizeX -1820
-    OffsetRight 0
-    SizeY -1050
-    OffsetBottom 0
+   {
+    OverlayWidgetClass "{630C43F102925FE8}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
+     Name "UnslotPlayerList"
+     Slot OverlayWidgetSlot "{63122E88273274D1}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 0 35 0 0
+     }
+     "Z Order" 10
+     components {
+      SCR_ListBoxComponent "{566C9415BAA54E1B}" {
+       Enabled 0
+      }
+      CRF_ListboxComponent "{62F200F00CBEE8F9}" {
+      }
+     }
+     {
+      PanelWidgetClass "{630C43F102925FE9}" {
+       Name "UnslotPlayerBorder"
+       Slot OverlayWidgetSlot "{630A25D63BD29577}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       "Z Order" 1
+       Color 0 0.584 1 1
+       style outline_4px
+      }
+      ScrollLayoutWidgetClass "{56691148E692435A}" {
+       Prefab "{56691148E692435A}"
+       Slot OverlayWidgetSlot "{56691148E692437F}" {
+        Padding 6 6 6 6
+       }
+      }
+      ImageWidgetClass "{5DB6D18100D38307}" {
+       Prefab "{5DB6D18100D38307}"
+       "Is Enabled" 0
+       "Is Visible" 0
+      }
+     }
+    }
+    TextWidgetClass "{630C43F102925DE3}" {
+     Name "UnslotPlayerListText"
+     Slot OverlayWidgetSlot "{63122E8827327703}" {
+      HorizontalAlign 0
+      VerticalAlign 3
+     }
+     Text "Unslotted Players"
+    }
    }
-   Texture "{B98FB2CD75200E57}UI/Textures/MainMenu/MenuBackgroundBlank_UI.edds"
-   Size 3840 2160
   }
   FrameWidgetClass "{62F201A7CFAE7C3E}" {
    Name "Header"
@@ -386,11 +449,11 @@ FrameWidgetClass {
      Name "AARFrame"
      Slot FrameWidgetSlot "{62F03D8721E233A1}" {
       Anchor 0.5 0.5 0.5 0.5
-      PositionX 653.137
-      OffsetLeft 653.137
+      PositionX 653.14
+      OffsetLeft 653.14
       PositionY -31.26
       OffsetTop -31.26
-      SizeX 198.18
+      SizeX 198.177
       OffsetRight -851.317
       SizeY 59.673
       OffsetBottom -28.413
@@ -627,14 +690,14 @@ FrameWidgetClass {
   FrameWidgetClass "{62F14B81B3877EA4}" : "{B7A765172F0BD4D9}UI/layouts/Common/GameVersionWatermark.layout" {
    Name "EarlyAccessRoot"
    Slot FrameWidgetSlot "{5CEE96372B5D270B}" {
-    PositionX 0
-    OffsetLeft 0
-    PositionY -0.1
-    OffsetTop -0.1
+    PositionX -12.038
+    OffsetLeft -12.038
+    PositionY 4.003
+    OffsetTop 4.003
     SizeX 0
-    OffsetRight 0
+    OffsetRight 12.038
     SizeY 0
-    OffsetBottom 0.1
+    OffsetBottom -4.003
    }
    Opacity 1
   }
@@ -647,30 +710,64 @@ FrameWidgetClass {
   FrameWidgetClass "{62F17C1722FCA61B}" {
    Name "TimeWeather"
    Slot FrameWidgetSlot "{62F012440EE08870}" {
-    Anchor 0 0 1 0
-    PositionX 1384.48
-    OffsetLeft 1384.48
-    PositionY 104.974
-    OffsetTop 104.974
-    SizeX -1384.58
+    Anchor 1 0 1 0
+    PositionX -206.82
+    OffsetLeft -206.82
+    PositionY 104.554
+    OffsetTop 104.554
+    SizeX 206.721
     OffsetRight 0.099
-    SizeY 93.381
-    OffsetBottom -198.355
+    SizeY 100.344
+    OffsetBottom -204.898
    }
    "Z Order" 10
    {
+    ImageWidgetClass "{6322406DCF7E82CF}" {
+     Name "PlayersTextBG"
+     Slot FrameWidgetSlot "{62F01244212F9275}" {
+      Anchor 1 0 1 1
+      PositionX -190
+      OffsetLeft -190
+      PositionY 29.984
+      OffsetTop 33.25
+      SizeX 172
+      OffsetRight 18
+      SizeY -127.895
+      OffsetBottom 98
+     }
+     Clipping Ancestor
+     Color 0.008 0.012 0.016 1
+    }
+    TextWidgetClass "{62F20572D860F011}" {
+     Name "PlayersText"
+     Slot FrameWidgetSlot "{62F20572D860F073}" {
+      Anchor 1 0 1 1
+      PositionX -190
+      OffsetLeft -190
+      PositionY 33.238
+      OffsetTop 33.25
+      SizeX 172
+      OffsetRight 18
+      SizeY -131.238
+      OffsetBottom 98
+     }
+     Clipping Ancestor
+     Text "Players: 84"
+     "Horizontal Alignment" Center
+     "Vertical Alignment" Center
+    }
     ImageWidgetClass "{62F17C1722FCA61C}" {
      Name "TimeBG"
      Slot FrameWidgetSlot "{62F01244212F9275}" {
       Anchor 1 0 1 1
-      PositionX -190.859
-      OffsetLeft -190.859
-      PositionY -0.067
-      OffsetTop -0.067
-      SizeX 171.988
-      OffsetRight 18.87
-      SizeY -63.381
-      OffsetBottom 63.448
+      PositionX -190
+      OffsetLeft -190
+      PositionY 35.094
+      OffsetTop 35
+      SizeX 172
+      OffsetRight 18
+      SizeY -70.094
+      OffsetBottom 35
      }
      Color 0.008 0.012 0.016 1
     }
@@ -678,14 +775,14 @@ FrameWidgetClass {
      Name "TimeText"
      Slot FrameWidgetSlot "{62F0124451778FA1}" {
       Anchor 1 0 1 1
-      PositionX -189.374
-      OffsetLeft -189.374
-      PositionY 0
-      OffsetTop 0
-      SizeX 167.832
-      OffsetRight 21.542
-      SizeY -63.381
-      OffsetBottom 63.381
+      PositionX -190
+      OffsetLeft -190
+      PositionY 30
+      OffsetTop 35
+      SizeX 172
+      OffsetRight 18
+      SizeY -65.229
+      OffsetBottom 35
      }
      Text "Time: 19:27"
      "Horizontal Alignment" Center
@@ -695,14 +792,14 @@ FrameWidgetClass {
      Name "WeatherBG"
      Slot FrameWidgetSlot "{62F01244212F9275}" {
       Anchor 1 0 1 1
-      PositionX -190.859
-      OffsetLeft -190.859
-      PositionY 33.646
-      OffsetTop 33.646
-      SizeX 171.989
-      OffsetRight 18.87
-      SizeY -63.381
-      OffsetBottom 29.735
+      PositionX -190
+      OffsetLeft -190
+      PositionY 65.888
+      OffsetTop 67.5
+      SizeX 172
+      OffsetRight 18
+      SizeY -65.888
+      OffsetBottom 0
      }
      Color 0.008 0.012 0.016 1
     }
@@ -710,14 +807,14 @@ FrameWidgetClass {
      Name "WeatherText"
      Slot FrameWidgetSlot "{62F0124451778FA1}" {
       Anchor 1 0 1 1
-      PositionX -188.484
-      OffsetLeft -188.484
-      PositionY 33.551
-      OffsetTop 33.551
-      SizeX 166.509
-      OffsetRight 21.975
-      SizeY -63.381
-      OffsetBottom 29.83
+      PositionX -190
+      OffsetLeft -190
+      PositionY 66.862
+      OffsetTop 67.5
+      SizeX 172
+      OffsetRight 18
+      SizeY -66.862
+      OffsetBottom 0
      }
      Text "Weather: Rainy"
      "Min Font Size" 4
@@ -727,40 +824,38 @@ FrameWidgetClass {
     }
    }
   }
-  FrameWidgetClass "{62F17C16EA2DA794}" {
-   Name "LeftFaction"
-   Slot FrameWidgetSlot "{62F17C16EA2DA637}" {
-    Anchor 0 1 0 1
-    PositionX 0
-    OffsetLeft 0
-    PositionY -968.761
-    OffsetTop -968.761
-    SizeX 1366.55
-    OffsetRight -1366.55
-    SizeY 969.542
-    OffsetBottom -0.781
+  FrameWidgetClass "{63224076CB05D14E}" {
+   Name "Center"
+   Slot FrameWidgetSlot "{63224076CB05D1A3}" {
+    Anchor 0.25 0 0.75 1
+    PositionX 190
+    OffsetLeft 190
+    PositionY 110
+    OffsetTop 110
+    SizeX -380
+    OffsetRight 190
+    SizeY -107.475
+    OffsetBottom -2.525
    }
-   "Z Order" 10
    {
-    FrameWidgetClass "{63224AF35F9DF121}" {
-     Name "RoleFrame"
-     Slot FrameWidgetSlot "{63224AF35F9DF11A}" {
-      Anchor 0 1 0 1
-      PositionX 38.017
-      OffsetLeft 38.017
-      PositionY -799.813
-      OffsetTop -799.813
-      SizeX 619.92
-      OffsetRight -657.937
-      SizeY 798.331
-      OffsetBottom 1.482
+    FrameWidgetClass "{62F205708AD95A86}" {
+     Name "RatioCalc"
+     Slot FrameWidgetSlot "{62F205708AD95AE2}" {
+      Anchor 0 0 1 0
+      PositionX 135.436
+      OffsetLeft 135.436
+      PositionY 1.39
+      OffsetTop 1.39
+      SizeX -270.001
+      OffsetRight 134.565
+      SizeY 62
+      OffsetBottom -63.39
      }
-     "Z Order" 10
      {
-      OverlayWidgetClass "{62F20566BC4B2A32}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
-       Name "RoleList"
-       Slot FrameWidgetSlot "{62F20566BC4B2A18}" {
-        Anchor 0 0 1 1
+      ImageWidgetClass "{62F20570E9C79456}" {
+       Name "Image0"
+       Slot FrameWidgetSlot "{62F20570E9C794B2}" {
+        Anchor 0.38 0 0.496 0.484
         PositionX 0
         OffsetLeft 0
         PositionY 0
@@ -770,131 +865,227 @@ FrameWidgetClass {
         SizeY 0
         OffsetBottom 0
        }
-       "Z Order" 10
-       components {
-        SCR_ListBoxComponent "{566C9415BAA54E1B}" {
-         Enabled 0
-        }
-        CRF_ListboxComponent "{62F200F00CBEE8F9}" {
-        }
+       Color 0.012 0.012 0.012 1
+      }
+      EditBoxWidgetClass "{62F205706EF341CE}" {
+       Name "RatioBox1"
+       Slot FrameWidgetSlot "{62F205706EF34066}" {
+        Anchor 0.38 0 0.496 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
        }
-       {
-        PanelWidgetClass "{630A257A5834F930}" {
-         Name "RoleBorder"
-         Slot OverlayWidgetSlot "{630A25D63BD29577}" {
-          HorizontalAlign 3
-          VerticalAlign 3
-         }
-         "Z Order" 1
-         "Is Visible" 0
-         Color 0 0.584 1 1
-         style outline_4px
-        }
-        ScrollLayoutWidgetClass "{56691148E692435A}" {
-         Prefab "{56691148E692435A}"
-         Slot OverlayWidgetSlot "{56691148E692437F}" {
-          Padding 0 0 0 0
-         }
-         {
-          VerticalLayoutWidgetClass "{56691148E013D981}" {
-           Prefab "{56691148E013D981}"
-           Slot AlignableSlot "{56691148E013D9A9}" {
-           }
-          }
-         }
-        }
-        ImageWidgetClass "{5DB6D18100D38307}" {
-         Prefab "{5DB6D18100D38307}"
-         "Is Enabled" 0
-         "Is Visible" 0
-        }
+       text "3"
+       "Horizontal alignment" Center
+      }
+      ImageWidgetClass "{62F20571056E94F1}" {
+       Name "Image1"
+       Slot FrameWidgetSlot "{62F20570E9C794B2}" {
+        Anchor 0.501 0 0.615 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
        }
+       Color 0.012 0.012 0.012 1
+      }
+      EditBoxWidgetClass "{62F20570B4054115}" {
+       Name "RatioBox2"
+       Slot FrameWidgetSlot "{62F205706EF34066}" {
+        Anchor 0.501 0 0.615 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       text "3"
+       "Horizontal alignment" Center
+      }
+      ImageWidgetClass "{62F20571036D6A30}" {
+       Name "Image2"
+       Slot FrameWidgetSlot "{62F20570E9C794B2}" {
+        Anchor 0.28 0.516 0.72 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       Color 0.012 0.012 0.012 1
+      }
+      TextWidgetClass "{62F20570C3D23C82}" {
+       Name "Final"
+       Slot FrameWidgetSlot "{62F20565E7929260}" {
+        Anchor 0.281 0.516 0.72 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       Text "54 : 27"
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+      }
+      ImageWidgetClass "{62F20571F794D70F}" {
+       Name "BluImage"
+       Slot FrameWidgetSlot "{62F20570E9C794B2}" {
+        Anchor 0.135 0 0.379 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       Color 0 0.007 1 1
+       Texture "{E12BB5C5BD00269E}UI/Textures/Common/gradientTexture_Dither_right_512.edds"
+       Size 512 512
+      }
+      TextWidgetClass "{62F20571EAD36A68}" {
+       Name "BluText"
+       Slot FrameWidgetSlot "{62F20565E7929260}" {
+        Anchor 0.135 0 0.379 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       Text "BLU"
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+      }
+      ImageWidgetClass "{62F2057220E3A5A3}" {
+       Name "BluImage0"
+       Slot FrameWidgetSlot "{62F20570E9C794B2}" {
+        Anchor 0.618 0 0.863 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       Color 1 0.007 0 1
+       Texture "{CB166C32C066B6D2}UI/Textures/Common/gradientTexture_Dither_left_512.edds"
+       Size 512 512
+      }
+      TextWidgetClass "{62F20571FE2A7CF6}" {
+       Name "Final1"
+       Slot FrameWidgetSlot "{62F20565E7929260}" {
+        Anchor 0.618 0 0.863 0.484
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+       }
+       Text "OPF"
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
       }
      }
     }
-    OverlayWidgetClass "{630A25AD62E9F70F}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
-     Name "OrbatList"
-     Slot FrameWidgetSlot "{62F20566BC4B2A18}" {
-      Anchor 0 1 0 1
-      PositionX 678.123
-      OffsetLeft 678.123
-      PositionY -788.606
-      OffsetTop -788.606
-      SizeX 529.327
-      OffsetRight -1207.45
-      SizeY 772.168
-      OffsetBottom 16.438
-     }
-     "Z Order" 10
-     components {
-      SCR_ListBoxComponent "{566C9415BAA54E1B}" {
-       Enabled 0
-      }
-      CRF_ListboxComponent "{62F200F00CBEE8F9}" {
-      }
+    FrameWidgetClass "{63161CD67CCA9E14}" {
+     Name "TextFrame"
+     Slot FrameWidgetSlot "{631F7CCB880E1F13}" {
+      Anchor 0.348 0.068 0.656 0.107
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -0.483
+      OffsetRight 0.483
+      SizeY 0
+      OffsetBottom 0
      }
      {
-      PanelWidgetClass "{630A25AD62E9F70C}" {
-       Name "Border"
-       Slot OverlayWidgetSlot "{630A25D63BD29577}" {
-        HorizontalAlign 3
-        VerticalAlign 3
+      PanelWidgetClass "{63122E8A9AD3A869}" {
+       Name "SlotPhaseBorder"
+       Slot FrameWidgetSlot "{63161CD6956A1DB3}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX -120.224
+        OffsetRight 0
+        SizeY -22.238
+        OffsetBottom 0
        }
        "Z Order" 1
-       "Is Visible" 0
-       Color 0 0.584 1 1
-       style outline_4px
+       Color 0.429 0.018 0.002 1
+       style outline_2px
       }
-      ScrollLayoutWidgetClass "{56691148E692435A}" {
-       Prefab "{56691148E692435A}"
-       Slot OverlayWidgetSlot "{56691148E692437F}" {
-        Padding 6 6 6 6
+      TextWidgetClass "{63122E88485A5CA5}" {
+       Name "CurrentSlotPhase"
+       Slot FrameWidgetSlot "{63161CD681F23484}" {
+        Anchor 0 0 1 1
+        PositionX 4.096
+        OffsetLeft 4.096
+        PositionY 5
+        OffsetTop 5
+        SizeX -8.219
+        OffsetRight 4.123
+        SizeY -10
+        OffsetBottom 5
        }
-      }
-      ImageWidgetClass "{5DB6D18100D38307}" {
-       Prefab "{5DB6D18100D38307}"
-       "Is Enabled" 0
-       "Is Visible" 0
+       Text "Leaders and Medics"
+       "Font Size" 29
+       "Min Font Size" 11
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
       }
      }
-    }
-    ImageWidgetClass "{62F20565AEA4F5B4}" {
-     Name "SlotsBG"
-     Slot FrameWidgetSlot "{62F20565AEA4F592}" {
-      Anchor 0 1 0 1
-      PositionX 30.184
-      OffsetLeft 30.184
-      PositionY -834.542
-      OffsetTop -834.542
-      SizeX 639.805
-      OffsetRight -669.989
-      SizeY 841.448
-      OffsetBottom -6.906
-     }
-     Color 0 0.584 1 0.131
-     Size 512 512
-     "Transition width" 1
-     Progress 0.41
-     "Mask Mode" "Include Below"
     }
     OverlayWidgetClass "{63122E88394260EC}" {
      Name "SlottingPhases"
      Slot FrameWidgetSlot "{63122E88394263B7}" {
-      Anchor 0 1 0 1
-      PositionX 613.137
-      OffsetLeft 613.137
-      PositionY -833.742
-      OffsetTop -833.742
-      SizeX 30
-      OffsetRight -643.137
-      SizeY 30
-      OffsetBottom 803.742
+      Anchor 0.662 0.067 0.711 0.107
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      {
       ImageWidgetClass "{63122E88B09C44AC}" {
        Name "ButtonBG"
        Slot OverlayWidgetSlot "{63122E8A2338834F}" {
-        HorizontalAlign 2
+        HorizontalAlign 3
         VerticalAlign 3
        }
        Color 0.042 0.042 0.042 1
@@ -933,114 +1124,167 @@ FrameWidgetClass {
       }
      }
     }
-    FrameWidgetClass "{63161CD67CCA9E14}" {
-     Name "TextFrame"
-     Slot FrameWidgetSlot "{631F7CCB880E1F13}" {
-      Anchor 0 1 0 1
-      PositionX 440.582
-      OffsetLeft 440.582
-      PositionY -833.108
-      OffsetTop -833.108
-      SizeX 168.134
-      OffsetRight -608.716
-      SizeY 30
-      OffsetBottom 803.108
+    OverlayWidgetClass "{630A25AD62E9F70F}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
+     Name "OrbatList"
+     Slot FrameWidgetSlot "{62F20566BC4B2A18}" {
+      Anchor 0.144 0.115 1.028 0.98
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
+     }
+     "Z Order" 10
+     components {
+      SCR_ListBoxComponent "{566C9415BAA54E1B}" {
+       Enabled 0
+      }
+      CRF_ListboxComponent "{62F200F00CBEE8F9}" {
+      }
      }
      {
-      PanelWidgetClass "{63122E8A9AD3A869}" {
-       Name "SlotPhaseBorder"
-       Slot FrameWidgetSlot "{63161CD6956A1DB3}" {
-        Anchor 0 0 1 1
-        PositionX 0
-        OffsetLeft 0
-        PositionY 0
-        OffsetTop 0
-        SizeX -120.224
-        OffsetRight 0
-        SizeY -22.238
-        OffsetBottom 0
+      PanelWidgetClass "{630A25AD62E9F70C}" {
+       Name "Border"
+       Slot OverlayWidgetSlot "{630A25D63BD29577}" {
+        HorizontalAlign 3
+        VerticalAlign 3
        }
        "Z Order" 1
-       Color 0.429 0.018 0.002 1
-       style outline_2px
+       "Is Visible" 0
+       Color 0 0.584 1 1
+       style outline_4px
       }
-      TextWidgetClass "{63122E88485A5CA5}" {
-       Name "CurrentSlotPhase"
-       Slot FrameWidgetSlot "{63161CD681F23484}" {
-        Anchor 0 0 1 1
-        PositionX 0
-        OffsetLeft 3
-        PositionY 0
-        OffsetTop 5
-        SizeX -20.224
-        OffsetRight 5
-        SizeY 7.762
-        OffsetBottom 5
+      ScrollLayoutWidgetClass "{56691148E692435A}" {
+       Prefab "{56691148E692435A}"
+       Slot OverlayWidgetSlot "{56691148E692437F}" {
+        Padding 6 6 6 6
        }
-       Text "Leaders and Medics"
-       "Font Size" 29
-       "Min Font Size" 11
-       "Horizontal Alignment" Center
-       "Vertical Alignment" Center
+      }
+      ImageWidgetClass "{5DB6D18100D38307}" {
+       Prefab "{5DB6D18100D38307}"
+       "Is Enabled" 0
+       "Is Visible" 0
       }
      }
     }
-    TextWidgetClass "{62F20565E792921B}" {
-     Name "Slots"
-     Slot FrameWidgetSlot "{62F20565E7929260}" {
-      Anchor 0 1 0 1
-      PositionX 34.683
-      OffsetLeft 34.683
-      PositionY -831.241
-      OffsetTop -831.241
-      SizeX 109.837
-      OffsetRight -144.52
-      SizeY 23.394
-      OffsetBottom 807.847
+   }
+  }
+  FrameWidgetClass "{62F17C16EA2DA794}" {
+   Name "LeftFaction"
+   Slot FrameWidgetSlot "{62F17C16EA2DA637}" {
+    Anchor 0 0 0.25 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 111.2
+    OffsetTop 111.2
+    SizeX 195.8
+    OffsetRight -195.8
+    SizeY -110.1
+    OffsetBottom -1.1
+   }
+   "Z Order" 10
+   {
+    OverlayWidgetClass "{62F20566BC4B2A32}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
+     Name "RoleList"
+     Slot FrameWidgetSlot "{62F20566BC4B2A18}" {
+      Anchor 0 0 1 1
+      PositionX 38.017
+      OffsetLeft 38.017
+      PositionY 143.83
+      OffsetTop 143.83
+      SizeX -55.88
+      OffsetRight 17.863
+      SizeY -166.07
+      OffsetBottom 22.24
      }
-     Text "Slots"
+     "Z Order" 10
+     components {
+      SCR_ListBoxComponent "{566C9415BAA54E1B}" {
+       Enabled 0
+      }
+      CRF_ListboxComponent "{62F200F00CBEE8F9}" {
+      }
+     }
+     {
+      PanelWidgetClass "{630A257A5834F930}" {
+       Name "RoleBorder"
+       Slot OverlayWidgetSlot "{630A25D63BD29577}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       "Z Order" 1
+       "Is Visible" 0
+       Color 0 0.584 1 1
+       style outline_4px
+      }
+      ScrollLayoutWidgetClass "{56691148E692435A}" {
+       Prefab "{56691148E692435A}"
+       Slot OverlayWidgetSlot "{56691148E692437F}" {
+        Padding 0 0 0 0
+       }
+       {
+        VerticalLayoutWidgetClass "{56691148E013D981}" {
+         Prefab "{56691148E013D981}"
+         Slot AlignableSlot "{56691148E013D9A9}" {
+         }
+        }
+       }
+      }
+      ImageWidgetClass "{5DB6D18100D38307}" {
+       Prefab "{5DB6D18100D38307}"
+       "Is Enabled" 0
+       "Is Visible" 0
+      }
+     }
+    }
+    ImageWidgetClass "{62F20565AEA4F5B4}" {
+     Name "SlotsBG"
+     Slot FrameWidgetSlot "{62F20565AEA4F592}" {
+      Anchor 0 0 1 1
+      PositionX 30.184
+      OffsetLeft 30.184
+      PositionY 135.645
+      OffsetTop 135.645
+      SizeX -36.124
+      OffsetRight 5.94
+      SizeY -152.044
+      OffsetBottom 16.399
+     }
+     Color 0 0.584 1 0.131
+     Size 512 512
+     "Transition width" 1
+     Progress 0.41
+     "Mask Mode" "Include Below"
     }
     FrameWidgetClass "{62F17C1215514D23}" {
      Name "Factions"
      Slot FrameWidgetSlot "{62F17C1215514D74}" {
-      Anchor 0 1 0 1
-      PositionX 0
-      OffsetLeft 0
-      PositionY -969.542
-      OffsetTop -969.542
-      SizeX 966.159
-      OffsetRight -966.159
-      SizeY 135.542
+      Anchor 0 0 1 1
+      PositionX 29.958
+      OffsetLeft 29.958
+      PositionY 0
+      OffsetTop 0
+      SizeX -35.624
+      OffsetRight 5.665
+      SizeY -834
       OffsetBottom 834
      }
      {
-      TextWidgetClass "{62F20572D860F011}" {
-       Name "PlayersText"
-       Slot FrameWidgetSlot "{62F20572D860F073}" {
-        Anchor 0 0 1 1
-        PositionX 675.529
-        OffsetLeft 675.529
-        PositionY 0
-        OffsetTop 0
-        SizeX -822.194
-        OffsetRight 146.666
-        SizeY -101.067
-        OffsetBottom 101.067
-       }
-       Text "Players: 84"
-      }
       ImageWidgetClass "{62F205627830F536}" {
        Name "FactionBackground"
        Slot FrameWidgetSlot "{62F205627830F515}" {
-        Anchor 0 0 1 1
-        PositionX -274.687
-        OffsetLeft -274.687
+        Anchor 0 0 1 0
+        PositionX -0.069
+        OffsetLeft -0.069
         PositionY 0
         OffsetTop 0
-        SizeX 7.226
-        OffsetRight 267.461
-        SizeY 0
-        OffsetBottom 0
+        SizeX -0.007
+        OffsetRight 0.077
+        SizeY 135.5
+        OffsetBottom -135.5
        }
        Color 0.018 0.018 0.018 1
        Texture "{CB166C32C066B6D2}UI/Textures/Common/gradientTexture_Dither_left_512.edds"
@@ -1052,30 +1296,30 @@ FrameWidgetClass {
       ImageWidgetClass "{63161CD792B94130}" {
        Name "BluforBGSelect"
        Slot FrameWidgetSlot "{63161CD792B94113}" {
-        Anchor 0 0 1 1
+        Anchor 0 0 0.25 0
         PositionX 0
-        OffsetLeft 30
+        OffsetLeft 0
         PositionY 0
         OffsetTop 0
-        SizeX -866.159
-        OffsetRight 777
-        SizeY -100.509
-        OffsetBottom 0
+        SizeX -0.244
+        OffsetRight 0.244
+        SizeY 135.5
+        OffsetBottom -135.5
        }
        Color 0.016 0.552 0.905 0.129
       }
       FrameWidgetClass "{62F205606D5A9D95}" {
        Name "BluforButton"
        Slot FrameWidgetSlot "{62F205606D5A9D8E}" {
-        Anchor 0 0 1 1
-        PositionX 35
-        OffsetLeft 40
-        PositionY 0
+        Anchor 0 0 0.25 0
+        PositionX 10
+        OffsetLeft 10
+        PositionY 8
         OffsetTop 8
-        SizeX -822
-        OffsetRight 787
-        SizeY 0
-        OffsetBottom 5
+        SizeX -20.844
+        OffsetRight 10.844
+        SizeY 122.5
+        OffsetBottom -130.5
        }
        {
         ImageWidgetClass "{62F20560CFE0ED61}" {
@@ -1187,30 +1431,30 @@ FrameWidgetClass {
       ImageWidgetClass "{63161CD7F2A9D5BE}" {
        Name "OpforBGSelect"
        Slot FrameWidgetSlot "{63161CD792B94113}" {
-        Anchor 0 0 1 1
-        PositionX 189.976
-        OffsetLeft 189.976
+        Anchor 0.25 0 0.5 0
+        PositionX -0.044
+        OffsetLeft -0.044
         PositionY 0
         OffsetTop 0
-        SizeX -807
-        OffsetRight 617.024
-        SizeY 0
-        OffsetBottom 0
+        SizeX -0.444
+        OffsetRight 0.488
+        SizeY 135.5
+        OffsetBottom -135.5
        }
        Color 0 0.584 1 0.129
       }
       FrameWidgetClass "{62F205628E23174C}" {
        Name "OpforButton"
        Slot FrameWidgetSlot "{62F205606D5A9D8E}" {
-        Anchor 0 0 1 1
-        PositionX 199.976
-        OffsetLeft 199.976
-        PositionY 5
+        Anchor 0.25 0 0.5 0
+        PositionX 9.956
+        OffsetLeft 9.956
+        PositionY 8
         OffsetTop 8
-        SizeX -827
-        OffsetRight 627.024
-        SizeY -10
-        OffsetBottom 5
+        SizeX -20.844
+        OffsetRight 10.888
+        SizeY 122.5
+        OffsetBottom -130.5
        }
        {
         ImageWidgetClass "{62F205628E23174D}" {
@@ -1322,30 +1566,30 @@ FrameWidgetClass {
       ImageWidgetClass "{63161CD614878E12}" {
        Name "IndforBGSelect"
        Slot FrameWidgetSlot "{63161CD792B94113}" {
-        Anchor 0 0 1 1
-        PositionX 349.996
-        OffsetLeft 349.996
+        Anchor 0.5 0 0.75 0
+        PositionX -0.088
+        OffsetLeft -0.088
         PositionY 0
         OffsetTop 0
-        SizeX -807
-        OffsetRight 457.004
-        SizeY 0
-        OffsetBottom 0
+        SizeX 0.056
+        OffsetRight 0.032
+        SizeY 135.5
+        OffsetBottom -135.5
        }
        Color 0 0.584 1 0.129
       }
       FrameWidgetClass "{62F2056289A50114}" {
        Name "IndforButton"
        Slot FrameWidgetSlot "{62F205606D5A9D8E}" {
-        Anchor 0 0 1 1
-        PositionX 359.996
-        OffsetLeft 359.996
-        PositionY 5
+        Anchor 0.5 0 0.75 0
+        PositionX 9.912
+        OffsetLeft 9.912
+        PositionY 8
         OffsetTop 8
-        SizeX -827
-        OffsetRight 467.004
-        SizeY -10
-        OffsetBottom 5
+        SizeX -20.844
+        OffsetRight 10.932
+        SizeY 122.5
+        OffsetBottom -130.5
        }
        {
         ImageWidgetClass "{62F2056289A50116}" {
@@ -1457,30 +1701,30 @@ FrameWidgetClass {
       ImageWidgetClass "{63161CD6395830C5}" {
        Name "CivBGSelect"
        Slot FrameWidgetSlot "{63161CD792B94113}" {
-        Anchor 0 0 1 1
-        PositionX 509.994
-        OffsetLeft 509.994
+        Anchor 0.75 0 1 0
+        PositionX -0.133
+        OffsetLeft -0.133
         PositionY 0
         OffsetTop 0
-        SizeX -807
-        OffsetRight 297.006
-        SizeY 0
-        OffsetBottom 0
+        SizeX -0.144
+        OffsetRight 0.276
+        SizeY 135.5
+        OffsetBottom -135.5
        }
        Color 0 0.584 1 0.129
       }
       FrameWidgetClass "{62F2056284FA609A}" {
        Name "CivButton"
        Slot FrameWidgetSlot "{62F205606D5A9D8E}" {
-        Anchor 0 0 1 1
-        PositionX 519.994
-        OffsetLeft 519.994
-        PositionY 5
+        Anchor 0.75 0 1 0
+        PositionX 9.867
+        OffsetLeft 9.867
+        PositionY 8
         OffsetTop 8
-        SizeX -827
-        OffsetRight 307.006
-        SizeY -10
-        OffsetBottom 5
+        SizeX -20.844
+        OffsetRight 10.976
+        SizeY 122.5
+        OffsetBottom -130.5
        }
        {
         ImageWidgetClass "{62F2056284FA609B}" {
@@ -1591,260 +1835,6 @@ FrameWidgetClass {
       }
      }
     }
-    TextWidgetClass "{630A25AD86BAF3ED}" {
-     Name "Orbat"
-     Slot FrameWidgetSlot "{62F20565E7929260}" {
-      Anchor 0 1 0 1
-      PositionX 678.071
-      OffsetLeft 678.071
-      PositionY -819.914
-      OffsetTop -819.914
-      SizeX 109.834
-      OffsetRight -787.905
-      SizeY 23.394
-      OffsetBottom 796.52
-     }
-     Text "Orbat"
-    }
-   }
-  }
-  FrameWidgetClass "{62F205708AD95A86}" {
-   Name "RatioCalc"
-   Slot FrameWidgetSlot "{62F205708AD95AE2}" {
-    Anchor 1 0 1 0
-    PositionX -508.335
-    OffsetLeft -508.335
-    PositionY 107.968
-    OffsetTop 107.968
-    SizeX 310.541
-    OffsetRight 197.794
-    SizeY 57.391
-    OffsetBottom -165.359
-   }
-   {
-    ImageWidgetClass "{62F20570E9C79456}" {
-     Name "Image0"
-     Slot FrameWidgetSlot "{62F20570E9C794B2}" {
-      Anchor 0 0 1 1
-      PositionX 117.932
-      OffsetLeft 117.932
-      PositionY 0
-      OffsetTop 0
-      SizeX -274.305
-      OffsetRight 156.373
-      SizeY -32
-      OffsetBottom 32
-     }
-     Color 0.012 0.012 0.012 1
-    }
-    EditBoxWidgetClass "{62F205706EF341CE}" {
-     Name "RatioBox1"
-     Slot FrameWidgetSlot "{62F205706EF34066}" {
-      Anchor 0 0 1 1
-      PositionX 117.932
-      OffsetLeft 117.932
-      PositionY 0
-      OffsetTop 0
-      SizeX -274.305
-      OffsetRight 156.373
-      SizeY -32
-      OffsetBottom 32
-     }
-     text "3"
-     "Horizontal alignment" Center
-    }
-    ImageWidgetClass "{62F20571056E94F1}" {
-     Name "Image1"
-     Slot FrameWidgetSlot "{62F20570E9C794B2}" {
-      Anchor 0 0 1 1
-      PositionX 155.218
-      OffsetLeft 155.218
-      PositionY 0
-      OffsetTop 0
-      SizeX -274.591
-      OffsetRight 119.373
-      SizeY -32
-      OffsetBottom 32
-     }
-     Color 0.012 0.012 0.012 1
-    }
-    EditBoxWidgetClass "{62F20570B4054115}" {
-     Name "RatioBox2"
-     Slot FrameWidgetSlot "{62F205706EF34066}" {
-      Anchor 0 0 1 1
-      PositionX 155.164
-      OffsetLeft 155.164
-      PositionY 0
-      OffsetTop 0
-      SizeX -274.538
-      OffsetRight 119.373
-      SizeY -32
-      OffsetBottom 32
-     }
-     text "3"
-     "Horizontal alignment" Center
-    }
-    ImageWidgetClass "{62F20571036D6A30}" {
-     Name "Image2"
-     Slot FrameWidgetSlot "{62F20570E9C794B2}" {
-      Anchor 0 0 1 1
-      PositionX 86.911
-      OffsetLeft 86.911
-      PositionY 32
-      OffsetTop 32
-      SizeX -173.622
-      OffsetRight 86.711
-      SizeY -32
-      OffsetBottom 0
-     }
-     Color 0.012 0.012 0.012 1
-    }
-    TextWidgetClass "{62F20570C3D23C82}" {
-     Name "Final"
-     Slot FrameWidgetSlot "{62F20565E7929260}" {
-      Anchor 0 0 1 1
-      PositionX 87.033
-      OffsetLeft 87.033
-      PositionY 32
-      OffsetTop 32
-      SizeX -173.744
-      OffsetRight 86.711
-      SizeY -32
-      OffsetBottom 0
-     }
-     Text "54 : 27"
-     "Horizontal Alignment" Center
-     "Vertical Alignment" Center
-    }
-    ImageWidgetClass "{62F20571F794D70F}" {
-     Name "BluImage"
-     Slot FrameWidgetSlot "{62F20570E9C794B2}" {
-      Anchor 0 0 1 1
-      PositionX 86.911
-      OffsetLeft 41.756
-      PositionY 32
-      SizeX -173.622
-      OffsetRight 192.367
-      SizeY -32
-      OffsetBottom 31.983
-     }
-     Color 0 0.007 1 1
-     Texture "{E12BB5C5BD00269E}UI/Textures/Common/gradientTexture_Dither_right_512.edds"
-     Size 512 512
-    }
-    TextWidgetClass "{62F20571EAD36A68}" {
-     Name "BluText"
-     Slot FrameWidgetSlot "{62F20565E7929260}" {
-      Anchor 0 0 1 1
-      PositionX 41.756
-      OffsetLeft 41.756
-      PositionY 0.018
-      SizeX -234.123
-      OffsetRight 192.367
-      SizeY -32
-      OffsetBottom 31.983
-     }
-     Text "BLU"
-     "Horizontal Alignment" Center
-     "Vertical Alignment" Center
-    }
-    ImageWidgetClass "{62F2057220E3A5A3}" {
-     Name "BluImage0"
-     Slot FrameWidgetSlot "{62F20570E9C794B2}" {
-      Anchor 0 0 1 1
-      PositionX 191.511
-      OffsetLeft 191.511
-      PositionY 0
-      OffsetTop 0
-      SizeX -234.123
-      OffsetRight 42.612
-      SizeY -31.983
-      OffsetBottom 31.983
-     }
-     Color 1 0.007 0 1
-     Texture "{CB166C32C066B6D2}UI/Textures/Common/gradientTexture_Dither_left_512.edds"
-     Size 512 512
-    }
-    TextWidgetClass "{62F20571FE2A7CF6}" {
-     Name "Final1"
-     Slot FrameWidgetSlot "{62F20565E7929260}" {
-      Anchor 0 0 1 1
-      PositionX 191.528
-      OffsetLeft 191.528
-      PositionY 0.018
-      OffsetTop 0.018
-      SizeX -234.123
-      OffsetRight 42.595
-      SizeY -32.001
-      OffsetBottom 31.983
-     }
-     Text "OPF"
-     "Horizontal Alignment" Center
-     "Vertical Alignment" Center
-    }
-   }
-  }
-  OverlayWidgetClass "{630C43F16E0A9EFA}" {
-   Name "UnslottedPlayers"
-   Slot FrameWidgetSlot "{630C43F16E0A9ECB}" {
-    Anchor 1 1 1 1
-    PositionX -207.05
-    OffsetLeft -207.05
-    PositionY -822.958
-    OffsetTop -822.958
-    SizeX 205.78
-    OffsetRight 1.27
-    SizeY 822.708
-    OffsetBottom 0.25
-   }
-   {
-    OverlayWidgetClass "{630C43F102925FE8}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
-     Name "UnslotPlayerList"
-     Slot OverlayWidgetSlot "{63122E88273274D1}" {
-      HorizontalAlign 3
-      VerticalAlign 3
-      Padding 0 35 0 0
-     }
-     "Z Order" 10
-     components {
-      SCR_ListBoxComponent "{566C9415BAA54E1B}" {
-       Enabled 0
-      }
-      CRF_ListboxComponent "{62F200F00CBEE8F9}" {
-      }
-     }
-     {
-      PanelWidgetClass "{630C43F102925FE9}" {
-       Name "UnslotPlayerBorder"
-       Slot OverlayWidgetSlot "{630A25D63BD29577}" {
-        HorizontalAlign 3
-        VerticalAlign 3
-       }
-       "Z Order" 1
-       Color 0 0.584 1 1
-       style outline_4px
-      }
-      ScrollLayoutWidgetClass "{56691148E692435A}" {
-       Prefab "{56691148E692435A}"
-       Slot OverlayWidgetSlot "{56691148E692437F}" {
-        Padding 6 6 6 6
-       }
-      }
-      ImageWidgetClass "{5DB6D18100D38307}" {
-       Prefab "{5DB6D18100D38307}"
-       "Is Enabled" 0
-       "Is Visible" 0
-      }
-     }
-    }
-    TextWidgetClass "{630C43F102925DE3}" {
-     Name "UnslotPlayerListText"
-     Slot OverlayWidgetSlot "{63122E8827327703}" {
-      HorizontalAlign 0
-      VerticalAlign 3
-     }
-     Text "Unslotted Players"
-    }
    }
   }
   FrameWidgetClass "{62F14B81B3877FA2}" : "{D89BBA18F99053D6}UI/layouts/HUD/Chat/ChatHud.layout" {
@@ -1860,7 +1850,6 @@ FrameWidgetClass {
     SizeY -746
     OffsetBottom 0
    }
-   "Z Order" 15
   }
  }
 }

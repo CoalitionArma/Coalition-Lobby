@@ -15,12 +15,13 @@ ButtonWidgetClass {
     HorizontalAlign 3
    }
    AllowHeightOverride 1
-   HeightOverride 36
+   HeightOverride 42
    {
     OverlayWidgetClass "{630A25A67FEEDA6D}" {
      Name "Overlay"
      Slot ButtonWidgetSlot "{5548E6E7F213FB11}" {
-      HorizontalAlign 0
+      HorizontalAlign 3
+      VerticalAlign 3
      }
      Clipping False
      {
@@ -41,19 +42,21 @@ ButtonWidgetClass {
        Name "ButtonLayout"
        Slot OverlayWidgetSlot "{62F200F27385E1FB}" {
         HorizontalAlign 0
+        Padding 5 0 0 0
        }
        {
         ImageWidgetClass "{630C43F4F626C5BF}" {
          Name "RoleImage"
          Slot FrameWidgetSlot "{630C43F4485D0897}" {
-          PositionX -9.743
-          OffsetLeft -9.743
-          PositionY -10.145
-          OffsetTop -10.145
-          SizeX 63.268
-          OffsetRight -53.525
-          SizeY 58.336
-          OffsetBottom -48.191
+          Anchor -0.01 -0.282 0.148 1.339
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
          }
          Texture "{7294DBB54D4BFED6}UI/data/SFC_Rank.edds"
          Size 40 40
@@ -61,15 +64,17 @@ ButtonWidgetClass {
         TextWidgetClass "{630C43F4F626C5D5}" {
          Name "PlayerName"
          Slot FrameWidgetSlot "{630A2568FA12B1F6}" {
-          PositionX 273.155
-          OffsetLeft 273.155
-          PositionY 4.721
-          OffsetTop 4.721
-          SizeX 125.196
-          OffsetRight -398.351
+          PositionX 285
+          OffsetLeft 285
+          PositionY 3
+          OffsetTop 3
+          SizeX 125
+          OffsetRight -410
           SizeY 30
-          OffsetBottom -34.721
+          OffsetBottom -33
          }
+         Clipping Ancestor
+         Color 1 1 1 0.706
          Text "(Empty)"
          "Min Font Size" 5
          "Vertical Alignment" Center
@@ -78,14 +83,15 @@ ButtonWidgetClass {
         ButtonWidgetClass "{630C43F4F626C458}" {
          Name "SlotButton"
          Slot FrameWidgetSlot "{630510543BD8CBB1}" {
-          PositionX -0.068
+          Anchor 0 0 1 1
+          PositionX -0.1
           OffsetLeft -0.1
-          PositionY 4.721
-          OffsetTop 4.7
-          SizeX 445.066
-          OffsetRight -445
-          SizeY 30
-          OffsetBottom -34.7
+          PositionY 4.591
+          OffsetTop 4.591
+          SizeX 0.1
+          OffsetRight 0
+          SizeY -6
+          OffsetBottom 1.409
          }
          Color 1 1 1 0.012
          components {
@@ -99,29 +105,31 @@ ButtonWidgetClass {
         ImageWidgetClass "{630C43F4F626C4BC}" {
          Name "Divider2"
          Slot FrameWidgetSlot "{62F200F2FC6280BD}" {
-          PositionX 265.353
-          OffsetLeft 265.353
-          PositionY 4.721
-          OffsetTop 4.721
-          SizeX 4
-          OffsetRight -269.353
-          SizeY 30
-          OffsetBottom -34.721
+          Anchor 0.661 0.15 0.67 0.983
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
          }
          Size 5 128
         }
         TextWidgetClass "{630C43F4F626C4C7}" : "{E64DA8292CD7DBDD}UI/layouts/WidgetLibrary/TextWidgets/Text_InteractiveSmall.layout" {
          Name "RoleName"
          Slot FrameWidgetSlot "{62F200F2FC62805A}" {
-          PositionX 55.296
-          OffsetLeft 55.296
+          PositionX 49.025
+          OffsetLeft 49.025
           PositionY 4.721
           OffsetTop 4.721
-          SizeX 179.979
-          OffsetRight -235.275
+          SizeX 212.26
+          OffsetRight -261.285
           SizeY 30
           OffsetBottom -34.721
          }
+         Color 1 1 1 0.706
          Text "Automatic Rifleman Assistant"
          "Min Font Size" 10
          "Vertical Alignment" Center
@@ -130,14 +138,15 @@ ButtonWidgetClass {
         ImageWidgetClass "{630C43F4F626C722}" {
          Name "Divider1"
          Slot FrameWidgetSlot "{62F200F2FC628062}" {
-          PositionX 42.238
-          OffsetLeft 42.238
-          PositionY 4.721
-          OffsetTop 4.721
-          SizeX 4
-          OffsetRight -46.238
-          SizeY 30
-          OffsetBottom -34.721
+          Anchor 0.013 0.138 0.02 0.971
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
          }
          Size 5 128
         }

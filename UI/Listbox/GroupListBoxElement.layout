@@ -11,6 +11,7 @@ HorizontalLayoutWidgetClass {
   FrameWidgetClass "{62F200F1C4383179}" {
    Name "RolesGroupNameFrame"
    Slot LayoutSlot "{5D6D1B9A9C46FD9A}" {
+    HorizontalAlign 1
     VerticalAlign 1
     Padding 0 15 0 0
    }
