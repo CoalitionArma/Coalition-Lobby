@@ -113,6 +113,9 @@ SCR_AIGroup : "{350C8DE227E3C030}Prefabs/Groups/BLUFOR/BLUFOR_PL.et" {
  }
  coords 1990.643 46.247 2179.76
  m_faction "BLUFOR"
+ m_aUnitPrefabSlots {
+  "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et"
+ }
  m_bDeleteWhenEmpty 0
  m_iMaxMembers 1
  m_bPlayable 1
@@ -122,30 +125,13 @@ SCR_AIGroup : "{350C8DE227E3C030}Prefabs/Groups/BLUFOR/BLUFOR_PL.et" {
   SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
    coords -3.918 -8.481 -1.106
    m_faction "BLUFOR"
+   m_aUnitPrefabSlots {
+    "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et" "{268EAF6C56517778}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_AMG.et"
+   }
    m_bDeleteWhenEmpty 0
    m_bPlayable 1
    m_bDeleteIfNoPlayer 0
    m_bIsPlayable 1
-   {
-    SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
-     coords -1.454 -3.737 -12.501
-     m_faction "BLUFOR"
-     m_bDeleteWhenEmpty 0
-     m_bPlayable 1
-     m_bDeleteIfNoPlayer 0
-     m_bIsPlayable 1
-     {
-      SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
-       coords 5.408 12.161 13.417
-       m_faction "BLUFOR"
-       m_bDeleteWhenEmpty 0
-       m_bPlayable 1
-       m_bDeleteIfNoPlayer 0
-       m_bIsPlayable 1
-      }
-     }
-    }
-   }
   }
  }
 }

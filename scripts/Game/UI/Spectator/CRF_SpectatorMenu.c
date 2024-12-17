@@ -5,13 +5,18 @@ modded enum ChimeraMenuPreset : ScriptMenuPresetEnum
 
 class CRF_SpectatorMenuUI: ChimeraMenuBase
 {
-	ref array<IEntity> m_aEntityIcons = {};
-	ref array<ref CRF_SpectatorLabelIconCharacter> m_aSpectatorIcons = {};
-	CRF_Gamemode m_Gamemode;
+	protected ref array<IEntity> m_aEntityIcons = {};
+	protected ref array<ref CRF_SpectatorLabelIconCharacter> m_aSpectatorIcons = {};
+	protected CRF_Gamemode m_Gamemode;
+	protected SCR_ChatPanel m_ChatPanel;
 	
 	override void OnMenuOpen()
 	{
+		Widget wChatPanel = GetRootWidget().FindAnyWidget("ChatPanel");
+		if (wChatPanel)
+			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
 		m_Gamemode = CRF_Gamemode.GetInstance();
+		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 	}
 	override void OnMenuUpdate(float tDelta)
 	{
@@ -32,6 +37,14 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 			m_aSpectatorIcons.Insert(spectatorIcon);
 		}
 		UpdateIcons();
+		
+		if (m_ChatPanel)
+        	m_ChatPanel.OnUpdateChat(tDelta);
+	}
+	
+	override void OnMenuClose()
+	{
+		GetGame().GetInputManager().RemoveActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 	}
 	
 	void UpdateIcons()
@@ -39,6 +52,23 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 		foreach(CRF_SpectatorLabelIconCharacter spectatorIcon: m_aSpectatorIcons)
 		{
 			spectatorIcon.Update();
+		}
+	}
+	
+	void Action_OnChatToggleAction()
+	{
+		if (!m_ChatPanel)
+			return;
+		
+		// Frame delay
+		GetGame().GetCallqueue().CallLater(OpenChatWrap, 5);
+	}
+	
+	void OpenChatWrap()
+	{
+		if (!m_ChatPanel.IsOpen())
+		{
+			SCR_ChatPanelManager.GetInstance().OpenChatPanel(m_ChatPanel);
 		}
 	}
 } 

@@ -26,7 +26,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	protected Faction m_fSelectedFaction;
 	protected int m_iSelectedPlayerID = 0;
 	protected int m_LocalSlottingState;
-	
+
 	override void OnMenuOpen()
 	{	
 		if (RplSession.Mode() == RplMode.Dedicated) {
@@ -37,15 +37,15 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		GetGame().GetInputManager().AddActionListener("VONDirect", EActionTrigger.DOWN, Action_VONon);
 		GetGame().GetInputManager().AddActionListener("VONDirect", EActionTrigger.UP, Action_VONOff);
 		GetGame().GetInputManager().AddActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
-		
+
 		Widget wChatPanel = GetRootWidget().FindAnyWidget("ChatPanel");
 		if (wChatPanel)
 			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
 		
-		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
-		
 		m_wRoot = GetRootWidget();
 		m_Gamemode = CRF_Gamemode.Cast(GetGame().GetGameMode());
+		
+		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 		
 		m_LocalSlottingState = m_Gamemode.m_SlottingState;
 		
@@ -598,6 +598,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			advanceButton.SetEnabled(true);
 			m_wRoot.FindAnyWidget("SlottingPhases").SetOpacity(1);
 			FrameWidget.Cast(m_wRoot.FindAnyWidget("AdvanceFrame")).SetOpacity(1);
+			m_wRoot.FindAnyWidget("UnslottedPlayers").SetOpacity(1);
 		}
 	}
 	
@@ -672,12 +673,15 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			return;
 		
 		// Frame delay
-		GetGame().GetCallqueue().CallLater(ChatWrap, 5);
+		GetGame().GetCallqueue().CallLater(OpenChatWrap, 5);
 	}
 	
-	void ChatWrap()
+	void OpenChatWrap()
 	{
-		SCR_ChatPanelManager.GetInstance().OpenChatPanel(m_ChatPanel);
+		if (!m_ChatPanel.IsOpen())
+		{
+			SCR_ChatPanelManager.GetInstance().OpenChatPanel(m_ChatPanel);
+		}
 	}
 	
 	//From reforger lobby <3

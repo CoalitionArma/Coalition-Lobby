@@ -32,7 +32,7 @@ modded class SCR_PlayerController
 		switch(gameState)
 		{
 			case CRF_GamemodeState.SLOTTING: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);	break;}
-			case CRF_GamemodeState.GAME: 		{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(GetGame().GetPlayerController().GetPlayerId());	break;}
+			case CRF_GamemodeState.GAME: 		{EnterGame(GetPlayerId());	break;}
 			case CRF_GamemodeState.AAR: 		{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_AARMenu);	break;}
 		}
 	}
@@ -48,9 +48,9 @@ modded class SCR_PlayerController
 	void RpcDo_SetTalking(bool input, int playerID)
 	{
 		if(input)
-			CRF_Gamemode.Cast(GetGame().GetGameMode()).SetPlayerTalking(playerID);
+			CRF_Gamemode.GetInstance().SetPlayerTalking(playerID);
 		else
-			CRF_Gamemode.Cast(GetGame().GetGameMode()).RemovePlayerTalking(playerID);
+			CRF_Gamemode.GetInstance().RemovePlayerTalking(playerID);
 	}
 	
 	//Communicates to server to advance state
@@ -100,10 +100,7 @@ modded class SCR_PlayerController
 		if(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID) == -1)
 			EnterSpectator();
 		else if(m_eCamera)
-		{	
-			GetGame().GetInputManager().ActivateContext("SpectatorContext", 0);
 			delete m_eCamera;
-		}
 	}
 	
 	//Communicates to server to enter slot and or get put into a initial entity to spectate
@@ -131,9 +128,10 @@ modded class SCR_PlayerController
 			params.Transform = CRF_Gamemode.GetInstance().m_vGenericSpawn;
 		
 		m_eCamera = GetGame().SpawnEntityPrefab(Resource.Load("{E1FF38EC8894C5F3}Prefabs/Editor/Camera/ManualCameraSpectate.et"), GetGame().GetWorld(), params);
+		Print(GetGame().GetWorkspace().GetFocusedWidget());
+		
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SpectatorMenu);
 		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(m_eCamera));
-		GetGame().GetInputManager().ActivateContext("SpectatorContext", 999999);
 	}
 	
 	//Opens the slotting menu for players in game

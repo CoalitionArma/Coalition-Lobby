@@ -276,6 +276,9 @@ class CRF_Gamemode : SCR_BaseGameMode
 	//Sets if the player is talking for UI purposes
 	void SetPlayerTalking(int playerID)
 	{
+		if(m_aPlayersTalking.Find(playerID) != -1)
+			return;
+		
 		m_aPlayersTalking.Insert(playerID);
 		Replication.BumpMe();
 	}
