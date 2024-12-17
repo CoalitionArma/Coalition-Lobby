@@ -1,0 +1,8 @@
+GameProject {
+ ID "CoalitionLobby"
+ GUID "632229EB25BB495C"
+ TITLE "Coalition Lobby"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+}
