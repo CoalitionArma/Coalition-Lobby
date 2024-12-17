@@ -42,6 +42,8 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		if (wChatPanel)
 			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
 		
+		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
+		
 		m_wRoot = GetRootWidget();
 		m_Gamemode = CRF_Gamemode.Cast(GetGame().GetGameMode());
 		
@@ -151,6 +153,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		GetGame().GetInputManager().RemoveActionListener("VONDirect", EActionTrigger.DOWN, Action_VONon);
 		GetGame().GetInputManager().RemoveActionListener("VONDirect", EActionTrigger.UP, Action_VONOff);
 		GetGame().GetInputManager().RemoveActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
+		GetGame().GetInputManager().RemoveActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 	}
 	
 	void AdvanceSlottingPhase()
@@ -663,11 +666,15 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetTalking(false, GetGame().GetPlayerController().GetPlayerId());
 	}
 	
-	void Action_ChatOpen()
-	{ 
-		// Delay is esential, if any character already controlled
-		GetGame().GetCallqueue().CallLater(ChatWrap, 0);
+	void Action_OnChatToggleAction()
+	{
+		if (!m_ChatPanel)
+			return;
+		
+		// Frame delay
+		GetGame().GetCallqueue().CallLater(ChatWrap, 5);
 	}
+	
 	void ChatWrap()
 	{
 		SCR_ChatPanelManager.GetInstance().OpenChatPanel(m_ChatPanel);

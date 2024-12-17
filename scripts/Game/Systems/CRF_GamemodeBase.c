@@ -235,8 +235,6 @@ class CRF_Gamemode : SCR_BaseGameMode
 		
 		if(m_aSlots.Count() == 1)
 			entity.GetTransform(m_vGenericSpawn);
-		
-		Print(m_vGenericSpawn);
 
 		Replication.BumpMe();
 	}

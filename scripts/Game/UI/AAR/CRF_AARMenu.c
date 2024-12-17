@@ -324,6 +324,9 @@ class CRF_AARMenuUI: ChimeraMenuBase
 			hourString = hours.ToString();
 		
 		TextWidget.Cast(m_wRoot.FindAnyWidget("TimeText")).SetText("Time: " + hourString + ":" +  minuteString);
+		
+		TextWidget.Cast(m_wRoot.FindAnyWidget("PlayersText")).SetText("Players: " + GetGame().GetPlayerManager().GetPlayerCount());
+		
 		ref array<int> playerIDs = {};
 		
 		GetGame().GetPlayerManager().GetAllPlayers(playerIDs);

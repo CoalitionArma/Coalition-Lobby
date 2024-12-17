@@ -129,7 +129,7 @@ modded class SCR_PlayerController
 			params.Transform = m_vLastEntityTransform;
 		else
 			params.Transform = CRF_Gamemode.GetInstance().m_vGenericSpawn;
-		Print(CRF_Gamemode.GetInstance().m_vGenericSpawn);
+		
 		m_eCamera = GetGame().SpawnEntityPrefab(Resource.Load("{E1FF38EC8894C5F3}Prefabs/Editor/Camera/ManualCameraSpectate.et"), GetGame().GetWorld(), params);
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SpectatorMenu);
 		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(m_eCamera));
