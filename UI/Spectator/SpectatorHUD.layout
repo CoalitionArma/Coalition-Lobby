@@ -1,0 +1,34 @@
+FrameWidgetClass {
+ Name "SpectatorMenu"
+ {
+  FrameWidgetClass "{5EE8949BDE5C93EE}" {
+   Name "IconsFrame"
+   Slot FrameWidgetSlot "{5EE8949BDE5C93C5}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   Clipping True
+  }
+  FrameWidgetClass "{5EB701CD498F59EC}" : "{B7A765172F0BD4D9}UI/layouts/Common/GameVersionWatermark.layout" {
+   Name "EarlyAccessRoot"
+   Slot FrameWidgetSlot "{5CEE96372B5D270B}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   Opacity 1
+  }
+ }
+}
