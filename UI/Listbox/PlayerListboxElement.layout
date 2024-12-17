@@ -2,6 +2,7 @@ ButtonWidgetClass {
  Name "rootFrame"
  Slot AlignableSlot "{62F2056BF4F1EC36}" {
   HorizontalAlign 3
+  VerticalAlign 3
  }
  components {
   CRF_ListBoxElementComponent "{62F200F0C4795E5F}" {
@@ -15,12 +16,13 @@ ButtonWidgetClass {
     HorizontalAlign 3
    }
    AllowHeightOverride 1
-   HeightOverride 36
+   HeightOverride 40
    {
     OverlayWidgetClass "{630A25D7A5616D69}" {
      Name "Overlay"
      Slot ButtonWidgetSlot "{5548E6E7F213FB11}" {
-      HorizontalAlign 0
+      HorizontalAlign 3
+      VerticalAlign 3
      }
      Clipping False
      {
@@ -29,10 +31,8 @@ ButtonWidgetClass {
        Slot OverlayWidgetSlot "{630A2578A5208A35}" {
         HorizontalAlign 3
        }
-       Color 0.044 0.044 0.044 1
-       Texture "{12B6C6BD1A72A47F}UI/Textures/Common/gradientTexture_Dither_up_512.edds"
+       Color 0.044 0.044 0.044 0.137
        Size 40 512
-       Mask "{099C73E0F66A5F28}UI/Textures/Common/gradientTexture_Dither_down_512.edds"
        "Transition width" 1
        Progress 0.52
       }
@@ -49,6 +49,7 @@ ButtonWidgetClass {
       ImageWidgetClass "{630A25D7EF51CC94}" {
        Name "Image"
        Slot OverlayWidgetSlot "{630A25D63A026CBC}" {
+        HorizontalAlign 0
         Padding 0 0 135 0
        }
        Image ""
@@ -63,6 +64,7 @@ ButtonWidgetClass {
         TextWidgetClass "{630A25D7A5616D14}" {
          Name "Text"
          Slot FrameWidgetSlot "{630A2568FA12B1F6}" {
+          Anchor 0 0 0 0
           PositionX 38.76
           OffsetLeft 38.76
           PositionY 0
@@ -72,6 +74,7 @@ ButtonWidgetClass {
           SizeY 35.557
           OffsetBottom -35.557
          }
+         Color 1 1 1 0.706
          Text "RqandAlThor"
          "Min Font Size" 5
          "Vertical Alignment" Center
@@ -96,7 +99,6 @@ ButtonWidgetClass {
            m_ColorButtonDefault 0 0 0 0
           }
           SCR_ButtonTextComponent "{630510843AEEE3AD}" {
-           m_sSoundHovered ""
            m_BackgroundSelected 0.76 0.392 0.08 0.3
            m_TextToggled 0.761 0.386 0.078 1
           }
