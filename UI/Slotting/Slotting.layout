@@ -696,7 +696,7 @@ FrameWidgetClass {
     OffsetTop 4.003
     SizeX 0
     OffsetRight 12.038
-    SizeY -0
+    SizeY 0
     OffsetBottom -4.003
    }
    Opacity 1
@@ -1127,15 +1127,15 @@ FrameWidgetClass {
     OverlayWidgetClass "{630A25AD62E9F70F}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
      Name "OrbatList"
      Slot FrameWidgetSlot "{62F20566BC4B2A18}" {
-      Anchor 0 0 1 0
-      PositionX 35.098
-      OffsetLeft 30
-      PositionY 114.282
-      OffsetTop 114.282
-      SizeX -41
+      Anchor 0.144 0.115 1.028 0.98
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
       OffsetRight 0
-      SizeY 844.5
-      OffsetBottom -958.782
+      SizeY 0
+      OffsetBottom 0
      }
      "Z Order" 10
      components {
@@ -1197,7 +1197,7 @@ FrameWidgetClass {
       OffsetTop 143.83
       SizeX -55.88
       OffsetRight 17.863
-      SizeY -166.071
+      SizeY -166.07
       OffsetBottom 22.24
      }
      "Z Order" 10
