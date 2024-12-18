@@ -108,7 +108,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 	//Descriptions on the left in briefing
 	[Attribute("", category: "CRF Gamemode")]
 	ref	array<ref CRF_MissionDescriptor> m_aMissionDescriptors;
-
+	
 	static CRF_Gamemode GetInstance()
 	{
 		BaseGameMode gameMode = GetGame().GetGameMode();
@@ -117,7 +117,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		else
 			return null;
 	}
-	
+
 	protected override void OnPlayerKilled(int playerId, IEntity playerEntity, IEntity killerEntity, notnull Instigator killer)
 	{
 		super.OnPlayerKilled(playerId, playerEntity, killerEntity, killer);
@@ -259,6 +259,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 	
 	protected override void OnPlayerDisconnected(int playerId, KickCauseCode cause, int timeout)
 	{
+		super.OnPlayerDisconnected(playerId, cause, timeout);
 		//Updates connection status
 		if(m_aSlots.Find(playerId) != -1)
 		{
@@ -270,6 +271,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 	//Opens the menu for the player
 	protected override void OnPlayerRegistered(int playerId)
 	{
+		super.OnPlayerRegistered(playerId);
 		GetGame().GetCallqueue().CallLater(OpenMenu, 1000, false, playerId);
 	}
 	

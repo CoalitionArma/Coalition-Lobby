@@ -88,6 +88,7 @@ ButtonWidgetClass {
            m_ColorButtonDefault 0 0 0 0
           }
           SCR_ButtonTextComponent "{630510843AEEE3AD}" {
+           m_sSoundHovered ""
            m_BackgroundSelected 0.76 0.392 0.08 0.3
            m_TextToggled 0.761 0.386 0.078 1
           }
