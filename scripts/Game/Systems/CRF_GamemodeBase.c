@@ -109,6 +109,13 @@ class CRF_Gamemode : SCR_BaseGameMode
 	[Attribute("", category: "CRF Gamemode")]
 	ref	array<ref CRF_MissionDescriptor> m_aMissionDescriptors;
 	
+	IEntity m_eGamemodeEntity;
+	
+	override void EOnInit(IEntity owner)
+	{
+		m_eGamemodeEntity = owner;
+	}
+	
 	static CRF_Gamemode GetInstance()
 	{
 		BaseGameMode gameMode = GetGame().GetGameMode();
@@ -357,6 +364,16 @@ class CRF_Gamemode : SCR_BaseGameMode
 		if(!GetGame().GetPlayerController() || RplSession.Mode() == RplMode.Dedicated)
 			return;
 		
+		if(Replication.IsServer())
+		{
+			array<Managed> additionalComponents = new array<Managed>();
+			int stateCount = m_eGamemodeEntity.FindComponents(CRF_GamemodeComponent, additionalComponents);
+			
+			foreach (Managed component : additionalComponents)
+			{
+				CRF_GamemodeComponent.Cast(component).OnGamemodeStateChanged();
+			}
+		}
 		SCR_PlayerController.Cast(GetGame().GetPlayerController()).GameStateChange(m_GamemodState);
 	}
 }
