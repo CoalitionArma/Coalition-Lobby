@@ -3,8 +3,6 @@ modded class SCR_AIGroup
 	[Attribute("0", category: "Group")]
 	bool m_bIsPlayable;
 	
-	[Attribute("PL", category: "Group")]
-	string m_sGroupName;
 	override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
