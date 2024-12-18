@@ -42,55 +42,54 @@ ButtonWidgetClass {
         HorizontalAlign 0
        }
        {
-        ImageWidgetClass "{6322404669021D2A}" {
+        ImageWidgetClass "{632444CB4D4DDF92}" {
          Name "RoleImage"
          Slot FrameWidgetSlot "{630C43F4485D0897}" {
-          Anchor -0.011 -0.316 0.147 1.304
-          PositionX 0
-          OffsetLeft 0
-          PositionY 0
-          OffsetTop 0
-          SizeX 0
-          OffsetRight 0
-          SizeY 0
-          OffsetBottom 0
+          Anchor 0 0 0 0
+          PositionX -3.864
+          OffsetLeft -3.864
+          PositionY -8.5
+          OffsetTop -8.5
+          SizeX 66.429
+          OffsetRight -62.565
+          SizeY 52.017
+          OffsetBottom -43.517
          }
-         Color 1 1 1 0.706
          Texture "{7294DBB54D4BFED6}UI/data/SFC_Rank.edds"
          Size 40 40
         }
-        TextWidgetClass "{6322404669023CE9}" {
+        TextWidgetClass "{632444CB4D4DDE7F}" {
          Name "PlayerName"
          Slot FrameWidgetSlot "{630A2568FA12B1F6}" {
           Anchor 0 0 0 0
-          PositionX 285
-          OffsetLeft 285
-          PositionY 3
-          OffsetTop 3
-          SizeX 125
-          OffsetRight -410
-          SizeY 30
-          OffsetBottom -33
+          PositionX 350
+          OffsetLeft 350
+          PositionY 4.137
+          OffsetTop 4.1
+          SizeX 125.719
+          OffsetRight -475.7
+          SizeY 25.863
+          OffsetBottom -30
          }
          Clipping Ancestor
-         Color 1 1 1 0.706
+         Color 1 1 1 0.843
          Text "(Empty)"
          "Min Font Size" 5
          "Vertical Alignment" Center
          Wrap 1
         }
-        ButtonWidgetClass "{6322404669023CE8}" {
+        ButtonWidgetClass "{632444CB4D4DDED9}" {
          Name "SlotButton"
          Slot FrameWidgetSlot "{630510543BD8CBB1}" {
           Anchor 0 0 1 1
-          PositionX 5.369
-          OffsetLeft 5.369
-          PositionY -0.392
-          OffsetTop -0.392
-          SizeX -5.359
-          OffsetRight -0.01
-          SizeY 0.35
-          OffsetBottom 0.042
+          PositionX 0
+          OffsetLeft 0
+          PositionY 2
+          OffsetTop 2
+          SizeX 0
+          OffsetRight 0
+          SizeY -6
+          OffsetBottom 4
          }
          Color 1 1 1 0.012
          components {
@@ -101,10 +100,10 @@ ButtonWidgetClass {
           }
          }
         }
-        ImageWidgetClass "{6322404669023CEB}" {
+        ImageWidgetClass "{632444CB4D4DDD19}" {
          Name "Divider2"
          Slot FrameWidgetSlot "{62F200F2FC6280BD}" {
-          Anchor 0.666 0.007 0.674 1.007
+          Anchor 0.707 0.125 0.713 0.833
           PositionX 0
           OffsetLeft 0
           PositionY 0
@@ -116,29 +115,30 @@ ButtonWidgetClass {
          }
          Size 5 128
         }
-        TextWidgetClass "{6322404669023CEA}" : "{E64DA8292CD7DBDD}UI/layouts/WidgetLibrary/TextWidgets/Text_InteractiveSmall.layout" {
+        TextWidgetClass "{632444CB4D4DDDF9}" : "{E64DA8292CD7DBDD}UI/layouts/WidgetLibrary/TextWidgets/Text_InteractiveSmall.layout" {
          Name "RoleName"
          Slot FrameWidgetSlot "{62F200F2FC62805A}" {
-          Anchor 0 0 0 0
-          PositionX 49.27
-          OffsetLeft 49.27
-          PositionY 1.434
-          OffsetTop 1.434
-          SizeX 212.574
-          OffsetRight -261.844
-          SizeY 33.287
-          OffsetBottom -34.721
+          Anchor 0.099 0.119 0.69 0.833
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
          }
-         Color 1 1 1 0.706
+         Color 1 1 1 0.843
          Text "Automatic Rifleman Assistant"
+         "Font Size" 24
          "Min Font Size" 10
          "Vertical Alignment" Center
          Wrap 1
         }
-        ImageWidgetClass "{6322404669026521}" {
+        ImageWidgetClass "{632444CB4D4DDC31}" {
          Name "Divider1"
          Slot FrameWidgetSlot "{62F200F2FC628062}" {
-          Anchor 0.014 0 0.021 1
+          Anchor 0.01 0.119 0.015 0.833
           PositionX 0
           OffsetLeft 0
           PositionY 0

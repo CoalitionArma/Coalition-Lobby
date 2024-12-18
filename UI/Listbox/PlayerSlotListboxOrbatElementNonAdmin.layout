@@ -29,6 +29,7 @@ ButtonWidgetClass {
        Name "Image0"
        Slot OverlayWidgetSlot "{630A2578A5208A35}" {
         HorizontalAlign 3
+        VerticalAlign 3
        }
        "Is Visible" 0
        Color 0.044 0.044 0.044 1
@@ -48,15 +49,15 @@ ButtonWidgetClass {
         ImageWidgetClass "{630C43F4F626C5BF}" {
          Name "RoleImage"
          Slot FrameWidgetSlot "{630C43F4485D0897}" {
-          Anchor -0.01 -0.282 0.148 1.339
-          PositionX 0
-          OffsetLeft 0
-          PositionY 0
-          OffsetTop 0
-          SizeX 0
-          OffsetRight 0
-          SizeY 0
-          OffsetBottom 0
+          Anchor 0 0 0 0
+          PositionX -5.1
+          OffsetLeft -5.1
+          PositionY -8.5
+          OffsetTop -8.5
+          SizeX 70
+          OffsetRight -64.9
+          SizeY 56
+          OffsetBottom -47.5
          }
          Texture "{7294DBB54D4BFED6}UI/data/SFC_Rank.edds"
          Size 40 40
@@ -64,17 +65,18 @@ ButtonWidgetClass {
         TextWidgetClass "{630C43F4F626C5D5}" {
          Name "PlayerName"
          Slot FrameWidgetSlot "{630A2568FA12B1F6}" {
-          PositionX 285
-          OffsetLeft 285
-          PositionY 3
-          OffsetTop 3
+          Anchor 0 0 0 0
+          PositionX 350
+          OffsetLeft 350
+          PositionY 5
+          OffsetTop 5
           SizeX 125
-          OffsetRight -410
+          OffsetRight -475
           SizeY 30
-          OffsetBottom -33
+          OffsetBottom -35
          }
          Clipping Ancestor
-         Color 1 1 1 0.706
+         Color 1 1 1 0.843
          Text "(Empty)"
          "Min Font Size" 5
          "Vertical Alignment" Center
@@ -84,14 +86,14 @@ ButtonWidgetClass {
          Name "SlotButton"
          Slot FrameWidgetSlot "{630510543BD8CBB1}" {
           Anchor 0 0 1 1
-          PositionX -0.1
-          OffsetLeft -0.1
-          PositionY 4.591
-          OffsetTop 4.591
-          SizeX 0.1
+          PositionX 0
+          OffsetLeft 0
+          PositionY 2
+          OffsetTop 2
+          SizeX 0
           OffsetRight 0
           SizeY -6
-          OffsetBottom 1.409
+          OffsetBottom 4
          }
          Color 1 1 1 0.012
          components {
@@ -105,7 +107,7 @@ ButtonWidgetClass {
         ImageWidgetClass "{630C43F4F626C4BC}" {
          Name "Divider2"
          Slot FrameWidgetSlot "{62F200F2FC6280BD}" {
-          Anchor 0.661 0.15 0.67 0.983
+          Anchor 0.707 0.119 0.712 0.833
           PositionX 0
           OffsetLeft 0
           PositionY 0
@@ -120,17 +122,19 @@ ButtonWidgetClass {
         TextWidgetClass "{630C43F4F626C4C7}" : "{E64DA8292CD7DBDD}UI/layouts/WidgetLibrary/TextWidgets/Text_InteractiveSmall.layout" {
          Name "RoleName"
          Slot FrameWidgetSlot "{62F200F2FC62805A}" {
-          PositionX 49.025
-          OffsetLeft 49.025
-          PositionY 4.721
-          OffsetTop 4.721
-          SizeX 212.26
-          OffsetRight -261.285
-          SizeY 30
-          OffsetBottom -34.721
+          Anchor 0.099 0.119 0.69 0.833
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
          }
-         Color 1 1 1 0.706
+         Color 1 1 1 0.843
          Text "Automatic Rifleman Assistant"
+         "Font Size" 24
          "Min Font Size" 10
          "Vertical Alignment" Center
          Wrap 1
@@ -138,7 +142,7 @@ ButtonWidgetClass {
         ImageWidgetClass "{630C43F4F626C722}" {
          Name "Divider1"
          Slot FrameWidgetSlot "{62F200F2FC628062}" {
-          Anchor 0.013 0.138 0.02 0.971
+          Anchor 0.01 0.119 0.015 0.833
           PositionX 0
           OffsetLeft 0
           PositionY 0

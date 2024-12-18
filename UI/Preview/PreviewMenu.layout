@@ -26,15 +26,15 @@ FrameWidgetClass {
     ImageWidgetClass "{62F03D8811547F36}" {
      Name "MissionNameBG"
      Slot FrameWidgetSlot "{62EF62C8ABA4CFE1}" {
-      Anchor 0 0 0 1
-      PositionX 13.918
-      OffsetLeft 13.918
-      PositionY 15.481
-      OffsetTop 15.481
-      SizeX 970.49
-      OffsetRight -984.408
-      SizeY -30
-      OffsetBottom 14.519
+      Anchor 0.007 0.147 0.513 0.862
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      "Z Order" 1
      Color 0.198 0.012 0.012 1
@@ -47,15 +47,15 @@ FrameWidgetClass {
     TextWidgetClass "{62F03D8811547F39}" {
      Name "MissionText"
      Slot FrameWidgetSlot "{62EF62DC8321B9B0}" {
-      Anchor 0 0 0 1
-      PositionX 24.464
-      OffsetLeft 24.464
-      PositionY 24.464
-      OffsetTop 24.464
-      SizeX 944.589
-      OffsetRight -969.053
-      SizeY -49.096
-      OffsetBottom 24.632
+      Anchor 0.013 0.233 0.505 0.765
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      "Z Order" 2
      Text "CRF S&D98 Stupid name this is | By Salami"
@@ -84,15 +84,15 @@ FrameWidgetClass {
     FrameWidgetClass "{62F03D84D557D9A8}" {
      Name "PreviewFrame"
      Slot FrameWidgetSlot "{62F03D84D557D9FD}" {
-      Anchor 0.5 0.5 0.5 0.5
-      PositionX 38.528
-      OffsetLeft 38.528
-      PositionY -31.26
-      OffsetTop -31.26
-      SizeX 197.55
-      OffsetRight -236.077
-      SizeY 59.673
-      OffsetBottom -28.413
+      Anchor 0.52 0.202 0.623 0.771
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      {
       ImageWidgetClass "{62F03D808BD74EC7}" {
@@ -140,15 +140,15 @@ FrameWidgetClass {
     FrameWidgetClass "{62F03D8726B06D64}" {
      Name "SlottingFrame"
      Slot FrameWidgetSlot "{62F03D8726B06D4F}" {
-      Anchor 0.5 0.5 0.5 0.5
-      PositionX 243.434
-      OffsetLeft 243.434
-      PositionY -31.26
-      OffsetTop -31.26
-      SizeX 197.55
-      OffsetRight -440.984
-      SizeY 59.673
-      OffsetBottom -28.413
+      Anchor 0.627 0.202 0.73 0.771
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      {
       ImageWidgetClass "{62F03D80B4893476}" {
@@ -220,15 +220,15 @@ FrameWidgetClass {
     FrameWidgetClass "{62F03D8720E3F6FB}" {
      Name "GameFrame"
      Slot FrameWidgetSlot "{62F03D8720E3F6DC}" {
-      Anchor 0.5 0.5 0.5 0.5
-      PositionX 447.848
-      OffsetLeft 447.848
-      PositionY -31.208
-      OffsetTop -31.208
-      SizeX 197.862
-      OffsetRight -645.71
-      SizeY 59.673
-      OffsetBottom -28.465
+      Anchor 0.733 0.203 0.836 0.771
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      {
       ImageWidgetClass "{62F03D80C727E265}" {
@@ -300,15 +300,15 @@ FrameWidgetClass {
     FrameWidgetClass "{62F03D8721E23343}" {
      Name "AARFrame"
      Slot FrameWidgetSlot "{62F03D8721E233A1}" {
-      Anchor 0.5 0.5 0.5 0.5
-      PositionX 653.137
-      OffsetLeft 653.137
-      PositionY -31.26
-      OffsetTop -31.26
-      SizeX 198.18
-      OffsetRight -851.317
-      SizeY 59.673
-      OffsetBottom -28.413
+      Anchor 0.84 0.202 0.943 0.771
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      {
       ImageWidgetClass "{62F03D80DADE9F5E}" {
@@ -380,15 +380,15 @@ FrameWidgetClass {
     FrameWidgetClass "{62F14B9706EB9D24}" {
      Name "AdvanceFrame"
      Slot FrameWidgetSlot "{62F14B9706EB9C3E}" {
-      Anchor 0.5 0.5 0.5 0.5
-      PositionX 857.337
-      OffsetLeft 857.337
-      PositionY -28.3
-      OffsetTop -28.3
-      SizeX 47.9
-      OffsetRight -905.237
-      SizeY 53
-      OffsetBottom -24.7
+      Anchor 0.947 0.23 0.971 0.735
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      {
       ImageWidgetClass "{62F14B97333F50FA}" {
@@ -473,14 +473,14 @@ FrameWidgetClass {
   FrameWidgetClass "{62F03D881157A4D0}" {
    Name "Players"
    Slot FrameWidgetSlot "{62F0124A5876B3A6}" {
-    Anchor 1 1 1 1
-    PositionX -205.216
-    OffsetLeft -205.216
-    PositionY -580
-    OffsetTop -580
-    SizeX 205.216
+    Anchor 0.893 0.463 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
     OffsetRight 0
-    SizeY 580
+    SizeY 0
     OffsetBottom 0
    }
    "Z Order" 10
@@ -554,14 +554,14 @@ FrameWidgetClass {
   FrameWidgetClass "{62F03D881157A546}" {
    Name "MissionDescription"
    Slot FrameWidgetSlot "{62F0124A5876B3A6}" {
-    Anchor 0 1 0 1
+    Anchor 0 0.463 0.219 1
     PositionX 0
     OffsetLeft 0
-    PositionY -580
-    OffsetTop -580
-    SizeX 420
-    OffsetRight -420
-    SizeY 580
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
     OffsetBottom 0
    }
    "Z Order" 10
@@ -682,15 +682,15 @@ FrameWidgetClass {
   FrameWidgetClass "{62F03D881157CDFF}" {
    Name "TimeWeather"
    Slot FrameWidgetSlot "{62F012440EE08870}" {
-    Anchor 0 0 1 0
-    PositionX 1697.83
-    OffsetLeft 1697.83
-    PositionY 104.974
-    OffsetTop 104.974
-    SizeX -1697.93
-    OffsetRight 0.099
-    SizeY 93.381
-    OffsetBottom -198.355
+    Anchor 0.884 0.097 1 0.184
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
    }
    "Z Order" 10
    {
@@ -700,12 +700,12 @@ FrameWidgetClass {
       Anchor 1 0 1 1
       PositionX -190.859
       OffsetLeft -190.859
-      PositionY -0.067
-      OffsetTop -0.067
-      SizeX 171.988
+      PositionY 3.383
+      OffsetTop 3.383
+      SizeX 171.989
       OffsetRight 18.87
       SizeY -63.381
-      OffsetBottom 63.448
+      OffsetBottom 59.998
      }
      Color 0.008 0.012 0.016 1
     }
@@ -715,12 +715,12 @@ FrameWidgetClass {
       Anchor 1 0 1 1
       PositionX -189.374
       OffsetLeft -189.374
-      PositionY 0
-      OffsetTop 0
+      PositionY 3.45
+      OffsetTop 3.45
       SizeX 167.832
       OffsetRight 21.542
       SizeY -63.381
-      OffsetBottom 63.381
+      OffsetBottom 59.931
      }
      Text "Time: 19:27"
      "Horizontal Alignment" Center
@@ -732,12 +732,12 @@ FrameWidgetClass {
       Anchor 1 0 1 1
       PositionX -190.859
       OffsetLeft -190.859
-      PositionY 33.646
-      OffsetTop 33.646
+      PositionY 37.096
+      OffsetTop 37.096
       SizeX 171.989
       OffsetRight 18.87
       SizeY -63.381
-      OffsetBottom 29.735
+      OffsetBottom 26.285
      }
      Color 0.008 0.012 0.016 1
     }
@@ -747,12 +747,12 @@ FrameWidgetClass {
       Anchor 1 0 1 1
       PositionX -188.484
       OffsetLeft -188.484
-      PositionY 33.551
-      OffsetTop 33.551
+      PositionY 37.001
+      OffsetTop 37.001
       SizeX 166.509
       OffsetRight 21.975
       SizeY -63.381
-      OffsetBottom 29.83
+      OffsetBottom 26.38
      }
      Text "Weather: Rainy"
      "Min Font Size" 4
