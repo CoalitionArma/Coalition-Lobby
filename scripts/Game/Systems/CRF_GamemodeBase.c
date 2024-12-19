@@ -97,6 +97,9 @@ class CRF_Gamemode : SCR_BaseGameMode
 	[RplProp()]
 	vector m_vGenericSpawn[4];
 	
+	[RplProp()]
+	RplId m_rSpectatorGroup;
+	
 	//This just is what is auto set in the slotting UI for ratio calculation
 	[Attribute("3", category: "CRF Gamemode")]
 	int m_iAttackerRatio;
@@ -114,6 +117,11 @@ class CRF_Gamemode : SCR_BaseGameMode
 	override void EOnInit(IEntity owner)
 	{
 		m_eGamemodeEntity = owner;
+		if(Replication.IsServer())
+		{
+			m_rSpectatorGroup = RplComponent.Cast(SCR_GroupsManagerComponent.GetInstance().CreateNewPlayableGroup(GetGame().GetFactionManager().GetFactionByKey("SPEC")).FindComponent(RplComponent)).Id();
+			Replication.BumpMe();
+		}
 	}
 	
 	static CRF_Gamemode GetInstance()
@@ -136,7 +144,8 @@ class CRF_Gamemode : SCR_BaseGameMode
 			spawnParams.Transform[3] = "0 10000 0";
 			IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
 			GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerId);
-			SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(null);
+			SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
+			SCR_GroupsManagerComponent.GetInstance().AddPlayerToGroup(SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_rSpectatorGroup)).GetEntity()).GetGroupID(), playerId);
 		}
 	}
 	
@@ -150,6 +159,8 @@ class CRF_Gamemode : SCR_BaseGameMode
 			spawnParams.Transform[3] = "0 10000 0";
 			IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
 			GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerID);
+			SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerID).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
+			SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_rSpectatorGroup)).GetEntity()).AddPlayer(playerID);
 			return;
 		}
 		
@@ -207,7 +218,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		{
 			if(m_aSlots.Get(index) > 0)
 			{
-				SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(m_aSlots.Get(index)).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(null);
+				SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(m_aSlots.Get(index)).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
 				m_aSlotPlayerNames.Set(index, "");
 			}
 		}
@@ -246,6 +257,22 @@ class CRF_Gamemode : SCR_BaseGameMode
 		Replication.BumpMe();
 	}
 	
+	void RemovePlayableEntity(IEntity entity)
+	{
+		int index = m_aEntitySlots.Find(RplComponent.Cast(entity.FindComponent(RplComponent)).Id());
+		m_aSlots.RemoveOrdered(index);
+		m_aPlayerGroupIDs.RemoveOrdered(index);
+		m_aSlotNames.RemoveOrdered(index);
+		m_aSlotIcons.RemoveOrdered(index);
+		m_aEntityDeathStatus.RemoveOrdered(index);
+		m_aSlotPlayerNames.RemoveOrdered(index);
+		m_aEntitySlotTypes.RemoveOrdered(index);
+		m_aEntitySlots.RemoveOrdered(index);
+		SCR_EntityHelper.DeleteEntityAndChildren(entity);
+		m_iSlotChanges++;
+		Replication.BumpMe();
+	}
+	
 	//Puts the player into an entity when they connect
 	override void OnPlayerConnected(int playerId)
 	{
@@ -255,6 +282,9 @@ class CRF_Gamemode : SCR_BaseGameMode
 		spawnParams.Transform[3] = "0 10000 0";
 		IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
 		GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerId);
+		SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
+		SCR_GroupsManagerComponent.GetInstance().AddPlayerToGroup(SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_rSpectatorGroup)).GetEntity()).GetGroupID(), playerId);
+
 		
 		//Updates connection status
 		if(m_aSlots.Find(playerId) != -1)

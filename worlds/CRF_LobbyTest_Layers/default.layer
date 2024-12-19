@@ -2,6 +2,12 @@ SCR_AIWorld : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {
  coords 2049.628 43.345 2059.771
 }
 CRF_Gamemode CRF_GamemodeLobby_Full1 : "{D8AA2B14B178CB0F}Prefabs/MP/Modes/CRF_GamemodeLobby_Full.et" {
+ components {
+  SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
+   m_SpawnLogic SCR_AutoSpawnLogic "{631D748391E425BA}" {
+   }
+  }
+ }
  coords 1259.44 39 2324.036
 }
 SCR_AIGroup : "{350C8DE227E3C030}Prefabs/Groups/BLUFOR/BLUFOR_PL.et" {
