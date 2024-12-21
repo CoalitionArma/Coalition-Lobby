@@ -350,7 +350,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			}
 			if(leadersInGroup == 0)	
 				m_cOrbatListBoxComponent.RemoveItem(orbatGroupIndex);
-			if(playersInGroup == 0)
+			if(playersInGroup == 0 && !SCR_Global.IsAdmin(SCR_PlayerController.GetLocalPlayerId()))
 				m_cSlotListBoxComponent.RemoveItem(groupIndex);
 		}
 		if(m_Gamemode.m_aSlots.Find(m_iSelectedPlayerID) != -1)
@@ -474,7 +474,6 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			if(!GetGame().GetPlayerManager().IsPlayerConnected(player) || !SCR_Global.IsAdmin(player))
 				continue;
 			int index;
-			Print(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey());
 			if(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey() != "SPEC")
 			{
 				switch(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey())
@@ -502,7 +501,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			if(!GetGame().GetPlayerManager().IsPlayerConnected(player) || SCR_Global.IsAdmin(player))
 				continue;
 			int index;
-			if(SCR_FactionManager.SGetPlayerFaction(player) != null)
+			if(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey() != "SPEC")
 			{
 				switch(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey())
 				{

@@ -96,6 +96,10 @@ modded class SCR_PlayerController
 	void EnterGame(int playerID)
 	{
 		//Call to server to enter slot and or get put into a initial entity to spectate
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_PreviewMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SlottingMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SpectatorMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_AARMenu);
 		Rpc(RpcDo_EnterGame, playerID);
 		if(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID) == -1)
 			EnterSpectator();
@@ -113,7 +117,6 @@ modded class SCR_PlayerController
 	//Whenever player is killed store their location and enter spectator
 	override void OnDestroyed(notnull Instigator killer)
 	{
-		Print("I am become death");
 		GetGame().GetCallqueue().CallLater(EnterSpectator, 100, false);
 		GetGame().GetPlayerController().GetControlledEntity().GetTransform(m_vLastEntityTransform);
 	}
@@ -129,8 +132,6 @@ modded class SCR_PlayerController
 			params.Transform = CRF_Gamemode.GetInstance().m_vGenericSpawn;
 		
 		m_eCamera = GetGame().SpawnEntityPrefab(Resource.Load("{E1FF38EC8894C5F3}Prefabs/Editor/Camera/ManualCameraSpectate.et"), GetGame().GetWorld(), params);
-		Print(GetGame().GetWorkspace().GetFocusedWidget());
-		
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SpectatorMenu);
 		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(m_eCamera));
 	}
