@@ -1,14 +1,121 @@
 SCR_AIWorld : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {
  coords 2049.628 43.345 2059.771
 }
-CRF_Gamemode CRF_GamemodeLobby_Full1 : "{D8AA2B14B178CB0F}Prefabs/MP/Modes/CRF_GamemodeLobby_Full.et" {
+CRF_Gamemode GameMode_Lobby1 : "{25E59F270F06BAA4}Prefabs/MP/Modes/Plain/GameMode_Lobby.et" {
  components {
   SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
-   m_SpawnLogic SCR_AutoSpawnLogic "{631D748391E425BA}" {
+   m_SpawnLogic SCR_SpawnLogic "{5D36888CC966608A}" {
    }
   }
  }
- coords 1259.44 39 2324.036
+ coords 1257.901 39 2324.843
+ PlayerControllerPrefab "{A1AE127F16DD352E}Prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
+ {
+  SCR_FactionManager "632777CB0A7A7D2F" {
+   ID "632771FB44BBF896"
+   Factions {
+    SCR_Faction "{56DEAC40D2DBC8B1}" {
+     FactionKey "BLUFOR"
+    }
+    SCR_Faction "{56DEAC40D3C2E623}" {
+     FactionKey "OPFOR"
+    }
+    SCR_Faction "{56DEAC40D132400B}" {
+     FactionKey "INDFOR"
+    }
+    SCR_Faction "{632771FB51AAFACC}" {
+     UIInfo SCR_FactionUIInfo "{632777CB7C20588F}" {
+      Name "#AR-Faction_CIV"
+      Icon "{7BB7AE674BE729CE}UI/Textures/Editor/EditableEntities/Factions/EditableEntity_Faction_CIV.edds"
+      m_sNameUpper "#AR-Faction_CIV_UC"
+     }
+     "Identity of soldiers" FactionIdentity "{632777CB7914DBD7}" {
+      VisualIdentityArray {
+       VisualIdentity "{570EDB8787206B1C}" {
+       }
+       VisualIdentity "{570CE64C784286B5}" {
+       }
+       VisualIdentity "{570CFDC06CAAD480}" {
+       }
+       VisualIdentity "{570CFDC05A2BFCE8}" {
+       }
+       VisualIdentity "{570CFDC037CCBCD3}" {
+       }
+       VisualIdentity "{570CFDC1C8B17A43}" {
+       }
+       VisualIdentity "{588508C196393A8F}" {
+       }
+       VisualIdentity "{588508C1951A8A0F}" {
+       }
+      }
+      SoundIdentityArray {
+       SoundIdentity "{570EDB84CC3FD4B9}" {
+       }
+       SoundIdentity "{5B0EABB09D6FA49C}" {
+       }
+       SoundIdentity "{5B0EABB09346E05D}" {
+       }
+       SoundIdentity "{5B0EABB088B84F07}" {
+       }
+       SoundIdentity "{5B0EABB0852FB418}" {
+       }
+       SoundIdentity "{5B0EABB0BDB4087F}" {
+       }
+      }
+     }
+     m_CallsignInfo SCR_FactionCallsignInfo "{632777CB738AED96}" {
+      m_bIsAssignedRandomly 0
+      m_aCompanyNames {
+       SCR_CallsignInfo "{607A9A9EC820C29F}" {
+       }
+      }
+      m_iCompanyOverflowIndex 0
+      m_aPlatoonNames {
+       SCR_CallsignInfo "{607A9A9EC820C263}" {
+       }
+      }
+      m_aSquadNames {
+       SCR_CallsignInfo "{607A9A9EC820C279}" {
+        m_sCallsign "291"
+       }
+       SCR_CallsignInfo "{607A9A9EC820C27A}" {
+        m_sCallsign "292"
+       }
+       SCR_CallsignInfo "{607A9A9EC820C27B}" {
+        m_sCallsign "293"
+       }
+       SCR_CallsignInfo "{607A9A9EC820C27D}" {
+        m_sCallsign "300"
+       }
+      }
+      m_sCallsignGroupFormat "%1 %3"
+      m_sCallsignCharacterFormat "%1 %3: %4"
+      m_sCallsignCharacterWithRoleFormat "%1 %3: %4"
+     }
+     m_aPredefinedGroups {
+      SCR_GroupPreset "{632777CBAEF069EC}" {
+       m_sGroupName "Spectators"
+       m_sGroupDescription "spectators"
+       m_iGroupSize 128
+       m_bIsPrivate 1
+      }
+     }
+     m_aEntityCatalogs {
+      SCR_EntityCatalogMultiList "{607A9A9FE55EDF5F}" {
+      }
+      SCR_EntityCatalogMultiList "{607A9A9FFA54DFE9}" {
+      }
+      SCR_EntityCatalogMultiList "{61C8ED1193902596}" {
+      }
+      SCR_EntityCatalogMultiList "{61C8ED1182211903}" {
+      }
+      SCR_EntityCatalogMultiList "{607A9A9FFBDA2F92}" {
+      }
+     }
+    }
+   }
+  }
+ }
 }
 SCR_AIGroup : "{350C8DE227E3C030}Prefabs/Groups/BLUFOR/BLUFOR_PL.et" {
  coords 1260.911 39 2321.863

@@ -474,6 +474,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			if(!GetGame().GetPlayerManager().IsPlayerConnected(player) || !SCR_Global.IsAdmin(player))
 				continue;
 			int index;
+			Print(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey());
 			if(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey() != "SPEC")
 			{
 				switch(SCR_FactionManager.SGetPlayerFaction(player).GetFactionKey())

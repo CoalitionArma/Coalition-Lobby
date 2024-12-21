@@ -128,6 +128,15 @@ class CRF_AARMenuUI: ChimeraMenuBase
 		DescriptionInit();
 	}
 	
+	override void OnMenuClose()
+	{
+		GetGame().GetInputManager().RemoveActionListener("VONDirect", EActionTrigger.DOWN, Action_VONon);
+		GetGame().GetInputManager().RemoveActionListener("VONDirect", EActionTrigger.UP, Action_VONOff);
+		GetGame().GetInputManager().RemoveActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
+		GetGame().GetInputManager().RemoveActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
+	}
+	
+	
 	void DescriptionInit()
 	{
 		m_wBackButton.SetOpacity(0);

@@ -59,7 +59,9 @@ class CRF_PlayableCharacter : ScriptComponent
 		//Logs entity on server and disables AI
 		if(m_bIsPlayable && Replication.IsServer())
 		{
-			CRF_Gamemode.GetInstance().AddPlayableEntity(owner);
+			SCR_AIGroup playableGroup = SCR_AIGroup.Cast(ChimeraAIControlComponent.Cast(owner.FindComponent(ChimeraAIControlComponent)).GetControlAIAgent().GetParentGroup());
+			if(playableGroup)
+				CRF_Gamemode.GetInstance().AddPlayableEntity(owner);
 		}
 			
 		//Sets location and all the physics BS on all machines

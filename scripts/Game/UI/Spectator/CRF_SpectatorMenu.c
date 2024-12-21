@@ -17,6 +17,7 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
 		m_Gamemode = CRF_Gamemode.GetInstance();
 		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
+		GetGame().GetInputManager().AddActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
 	}
 	override void OnMenuUpdate(float tDelta)
 	{
@@ -45,6 +46,7 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 	override void OnMenuClose()
 	{
 		GetGame().GetInputManager().RemoveActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
+		GetGame().GetInputManager().RemoveActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
 	}
 	
 	void UpdateIcons()
@@ -70,5 +72,16 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 		{
 			SCR_ChatPanelManager.GetInstance().OpenChatPanel(m_ChatPanel);
 		}
+	}
+	void Action_Exit()
+	{
+		// For some strange reason players all the time accidentally exit game, maybe jus open pause menu
+		//GameStateTransitions.RequestGameplayEndTransition();  
+		//Close();
+		GetGame().GetCallqueue().CallLater(OpenPauseMenuWrap, 0); //  Else menu auto close itself
+	}
+	void OpenPauseMenuWrap()
+	{
+		ArmaReforgerScripted.OpenPauseMenu();
 	}
 } 

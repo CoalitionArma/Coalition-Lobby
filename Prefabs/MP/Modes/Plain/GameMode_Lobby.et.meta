@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{D8AA2B14B178CB0F}Prefabs/MP/Modes/CRF_GamemodeLobby_Full.et"
+ Name "{25E59F270F06BAA4}Prefabs/MP/Modes/Plain/GameMode_Lobby.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

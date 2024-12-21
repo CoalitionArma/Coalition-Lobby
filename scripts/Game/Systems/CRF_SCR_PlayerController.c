@@ -113,7 +113,8 @@ modded class SCR_PlayerController
 	//Whenever player is killed store their location and enter spectator
 	override void OnDestroyed(notnull Instigator killer)
 	{
-		GetGame().GetCallqueue().CallLater(EnterSpectator, 150, false);
+		Print("I am become death");
+		GetGame().GetCallqueue().CallLater(EnterSpectator, 100, false);
 		GetGame().GetPlayerController().GetControlledEntity().GetTransform(m_vLastEntityTransform);
 	}
 	
