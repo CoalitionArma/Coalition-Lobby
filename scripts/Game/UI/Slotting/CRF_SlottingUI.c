@@ -297,7 +297,10 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 				if(SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aPlayerGroupIDs.Get(g))).GetEntity()).GetFaction() != m_fSelectedFaction)
 					continue;
 				
-				if((m_Gamemode.m_aSlots.Get(g) == -1 && (!SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId()))) || m_Gamemode.m_aSlots.Get(g) == -2)
+				if(m_Gamemode.m_aSlots.Get(g) == -1 && (!SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId())))
+					continue;
+				
+				if(m_Gamemode.m_aSlots.Get(g) == -2)
 					continue;
 				
 				if(m_Gamemode.m_aSlots.Get(g) == 0 && m_Gamemode.m_aEntityDeathStatus.Get(g) == true)
