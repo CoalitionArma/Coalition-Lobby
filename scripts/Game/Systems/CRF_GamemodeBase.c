@@ -186,7 +186,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		
 		if(m_aSlots.Find(playerID) == -1)
 			return;
-		
+
 		IEntity oldEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID);
 		RplId oldGroup = RplId.Invalid();
 		if(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
@@ -252,6 +252,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 	void SetDeathState(IEntity entity, bool input)
 	{
 		m_aEntityDeathStatus.Set(m_aEntitySlots.Find(RplComponent.Cast(entity.FindComponent(RplComponent)).Id()), input);
+		m_iSlotChanges++;
 		Replication.BumpMe();
 	}
 	
@@ -306,10 +307,11 @@ class CRF_Gamemode : SCR_BaseGameMode
 			Print("ONLY RUN RespawnPlayer ON SERVER");
 			return;
 		}
-		
 		EntitySpawnParams spawnParams = new EntitySpawnParams();
-		spawnParams.TransformMode = ETransformMode.WORLD;
-		spawnParams.Transform[3] = position;
+        spawnParams.TransformMode = ETransformMode.WORLD;
+		vector finalSpawnLocation = vector.Zero;
+		SCR_WorldTools.FindEmptyTerrainPosition(finalSpawnLocation, position, 3);
+        spawnParams.Transform[3] = finalSpawnLocation;
 		IEntity newEntity = GetGame().SpawnEntityPrefab(Resource.Load(prefab),GetGame().GetWorld(),spawnParams);
 		GetGame().GetCallqueue().CallLater(RespawnPlayerDelay, 100, false, playerID, groupID, newEntity);
 	}

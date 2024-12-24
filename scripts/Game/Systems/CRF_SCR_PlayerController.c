@@ -22,6 +22,17 @@ modded class SCR_PlayerController
 		GetGame().GetInputManager().AddActionListener("CRF_OpenLobby", EActionTrigger.PRESSED, OpenMenu);
 	}
 	
+	void Respawn(int playerID, string prefab, vector position, int groupID)
+	{
+		Rpc(RpcDo_Respawn, playerID, prefab, position, groupID);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_Respawn(int playerID, string prefab, vector position, int groupID)
+	{
+		CRF_Gamemode.GetInstance().RespawnPlayer(playerID, prefab, position, groupID);
+	}
+	
 	//Called on the local machine whenever game state is changed
 	void GameStateChange(int gameState)
 	{
