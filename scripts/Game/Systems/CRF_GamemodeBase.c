@@ -61,6 +61,9 @@ class CRF_Gamemode : SCR_BaseGameMode
 	[RplProp()]
 	ref array<ResourceName> m_aSlotIcons = {};
 	
+	[RplProp()]
+	ref array<ResourceName> m_aSlotPrefabs = {};
+	
 	//Entities slot type, leader, specialty, everyone
 	[RplProp()]
 	ref array<int> m_aEntitySlotTypes = {};
@@ -259,6 +262,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		m_aEntitySlots.Insert(RplComponent.Cast(entity.FindComponent(RplComponent)).Id());
 		m_aPlayerGroupIDs.Insert(RplComponent.Cast(SCR_AIGroup.Cast(ChimeraAIControlComponent.Cast(entity.FindComponent(ChimeraAIControlComponent)).GetControlAIAgent().GetParentGroup()).FindComponent(RplComponent)).Id());
 		m_aSlotNames.Insert(CRF_PlayableCharacter.Cast(entity.FindComponent(CRF_PlayableCharacter)).GetName());
+		m_aSlotPrefabs.Insert(entity.GetPrefabData().GetPrefabName());
 		m_aSlotIcons.Insert(SCR_EditableCharacterComponent.Cast(entity.FindComponent(SCR_EditableCharacterComponent)).GetInfo().GetIconPath());
 		m_aEntityDeathStatus.Insert(false);
 		m_aSlotPlayerNames.Insert("");
@@ -284,6 +288,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		m_aPlayerGroupIDs.RemoveOrdered(index);
 		m_aSlotNames.RemoveOrdered(index);
 		m_aSlotIcons.RemoveOrdered(index);
+		m_aSlotPrefabs.RemoveOrdered(index);
 		m_aEntityDeathStatus.RemoveOrdered(index);
 		m_aSlotPlayerNames.RemoveOrdered(index);
 		m_aEntitySlotTypes.RemoveOrdered(index);
