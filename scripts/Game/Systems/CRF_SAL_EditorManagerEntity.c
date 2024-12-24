@@ -22,6 +22,12 @@ modded class SCR_EditorManagerEntity
 	
 	void OpenUI()
 	{
+		CRF_Gamemode gamemode = CRF_Gamemode.GetInstance();
+		if(gamemode)
+			if(gamemode.m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId()) != -1)
+				if(RplComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(RplComponent)).Id() != gamemode.m_aEntitySlots.Get(gamemode.m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId())))
+					return;
+		
 		switch(CRF_Gamemode.GetInstance().m_GamemodState)
 		{
 			case CRF_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_PreviewMenu);	break;}
