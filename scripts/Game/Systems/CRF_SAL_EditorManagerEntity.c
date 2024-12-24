@@ -25,8 +25,9 @@ modded class SCR_EditorManagerEntity
 		CRF_Gamemode gamemode = CRF_Gamemode.GetInstance();
 		if(gamemode)
 			if(gamemode.m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId()) != -1)
-				if(RplComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(RplComponent)).Id() != gamemode.m_aEntitySlots.Get(gamemode.m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId())))
-					return;
+				if(!CRF_PlayableCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(CRF_PlayableCharacter)).IsPlayable())
+					if(RplComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(RplComponent)).Id() != gamemode.m_aEntitySlots.Get(gamemode.m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId())))
+						return;
 		
 		switch(CRF_Gamemode.GetInstance().m_GamemodState)
 		{
