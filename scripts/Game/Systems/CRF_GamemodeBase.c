@@ -180,13 +180,26 @@ class CRF_Gamemode : SCR_BaseGameMode
 			if(currentGroup)
 				currentGroup.RemovePlayer(playerID);
 			SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerID).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
-
 			return;
 		}
 		
 		if(m_aSlots.Find(playerID) == -1)
 			return;
-
+		
+		if(m_aEntityDeathStatus.Get(m_aSlots.Find(playerID)))
+		{
+			EntitySpawnParams spawnParams = new EntitySpawnParams();
+			spawnParams.TransformMode = ETransformMode.WORLD;
+			spawnParams.Transform[3] = "0 10000 0";
+			IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
+			GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerID);
+			SCR_AIGroup currentGroup = SCR_GroupsManagerComponent.GetInstance().GetPlayerGroup(playerID);
+			if(currentGroup)
+				currentGroup.RemovePlayer(playerID);
+			SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerID).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
+			return;
+		}
+		
 		IEntity oldEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID);
 		RplId oldGroup = RplId.Invalid();
 		if(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")

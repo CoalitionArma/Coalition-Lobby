@@ -109,6 +109,8 @@ modded class SCR_PlayerController
 	void EnterGame(int playerID)
 	{
 		//Call to server to enter slot and or get put into a initial entity to spectate
+		if(m_eCamera)
+			delete m_eCamera;
 		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_PreviewMenu);
 		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SlottingMenu);
 		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SpectatorMenu);
@@ -116,8 +118,8 @@ modded class SCR_PlayerController
 		Rpc(RpcDo_EnterGame, playerID);
 		if(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID) == -1)
 			EnterSpectator();
-		else if(m_eCamera)
-			delete m_eCamera;
+		else if(CRF_Gamemode.GetInstance().m_aEntityDeathStatus.Get(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID)))
+			EnterSpectator();
 	}
 	
 	//Communicates to server to enter slot and or get put into a initial entity to spectate
