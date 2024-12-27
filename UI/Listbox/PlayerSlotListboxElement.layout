@@ -259,6 +259,7 @@ ButtonWidgetClass {
        Slot OverlayWidgetSlot "{631F7CF5E5BFCB25}" {
         HorizontalAlign 3
         VerticalAlign 3
+        Padding 150 0 1350 0
        }
        "Is Visible" 0
        {
