@@ -349,8 +349,6 @@ class CRF_Gamemode : SCR_BaseGameMode
 			GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerId);
 			SCR_PlayerFactionAffiliationComponent.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId).FindComponent(SCR_PlayerFactionAffiliationComponent)).RequestFaction(GetGame().GetFactionManager().GetFactionByKey("SPEC"));
 		}
-		else
-			EnterGame(playerId);
 		
 		if(m_aSlots.Find(playerId) != -1)
 		{
@@ -359,22 +357,33 @@ class CRF_Gamemode : SCR_BaseGameMode
 		}
 	}
 	
+	
+	void PutPlayerInGame(int playerID)
+	{
+		Rpc(RpcDo_EnterGame, playerID);
+	}
+	
 	protected override void OnPlayerDisconnected(int playerId, KickCauseCode cause, int timeout)
 	{
-		super.OnPlayerDisconnected(playerId, cause, timeout);
+		m_OnPlayerDisconnected.Invoke(playerId, cause, timeout);
+		
+		// RespawnSystemComponent is not a SCR_BaseGameModeComponent, so for now we have to
+		// propagate these events manually. 
+		if (IsMaster())
+			m_pRespawnSystemComponent.OnPlayerDisconnected_S(playerId, cause, timeout);
+
+		foreach (SCR_BaseGameModeComponent comp : m_aAdditionalGamemodeComponents)
+		{
+			comp.OnPlayerDisconnected(playerId, cause, timeout);
+		}
+		
+		m_OnPostCompPlayerDisconnected.Invoke(playerId, cause, timeout);
 		//Updates connection status
 		if(m_aSlots.Find(playerId) != -1)
 		{
 			m_iSlotChanges++;
 			Replication.BumpMe();
 		}
-	}
-	
-	//Opens the menu for the player
-	protected override void OnPlayerRegistered(int playerId)
-	{
-		super.OnPlayerRegistered(playerId);
-		GetGame().GetCallqueue().CallLater(OpenMenu, 1000, false, playerId);
 	}
 	
 	//Sets if the player is talking for UI purposes
@@ -403,23 +412,8 @@ class CRF_Gamemode : SCR_BaseGameMode
 	}
 	
 	//Opens the menu on the player
-	void OpenMenu(int playerId)
+	void OpenMenu()
 	{
-		//Is it a player????
-		if(!GetGame().GetPlayerController())
-			return;
-
-		//Does this player have an entity yet????
-		if(!SCR_PlayerController.GetLocalMainEntity())
-		{
-			GetGame().GetCallqueue().CallLater(OpenMenu, 50, false, playerId);
-			return;
-		}
-		
-		//Are we on someone elses machine?????
-		if(SCR_PlayerController.GetLocalMainEntity() != GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId))
-			return;
-		
 		//Close any menu that wriggles its way in
 		MenuBase topMenu = GetGame().GetMenuManager().GetTopMenu();
 		if (topMenu)
@@ -428,9 +422,9 @@ class CRF_Gamemode : SCR_BaseGameMode
 		//Opens menu based on current game state : )
 		switch(m_GamemodState)
 		{
-			case CRF_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_PreviewMenu);		break;}
+			case CRF_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_PreviewMenu);	break;}
 			case CRF_GamemodeState.SLOTTING:{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);		break;}
-			case CRF_GamemodeState.GAME: 	{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterSpectator();	break;}
+			case CRF_GamemodeState.GAME: 	{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(SCR_PlayerController.GetLocalPlayerId());		break;}
 			case CRF_GamemodeState.AAR: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_AARMenu);			break;}
 		}
 	}

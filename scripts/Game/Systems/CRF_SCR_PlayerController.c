@@ -19,6 +19,8 @@ modded class SCR_PlayerController
 		if (!inputManager)
 			return;
 		
+		GetGame().GetCallqueue().CallLater(CRF_Gamemode.GetInstance().OpenMenu, 100, false);
+//		EnterGame(SCR_PlayerController.GetLocalPlayerId());
 		GetGame().GetInputManager().AddActionListener("CRF_OpenLobby", EActionTrigger.PRESSED, OpenMenu);
 	}
 	
