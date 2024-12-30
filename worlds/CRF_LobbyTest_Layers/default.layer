@@ -9,7 +9,6 @@ CRF_Gamemode GameMode_Lobby1 : "{25E59F270F06BAA4}Prefabs/MP/Modes/Plain/GameMod
   }
  }
  coords 1257.901 39 2324.843
- PlayerControllerPrefab "{A1AE127F16DD352E}Prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
  {
   SCR_FactionManager "632777CB0A7A7D2F" {
    ID "632771FB44BBF896"
@@ -100,6 +99,7 @@ CRF_Gamemode GameMode_Lobby1 : "{25E59F270F06BAA4}Prefabs/MP/Modes/Plain/GameMod
        m_bIsPrivate 1
       }
      }
+     m_sFactionRadioEncryptionKey "SPEC"
      m_aEntityCatalogs {
       SCR_EntityCatalogMultiList "{607A9A9FE55EDF5F}" {
       }

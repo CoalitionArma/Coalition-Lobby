@@ -13,6 +13,11 @@ class CRF_PlayableCharacter : ScriptComponent
 	[Attribute()]
 	protected bool m_bIsSpecialty;
 	
+	protected bool m_bIsSpectator = false;
+	protected SCR_PlayerController m_PlayerController;
+	
+	protected float m_bTimeSliceLimit = 0;
+	
 	bool IsPlayable()
 	{
 		return m_bIsPlayable;
@@ -33,12 +38,49 @@ class CRF_PlayableCharacter : ScriptComponent
 		return m_bIsSpecialty;
 	}
 	
-		override void OnPostInit(IEntity owner)
+	override void OnPostInit(IEntity owner)
 	{
 		super.EOnInit(owner);
 		GetGame().GetCallqueue().CallLater(SetInitialEntity, 500, false, owner);
 		if(m_bIsPlayable)
 			GetGame().GetCallqueue().CallLater(DisableAI, 0, false, owner);
+		
+		m_PlayerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		
+		SetEventMask(owner, EntityEvent.FIXEDFRAME);
+		
+		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		{
+			m_bIsSpectator = true;
+			
+		}
+			
+			
+	}
+	
+	override void EOnFixedFrame(IEntity owner, float timeSlice)
+	{
+		super.EOnFixedFrame(owner, timeSlice);
+		if(SCR_PlayerController.GetLocalControlledEntity() != owner)
+			return;
+		
+		if(!m_bIsSpectator)
+			return;
+		
+		if(!SCR_ChimeraCharacter.Cast(owner).m_bIsListening && owner.GetOrigin() != "0 10000 0")
+		{
+			vector debugVector[4];
+			debugVector[3] = "0 10000 0";
+			m_PlayerController.UpdateCameraPos(debugVector);
+		}
+		
+		if(!SCR_ChimeraCharacter.Cast(owner).m_bIsListening)
+			return;
+		
+		vector cameraPos[4];
+		GetGame().GetCameraManager().CurrentCamera().GetWorldCameraTransform(cameraPos);
+		
+		m_PlayerController.UpdateCameraPos(cameraPos);
 	}
 	
 	void DisableAI(IEntity owner)

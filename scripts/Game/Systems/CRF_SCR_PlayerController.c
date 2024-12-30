@@ -4,6 +4,10 @@ modded class SCR_PlayerController
 	protected IEntity m_eCamera;
 	//Stores the vector of your last entity you had control over so it can teleport your camera to it
 	protected vector m_vLastEntityTransform[4];
+	
+	protected bool m_bIsListening = false;
+	int m_iFPS;
+	int m_iAudioSetting;
 
 	//Adds action lisener to open menu in game
 	override protected void UpdateLocalPlayerController()
@@ -22,6 +26,30 @@ modded class SCR_PlayerController
 		GetGame().GetCallqueue().CallLater(CRF_Gamemode.GetInstance().OpenMenu, 100, false);
 //		EnterGame(SCR_PlayerController.GetLocalPlayerId());
 		GetGame().GetInputManager().AddActionListener("CRF_OpenLobby", EActionTrigger.PRESSED, OpenMenu);
+		GetGame().GetInputManager().AddActionListener("CRF_EnterListening", EActionTrigger.PRESSED, Action_SetListening);
+	}
+	
+	void Action_SetListening()
+	{
+		SCR_VONController vonController = SCR_VONController.Cast(GetGame().GetPlayerController().FindComponent(SCR_VONController));
+		vonController.PublicResetVON();
+		m_bIsListening = !m_bIsListening;
+		SetListening(m_bIsListening);
+		if(m_bIsListening)
+			vonController.SetVONDisabled(true);
+		else
+			vonController.SetVONDisabled(false);
+	}
+	
+	void SetListening(bool input)
+	{
+		Rpc(RpcDo_SetListening, SCR_PlayerController.GetLocalPlayerId(), input);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_SetListening(int playerID, bool input)
+	{
+		SCR_ChimeraCharacter.Cast(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID)).SetListening(input);
 	}
 	
 	void Respawn(int playerID, string prefab, vector position, int groupID)
@@ -35,19 +63,36 @@ modded class SCR_PlayerController
 		CRF_Gamemode.GetInstance().RespawnPlayer(playerID, prefab, position, groupID);
 	}
 	
-	//Called on the local machine whenever game state is changed
-	void GameStateChange(int gameState)
+	void UpdateCameraPos(vector cameraPos[4])
 	{
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_PreviewMenu);
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SlottingMenu);
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SpectatorMenu);
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_AARMenu);
-		switch(gameState)
+		//Rpc(RpcDo_UpdateCameraPos, entityID, cameraPos);
+		IEntity player = GetGame().GetPlayerController().GetControlledEntity();
+		vector transform[4];
+		player.GetWorldTransform(transform);
+		transform[3] = cameraPos[3];
+		
+		//~ Align to terrain if not a character
+		if (!ChimeraCharacter.Cast(player))
+			SCR_TerrainHelper.OrientToTerrain(transform);
+
+		BaseGameEntity baseGameEntity = BaseGameEntity.Cast(player);
+		if (baseGameEntity)
+			baseGameEntity.Teleport(transform);
+		else
+			player.SetWorldTransform(transform);
+
+		Physics phys = player.GetPhysics();
+		if (phys)
 		{
-			case CRF_GamemodeState.SLOTTING: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);	break;}
-			case CRF_GamemodeState.GAME: 		{EnterGame(GetPlayerId());	break;}
-			case CRF_GamemodeState.AAR: 		{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_AARMenu);	break;}
+			phys.SetVelocity(vector.Zero);
+			phys.SetAngularVelocity(vector.Zero);
 		}
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_UpdateCameraPos(RplId entityID, vector cameraPos[4])
+	{
+		//CRF_Gamemode.GetInstance().SetCameraPos(entityID, cameraPos);
 	}
 	
 	//Communicates to server that the player is talking
@@ -120,6 +165,16 @@ modded class SCR_PlayerController
 			EnterSpectator();
 		else if(CRF_Gamemode.GetInstance().m_aEntityDeathStatus.Get(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID)))
 			EnterSpectator();
+		if(m_iFPS)
+		{
+			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
+			video.Set("MaxFps", m_iFPS);	
+			GetGame().UserSettingsChanged();
+		}
+		if(m_iAudioSetting == 0)
+			AudioSystem.SetMasterVolume(AudioSystem.SFX, 100);
+		else
+			AudioSystem.SetMasterVolume(AudioSystem.SFX, m_iAudioSetting);
 	}
 	
 	//Communicates to server to enter slot and or get put into a initial entity to spectate
@@ -149,6 +204,7 @@ modded class SCR_PlayerController
 		m_eCamera = GetGame().SpawnEntityPrefab(Resource.Load("{E1FF38EC8894C5F3}Prefabs/Editor/Camera/ManualCameraSpectate.et"), GetGame().GetWorld(), params);
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SpectatorMenu);
 		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(m_eCamera));
+		m_bIsListening = false;
 	}
 	
 	//Opens the slotting menu for players in game
@@ -165,6 +221,17 @@ modded class SCR_PlayerController
 				GetGame().GetMenuManager().CloseMenu(topMenu);
 		
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);
+		if(CRF_Gamemode.GetInstance().m_GamemodState != CRF_GamemodeState.GAME)
+		{
+			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
+			if(m_iFPS)
+				video.Get("MaxFps", m_iFPS);
+			video.Set("MaxFps", 30);
+			GetGame().UserSettingsChanged();
+			if(m_iAudioSetting)
+				m_iAudioSetting = AudioSystem.GetMasterVolume(AudioSystem.SFX);
+			AudioSystem.SetMasterVolume(AudioSystem.SFX, 0);
+		}
 	}
 	
 	//Communicates to server to advance the slotting phase

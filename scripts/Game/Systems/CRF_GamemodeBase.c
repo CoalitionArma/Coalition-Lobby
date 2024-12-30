@@ -170,6 +170,42 @@ class CRF_Gamemode : SCR_BaseGameMode
 		return;
 	}
 	
+	void SetCameraPos(int playerID, vector cameraPos[4])
+	{
+		RpcDo_SetCameraPos(playerID, cameraPos);
+		Rpc(RpcDo_SetCameraPos, playerID, cameraPos);
+	}
+	
+	[RplRpc(RplChannel.Unreliable, RplRcver.Broadcast)]
+	void RpcDo_SetCameraPos(int playerID, vector cameraPos[4])
+	{	
+		IEntity player = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID);
+		if(!player)
+			return;
+		vector transform[4];
+		player.GetWorldTransform(transform);
+		transform[3] = cameraPos[3];
+
+		BaseGameEntity playerEntity = BaseGameEntity.Cast(player); 
+        
+        if(!playerEntity)
+            return;
+        
+        float scale = playerEntity.GetScale();
+		playerEntity.Teleport(transform);
+        playerEntity.SetWorldTransform(transform);
+        playerEntity.SetScale(scale);
+        playerEntity.Update();
+        playerEntity.OnTransformReset();
+
+		Physics phys = player.GetPhysics();
+		if (phys)
+		{
+			phys.SetVelocity(vector.Zero);
+			phys.SetAngularVelocity(vector.Zero);
+		}
+	}
+	
 	//Called to enter the actual game, just puts the player into a slot or spectator.
 	void EnterGame(int playerID)
 	{
@@ -347,12 +383,6 @@ class CRF_Gamemode : SCR_BaseGameMode
 		}
 	}
 	
-	
-	void PutPlayerInGame(int playerID)
-	{
-		Rpc(RpcDo_EnterGame, playerID);
-	}
-	
 	protected override void OnPlayerDisconnected(int playerId, KickCauseCode cause, int timeout)
 	{
 		m_OnPlayerDisconnected.Invoke(playerId, cause, timeout);
@@ -417,6 +447,17 @@ class CRF_Gamemode : SCR_BaseGameMode
 			case CRF_GamemodeState.GAME: 	{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(SCR_PlayerController.GetLocalPlayerId());		break;}
 			case CRF_GamemodeState.AAR: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_AARMenu);			break;}
 		}
+		if(m_GamemodState != CRF_GamemodeState.GAME)
+		{
+			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
+			if(SCR_PlayerController.Cast(GetGame().GetPlayerController()).m_iFPS)
+				video.Get("MaxFps", SCR_PlayerController.Cast(GetGame().GetPlayerController()).m_iFPS);
+			video.Set("MaxFps", 30);
+			GetGame().UserSettingsChanged();
+			if(SCR_PlayerController.Cast(GetGame().GetPlayerController()).m_iAudioSetting)
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).m_iAudioSetting = AudioSystem.GetMasterVolume(AudioSystem.SFX);
+			AudioSystem.SetMasterVolume(AudioSystem.SFX, 0);
+		}
 	}
 	
 	
@@ -426,7 +467,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		IEntity oldEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
 		SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId)).SetInitialMainEntity(entity);	
 	}
-	
+
 	//Advances the overall gamemode state
 	void AdvanceGamemodeState()
 	{
@@ -450,7 +491,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 				component.OnGamemodeStateChanged();
 			}
 		}
-		SCR_PlayerController.Cast(GetGame().GetPlayerController()).GameStateChange(m_GamemodState);
+		OpenMenu();
 	}
 }
 
