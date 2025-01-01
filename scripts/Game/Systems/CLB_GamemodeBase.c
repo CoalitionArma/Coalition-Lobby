@@ -104,23 +104,23 @@ class CLB_Gamemode : SCR_BaseGameMode
 	RplId m_rSpectatorGroup;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("1", "auto", "BLUFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode")]
+	[Attribute("1", "auto", "BLUFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
 	int m_iBluforRatio;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("1", "auto", "OPFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode")]
+	[Attribute("1", "auto", "OPFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
 	int m_iOpforRatio;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("0", "auto", "INDFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode")]
+	[Attribute("0", "auto", "INDFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
 	int m_iIndforRatio;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("0", "auto", "CIVILLIAN Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode")]
+	[Attribute("0", "auto", "CIVILLIAN Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
 	int m_iCivillianRatio;
 	
 	//Descriptions on the left in briefing
-	[Attribute("", category: "CLB Gamemode")]
+	[Attribute("", category: "CLB Gamemode Descriptors")]
 	ref	array<ref CLB_MissionDescriptor> m_aMissionDescriptors;
 	
 	IEntity m_eGamemodeEntity;
