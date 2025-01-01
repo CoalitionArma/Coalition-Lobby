@@ -865,7 +865,7 @@ FrameWidgetClass {
         SizeY 0
         OffsetBottom 0
        }
-       Color 1 0.007 0 1
+       Color 0.502 0 0 1
        Texture "{CB166C32C066B6D2}UI/Textures/Common/gradientTexture_Dither_left_512.edds"
        Size 512 512
       }
@@ -1307,6 +1307,7 @@ FrameWidgetClass {
         SizeY 135.5
         OffsetBottom -135.5
        }
+       "Is Visible" 0
        Color 0.016 0.552 0.905 0.129
       }
       FrameWidgetClass "{62F205606D5A9D95}" {
@@ -1322,6 +1323,7 @@ FrameWidgetClass {
         SizeY 122.5
         OffsetBottom -130.5
        }
+       "Is Visible" 0
        {
         ImageWidgetClass "{62F20560CFE0ED61}" {
          Name "FactionBG"
@@ -1442,6 +1444,7 @@ FrameWidgetClass {
         SizeY 135.5
         OffsetBottom -135.5
        }
+       "Is Visible" 0
        Color 0 0.584 1 0.129
       }
       FrameWidgetClass "{62F205628E23174C}" {
@@ -1457,6 +1460,7 @@ FrameWidgetClass {
         SizeY 122.5
         OffsetBottom -130.5
        }
+       "Is Visible" 0
        {
         ImageWidgetClass "{62F205628E23174D}" {
          Name "FactionBG"
@@ -1577,6 +1581,7 @@ FrameWidgetClass {
         SizeY 135.5
         OffsetBottom -135.5
        }
+       "Is Visible" 0
        Color 0 0.584 1 0.129
       }
       FrameWidgetClass "{62F2056289A50114}" {
@@ -1592,6 +1597,7 @@ FrameWidgetClass {
         SizeY 122.5
         OffsetBottom -130.5
        }
+       "Is Visible" 0
        {
         ImageWidgetClass "{62F2056289A50116}" {
          Name "FactionBG"
@@ -1712,6 +1718,7 @@ FrameWidgetClass {
         SizeY 135.5
         OffsetBottom -135.5
        }
+       "Is Visible" 0
        Color 0 0.584 1 0.129
       }
       FrameWidgetClass "{62F2056284FA609A}" {
@@ -1727,6 +1734,7 @@ FrameWidgetClass {
         SizeY 122.5
         OffsetBottom -130.5
        }
+       "Is Visible" 0
        {
         ImageWidgetClass "{62F2056284FA609B}" {
          Name "FactionBG"

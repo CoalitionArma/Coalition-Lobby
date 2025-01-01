@@ -100,77 +100,161 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 		m_cPlayerListBoxComponent = SCR_ListBoxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("PlayerList")).FindHandler(SCR_ListBoxComponent));
 		m_cOrbatListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("OrbatList")).FindHandler(CLB_ListboxComponent));
 		m_cUnslotPlayerListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("UnslotPlayerList")).FindHandler(CLB_ListboxComponent));
+
+		m_cSlotListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CLB_ListboxComponent));
+		InitSlots();
 		
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag());
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).SetImage(1);
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagOpfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag());
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagOpfor")).SetImage(1);
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagIndfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag());
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagIndfor")).SetImage(1);
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag());
-		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).SetImage(1);
+		CRF_GearScriptGamemodeComponent gsComp = CRF_GearScriptGamemodeComponent.GetInstance();	
+		ResourceName icon;
+	
+		if(m_iBluforSlots > 0)
+		{
+			if(gsComp)
+			{	
+				ResourceName gearScriptResource = gsComp.GetGearScriptResource("BLUFOR");
+				if(!gearScriptResource.IsEmpty())
+				{
+					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
+					if(gearConfig)
+					{
+						if(!gearConfig.m_FactionIcon.IsEmpty())
+							icon = gearConfig.m_FactionIcon;
+						else
+							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag();
+					};
+				};
+			} else {
+				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag();
+			};
+			
+			m_wRoot.FindAnyWidget("BluforButton").SetVisible(true);
+			m_wRoot.FindAnyWidget("BluforBGSelect").SetVisible(true);
+				
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).LoadImageTexture(1, icon);
+			m_wRoot.FindAnyWidget("BluforBGSelect").SetColor(Color.FromRGBA(34, 196, 244, 33));
+		};
 		
-		bool RatioBoxOneFilled = false;
-		bool RatioBoxTwoFilled = false;	
+		if(m_iOpforSlots > 0)
+		{
+			if(gsComp)
+			{	
+				ResourceName gearScriptResource = gsComp.GetGearScriptResource("OPFOR");
+				if(!gearScriptResource.IsEmpty())
+				{
+					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
+					if(gearConfig)
+					{
+						if(!gearConfig.m_FactionIcon.IsEmpty())
+							icon = gearConfig.m_FactionIcon;
+						else
+							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag();
+					};
+				};
+			} else {
+				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag();
+			};
+			
+			m_wRoot.FindAnyWidget("OpforButton").SetVisible(true);
+			m_wRoot.FindAnyWidget("OpforBGSelect").SetVisible(true);	
+			
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagOpfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag());
+			m_wRoot.FindAnyWidget("OpforBGSelect").SetColor(Color.FromRGBA(238, 49, 47, 33));
+		};
+		
+		if(m_iIndforSlots > 0)
+		{
+			if(gsComp)
+			{	
+				ResourceName gearScriptResource = gsComp.GetGearScriptResource("INDFOR");
+				if(!gearScriptResource.IsEmpty())
+				{
+					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
+					if(gearConfig)
+					{
+						if(!gearConfig.m_FactionIcon.IsEmpty())
+							icon = gearConfig.m_FactionIcon;
+						else
+							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag();
+					};
+				};
+			} else {
+				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag();
+			};
+			
+			m_wRoot.FindAnyWidget("IndforButton").SetVisible(true);
+			m_wRoot.FindAnyWidget("IndforBGSelect").SetVisible(true);	
+				
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagIndfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag());
+			m_wRoot.FindAnyWidget("IndforBGSelect").SetColor(Color.FromRGBA(0, 177, 79, 33));
+		};
+		
+		if(m_iCivSlots > 0)
+		{
+			if(gsComp)
+			{	
+				ResourceName gearScriptResource = gsComp.GetGearScriptResource("CIV");
+				if(!gearScriptResource.IsEmpty())
+				{
+					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
+					if(gearConfig)
+					{
+						if(!gearConfig.m_FactionIcon.IsEmpty())
+							icon = gearConfig.m_FactionIcon;
+						else
+							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag();
+					};
+				};
+			} else {
+				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag();
+			};
+			
+			m_wRoot.FindAnyWidget("CivButton").SetVisible(true);
+			m_wRoot.FindAnyWidget("CivBGSelect").SetVisible(true);	
+				
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag());
+			m_wRoot.FindAnyWidget("CivBGSelect").SetColor(Color.FromRGBA(168, 110, 207, 33));
+		};	
+		
 		CLB_Gamemode gamemode = CLB_Gamemode.GetInstance();
 		
-		if(gamemode.m_iBluforRatio > 0)
+		if (gamemode.m_iFactionOneRatio > 0 && !gamemode.m_sFactionOneKey.IsEmpty())
 		{
-			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iBluforRatio.ToString());
-			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(168, 110, 207, 33));
-			TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("BLU");
-			RatioBoxOneFilled = true;
-		}
+			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iFactionOneRatio.ToString());
+			TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText(gamemode.m_sFactionOneKey);
 		
-		if(gamemode.m_iOpforRatio > 0)
-		{
-			if(!RatioBoxOneFilled)
+			Color colorOne;
+			
+			switch(gamemode.m_sFactionOneKey)
 			{
-				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iOpforRatio.ToString());
-				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(238, 49, 47, 33));
-				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("OPF");
-				RatioBoxOneFilled = true;
-			} else {
-				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iOpforRatio.ToString());
-				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(Color.FromRGBA(238, 49, 47, 33));
-				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText("OPF");
-				RatioBoxTwoFilled = true;
+				case "BLU" : colorOne = Color.FromRGBA(0, 20, 255, 255); break;
+				case "OPF" : colorOne = Color.FromRGBA(188, 0, 0, 255); break;
+				case "IND" : colorOne = Color.FromRGBA(0, 185, 63, 255); break;
+				case "CIV" : colorOne = Color.FromRGBA(137, 0, 188, 255); break;
 			}
+			
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(colorOne);
 		}
 		
-		if(gamemode.m_iIndforRatio > 0 && !RatioBoxTwoFilled)
+		if (gamemode.m_iFactionTwoRatio > 0 && !gamemode.m_sFactionTwoKey.IsEmpty())
 		{
-			if(!RatioBoxOneFilled)
-			{
-				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iIndforRatio.ToString());
-				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(0, 177, 79, 33));
-				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("IND");
-				RatioBoxOneFilled = true;
-			} else {
-				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iIndforRatio.ToString());
-				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(Color.FromRGBA(0, 177, 79, 33));
-				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText("IND");
-				RatioBoxTwoFilled = true;
-			}
-		}
+			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iFactionTwoRatio.ToString());
+			TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText(gamemode.m_sFactionTwoKey);
 		
-		if(gamemode.m_iCivillianRatio > 0 && !RatioBoxTwoFilled)
-		{
-			if(!RatioBoxOneFilled)
+			Color colorTwo;
+			
+			switch(gamemode.m_sFactionTwoKey)
 			{
-				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iCivillianRatio.ToString());
-				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(168, 110, 207, 33));
-				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("CIV");
-				RatioBoxOneFilled = true;
-			} else {
-				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iCivillianRatio.ToString());
-				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(Color.FromRGBA(168, 110, 207, 33));
-				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText("CIV");
-				RatioBoxTwoFilled = true;
+				case "BLU" : colorTwo = Color.FromRGBA(0, 20, 255, 255); break;
+				case "OPF" : colorTwo = Color.FromRGBA(188, 0, 0, 255); break;
+				case "IND" : colorTwo = Color.FromRGBA(0, 185, 63, 255); break;
+				case "CIV" : colorTwo = Color.FromRGBA(137, 0, 188, 255); break;
 			}
+			
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(colorTwo);
 		}
+
 		
-		if (RatioBoxOneFilled && !RatioBoxTwoFilled)
+		if (gamemode.m_iFactionTwoRatio < 0 || gamemode.m_sFactionTwoKey.IsEmpty() || gamemode.m_iFactionOneRatio < 0 || gamemode.m_sFactionOneKey.IsEmpty())
 		{
 			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetVisible(false);
 			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetVisible(false);
@@ -184,13 +268,6 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			TextWidget.Cast(m_wRoot.FindAnyWidget("Final")).SetVisible(false);
 		}
 		
-		m_wRoot.FindAnyWidget("BluforBGSelect").SetColor(Color.FromRGBA(34, 196, 244, 33));
-		m_wRoot.FindAnyWidget("OpforBGSelect").SetColor(Color.FromRGBA(238, 49, 47, 33));
-		m_wRoot.FindAnyWidget("IndforBGSelect").SetColor(Color.FromRGBA(0, 177, 79, 33));
-		m_wRoot.FindAnyWidget("CivBGSelect").SetColor(Color.FromRGBA(168, 110, 207, 33));
-		
-		m_cSlotListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CLB_ListboxComponent));
-		InitSlots();
 		if(m_iBluforSlots > 0)
 		{
 			m_fSelectedFaction = GetGame().GetFactionManager().GetFactionByKey("BLUFOR");

@@ -104,20 +104,20 @@ class CLB_Gamemode : SCR_BaseGameMode
 	RplId m_rSpectatorGroup;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("1", "auto", "BLUFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
-	int m_iBluforRatio;
+	[Attribute("1", "auto", "", category: "CRF Gamemode Slotting")]
+	int m_iFactionOneRatio;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("1", "auto", "OPFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
-	int m_iOpforRatio;
+	[Attribute("", uiwidget: UIWidgets.ComboBox, enums: {ParamEnum("", ""), ParamEnum("BLU", "BLU"), ParamEnum("OPF", "OPF"), ParamEnum("IND", "IND"), ParamEnum("CIV", "CIV")}, category: "CRF Gamemode Slotting")]
+	string m_sFactionOneKey;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("0", "auto", "INDFOR Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
-	int m_iIndforRatio;
+	[Attribute("1", "auto", "", category: "CRF Gamemode Slotting")]
+	int m_iFactionTwoRatio;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("0", "auto", "CIVILLIAN Ratio, setting to 0 will disable the ratio calculation for this faction !!ONLY 2 FACTION RATIONS SHOULD BE ABOVE 0!!", category: "CRF Gamemode Slotting")]
-	int m_iCivillianRatio;
+	[Attribute("", uiwidget: UIWidgets.ComboBox, enums: {ParamEnum("", ""), ParamEnum("BLU", "BLU"), ParamEnum("OPF", "OPF"), ParamEnum("IND", "IND"), ParamEnum("CIV", "CIV")}, category: "CRF Gamemode Slotting")]
+	string m_sFactionTwoKey;
 	
 	//Descriptions on the left in briefing
 	[Attribute("", category: "CLB Gamemode Descriptors")]
