@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{15945888268FBB62}Prefabs/Characters/Factions/BLUFOR/US_Army/BLUFOR_TL.et"
+ Name "{59886ECB7BBAF5BC}Prefabs/Characters/Factions/BLUFOR/US_Army/CLB_InitialEntity.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

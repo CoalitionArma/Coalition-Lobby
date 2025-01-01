@@ -23,10 +23,10 @@ modded class SCR_PlayerController
 		if (!inputManager)
 			return;
 		
-		GetGame().GetCallqueue().CallLater(CRF_Gamemode.GetInstance().OpenMenu, 100, false);
+		GetGame().GetCallqueue().CallLater(CLB_Gamemode.GetInstance().OpenMenu, 100, false);
 //		EnterGame(SCR_PlayerController.GetLocalPlayerId());
-		GetGame().GetInputManager().AddActionListener("CRF_OpenLobby", EActionTrigger.PRESSED, OpenMenu);
-		GetGame().GetInputManager().AddActionListener("CRF_EnterListening", EActionTrigger.PRESSED, Action_SetListening);
+		GetGame().GetInputManager().AddActionListener("CLB_OpenLobby", EActionTrigger.PRESSED, OpenMenu);
+		GetGame().GetInputManager().AddActionListener("CLB_EnterListening", EActionTrigger.PRESSED, Action_SetListening);
 	}
 	
 	void Action_SetListening()
@@ -60,7 +60,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_Respawn(int playerID, string prefab, vector position, int groupID)
 	{
-		CRF_Gamemode.GetInstance().RespawnPlayer(playerID, prefab, position, groupID);
+		CLB_Gamemode.GetInstance().RespawnPlayer(playerID, prefab, position, groupID);
 	}
 	
 	void UpdateCameraPos(vector cameraPos[4])
@@ -92,7 +92,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_UpdateCameraPos(RplId entityID, vector cameraPos[4])
 	{
-		//CRF_Gamemode.GetInstance().SetCameraPos(entityID, cameraPos);
+		//CLB_Gamemode.GetInstance().SetCameraPos(entityID, cameraPos);
 	}
 	
 	//Communicates to server that the player is talking
@@ -106,9 +106,9 @@ modded class SCR_PlayerController
 	void RpcDo_SetTalking(bool input, int playerID)
 	{
 		if(input)
-			CRF_Gamemode.GetInstance().SetPlayerTalking(playerID);
+			CLB_Gamemode.GetInstance().SetPlayerTalking(playerID);
 		else
-			CRF_Gamemode.GetInstance().RemovePlayerTalking(playerID);
+			CLB_Gamemode.GetInstance().RemovePlayerTalking(playerID);
 	}
 	
 	//Communicates to server to advance state
@@ -121,7 +121,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_AdvanceGamemodeState()
 	{
-		CRF_Gamemode.GetInstance().AdvanceGamemodeState();
+		CLB_Gamemode.GetInstance().AdvanceGamemodeState();
 	}
 	
 	//Communicates to server to set slot
@@ -134,7 +134,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_SetSlot(int index, int playerID)
 	{
-		CRF_Gamemode.GetInstance().SetSlot(index, playerID);
+		CLB_Gamemode.GetInstance().SetSlot(index, playerID);
 	}
 	
 	//Communicates to server to set group locked
@@ -147,7 +147,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_SetGroupLocked(int index, bool input)
 	{
-		CRF_Gamemode.GetInstance().SetGroupLockedStatus(index, input);
+		CLB_Gamemode.GetInstance().SetGroupLockedStatus(index, input);
 	}
 	
 	//Called to enter the game, decides if you will go into spectator on the client
@@ -156,14 +156,14 @@ modded class SCR_PlayerController
 		//Call to server to enter slot and or get put into a initial entity to spectate
 		if(m_eCamera)
 			delete m_eCamera;
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_PreviewMenu);
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SlottingMenu);
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SpectatorMenu);
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_AARMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_PreviewMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_SlottingMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_SpectatorMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_AARMenu);
 		Rpc(RpcDo_EnterGame, playerID);
-		if(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID) == -1)
+		if(CLB_Gamemode.GetInstance().m_aSlots.Find(playerID) == -1)
 			EnterSpectator();
-		else if(CRF_Gamemode.GetInstance().m_aEntityDeathStatus.Get(CRF_Gamemode.GetInstance().m_aSlots.Find(playerID)))
+		else if(CLB_Gamemode.GetInstance().m_aEntityDeathStatus.Get(CLB_Gamemode.GetInstance().m_aSlots.Find(playerID)))
 			EnterSpectator();
 		if(m_iFPS)
 		{
@@ -181,7 +181,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_EnterGame(int playerID)
 	{
-		CRF_Gamemode.GetInstance().EnterGame(playerID);
+		CLB_Gamemode.GetInstance().EnterGame(playerID);
 	}
 	
 	//Whenever player is killed store their location and enter spectator
@@ -196,13 +196,13 @@ modded class SCR_PlayerController
 	{
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
-		if(CRF_Gamemode.GetInstance().m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId()) != -1)
+		if(CLB_Gamemode.GetInstance().m_aSlots.Find(SCR_PlayerController.GetLocalPlayerId()) != -1)
 			params.Transform = m_vLastEntityTransform;
 		else
-			params.Transform = CRF_Gamemode.GetInstance().m_vGenericSpawn;
+			params.Transform = CLB_Gamemode.GetInstance().m_vGenericSpawn;
 		
 		m_eCamera = GetGame().SpawnEntityPrefab(Resource.Load("{E1FF38EC8894C5F3}Prefabs/Editor/Camera/ManualCameraSpectate.et"), GetGame().GetWorld(), params);
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SpectatorMenu);
+		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SpectatorMenu);
 		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(m_eCamera));
 		m_bIsListening = false;
 	}
@@ -215,13 +215,13 @@ modded class SCR_PlayerController
 		
 		MenuBase topMenu = GetGame().GetMenuManager().GetTopMenu();
 		if(topMenu)
-			if(topMenu.IsInherited(CRF_PreviewMenuUI) || topMenu.IsInherited(CRF_SlottingMenuUI))
+			if(topMenu.IsInherited(CLB_PreviewMenuUI) || topMenu.IsInherited(CLB_SlottingMenuUI))
 				return;
-			else if(topMenu.IsInherited(CRF_SpectatorMenuUI))
+			else if(topMenu.IsInherited(CLB_SpectatorMenuUI))
 				GetGame().GetMenuManager().CloseMenu(topMenu);
 		
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);
-		if(CRF_Gamemode.GetInstance().m_GamemodState != CRF_GamemodeState.GAME)
+		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SlottingMenu);
+		if(CLB_Gamemode.GetInstance().m_GamemodeState != CLB_GamemodeState.GAME)
 		{
 			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
 			if(m_iFPS)
@@ -244,6 +244,6 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_AdvanceSlottingPhase()
 	{
-		CRF_Gamemode.GetInstance().AdvanceSlottingState();
+		CLB_Gamemode.GetInstance().AdvanceSlottingState();
 	}
 }

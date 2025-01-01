@@ -1,13 +1,13 @@
 modded enum ChimeraMenuPreset : ScriptMenuPresetEnum
 {
-	CRF_SpectatorMenu
+	CLB_SpectatorMenu
 }
 
-class CRF_SpectatorMenuUI: ChimeraMenuBase
+class CLB_SpectatorMenuUI: ChimeraMenuBase
 {
 	protected ref array<IEntity> m_aEntityIcons = {};
-	protected ref array<ref CRF_SpectatorLabelIconCharacter> m_aSpectatorIcons = {};
-	protected CRF_Gamemode m_Gamemode;
+	protected ref array<ref CLB_SpectatorLabelIconCharacter> m_aSpectatorIcons = {};
+	protected CLB_Gamemode m_Gamemode;
 	protected SCR_ChatPanel m_ChatPanel;
 	
 	override void OnMenuOpen()
@@ -15,7 +15,7 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 		Widget wChatPanel = GetRootWidget().FindAnyWidget("ChatPanel");
 		if (wChatPanel)
 			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
-		m_Gamemode = CRF_Gamemode.GetInstance();
+		m_Gamemode = CLB_Gamemode.GetInstance();
 		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 		GetGame().GetInputManager().AddActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
 		GetGame().GetInputManager().AddActionListener("VONDirect", EActionTrigger.DOWN, Action_VONon);
@@ -34,7 +34,7 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 				continue;
 			
 			Widget spectatorIconWidget = GetGame().GetWorkspace().CreateWidgets("{68625BAD23CEE68F}UI/Spectator/SpectatorLabelIconCharacter.layout", FrameWidget.Cast(GetRootWidget().FindAnyWidget("IconsFrame")));
-			CRF_SpectatorLabelIconCharacter spectatorIcon = CRF_SpectatorLabelIconCharacter.Cast(spectatorIconWidget.FindHandler(CRF_SpectatorLabelIconCharacter));
+			CLB_SpectatorLabelIconCharacter spectatorIcon = CLB_SpectatorLabelIconCharacter.Cast(spectatorIconWidget.FindHandler(CLB_SpectatorLabelIconCharacter));
 			spectatorIcon.SetEntity(entity, "Spine3");
 			m_aEntityIcons.Insert(entity);
 			m_aSpectatorIcons.Insert(spectatorIcon);
@@ -96,7 +96,7 @@ class CRF_SpectatorMenuUI: ChimeraMenuBase
 	
 	void UpdateIcons()
 	{
-		foreach(CRF_SpectatorLabelIconCharacter spectatorIcon: m_aSpectatorIcons)
+		foreach(CLB_SpectatorLabelIconCharacter spectatorIcon: m_aSpectatorIcons)
 		{
 			spectatorIcon.Update();
 		}

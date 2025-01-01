@@ -1,9 +1,9 @@
 modded enum ChimeraMenuPreset : ScriptMenuPresetEnum
 {
-	CRF_PreviewMenu
+	CLB_PreviewMenu
 }
 
-class CRF_PreviewMenuUI: ChimeraMenuBase
+class CLB_PreviewMenuUI: ChimeraMenuBase
 {
 	protected SCR_MapEntity m_MapEntity;
 	protected Widget m_wRoot;
@@ -13,9 +13,9 @@ class CRF_PreviewMenuUI: ChimeraMenuBase
 	protected ImageWidget m_wAAR;
 	protected SCR_ListBoxComponent m_cPlayerListBoxComponent;
 	protected SCR_ListBoxComponent m_cMissionDescriptionListBoxComponent;
-	protected CRF_Gamemode m_Gamemode;
+	protected CLB_Gamemode m_Gamemode;
 	protected ButtonWidget m_wBackButton;
-	protected ref array<ref CRF_MissionDescriptor> m_aActiveDescriptors = {};
+	protected ref array<ref CLB_MissionDescriptor> m_aActiveDescriptors = {};
 	protected SCR_ChatPanel m_ChatPanel;
 	
 	override void OnMenuOpen()
@@ -41,7 +41,7 @@ class CRF_PreviewMenuUI: ChimeraMenuBase
 		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 		
 		m_wRoot = GetRootWidget();
-		m_Gamemode = CRF_Gamemode.Cast(GetGame().GetGameMode());
+		m_Gamemode = CLB_Gamemode.Cast(GetGame().GetGameMode());
 		
 		TextWidget missionText = TextWidget.Cast(m_wRoot.FindAnyWidget("MissionText"));
 		if(GetGame().GetMissionName())
@@ -62,7 +62,7 @@ class CRF_PreviewMenuUI: ChimeraMenuBase
 		m_wGame = ImageWidget.Cast(m_wRoot.FindAnyWidget("GameBorder"));
 		m_wAAR = ImageWidget.Cast(m_wRoot.FindAnyWidget("AARBorder"));
 		
-		int gameState = CRF_Gamemode.GetInstance().m_GamemodState; 
+		int gameState = CLB_Gamemode.GetInstance().m_GamemodeState; 
 		switch(gameState)
 		{
 			case 0: {m_wPreview.SetColor(Color.FromRGBA(122, 0, 0, 255));	 break;}
@@ -91,10 +91,10 @@ class CRF_PreviewMenuUI: ChimeraMenuBase
 		advanceButton.SetEnabled(false);
 		FrameWidget.Cast(m_wRoot.FindAnyWidget("AdvanceFrame")).SetOpacity(0);
 		
-		if(m_Gamemode.m_GamemodState == CRF_GamemodeState.SLOTTING)
+		if(m_Gamemode.m_GamemodeState == CLB_GamemodeState.SLOTTING)
 			slottingButton.SetEnabled(true);
 		
-		if(m_Gamemode.m_GamemodState == CRF_GamemodeState.GAME)
+		if(m_Gamemode.m_GamemodeState == CLB_GamemodeState.GAME)
 		{
 			slottingButton.SetEnabled(true);
 			gameButton.SetEnabled(true);
@@ -107,14 +107,14 @@ class CRF_PreviewMenuUI: ChimeraMenuBase
 	
 	void EnterGame()
 	{
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_PreviewMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_PreviewMenu);
 		SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(GetGame().GetPlayerController().GetPlayerId());
 	}
 	
 	void OpenSlottingMenu()
 	{
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_PreviewMenu);
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_PreviewMenu);
+		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SlottingMenu);
 	}
 	
 	void AdvanceMenu()
@@ -197,7 +197,7 @@ class CRF_PreviewMenuUI: ChimeraMenuBase
 		missionDescriptionText.SetText("");
 		m_cMissionDescriptionListBoxComponent.Clear();
 		m_aActiveDescriptors.Clear();
-		foreach(ref CRF_MissionDescriptor description : m_Gamemode.m_aMissionDescriptors)
+		foreach(ref CLB_MissionDescriptor description : m_Gamemode.m_aMissionDescriptors)
 		{
 			if(description.m_bShowForAnyFaction)
 			{

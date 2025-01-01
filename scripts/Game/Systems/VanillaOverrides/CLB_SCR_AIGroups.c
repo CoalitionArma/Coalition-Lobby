@@ -13,7 +13,7 @@ modded class SCR_AIGroup
 	//Saves the group on the server
 	void SaveAIGRoup()
 	{
-		CRF_Gamemode.GetInstance().AddGroup(this);
+		CLB_Gamemode.GetInstance().AddGroup(this);
 	}
 	
 	override void OnEmpty()

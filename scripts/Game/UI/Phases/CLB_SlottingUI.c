@@ -1,9 +1,9 @@
 modded enum ChimeraMenuPreset : ScriptMenuPresetEnum
 {
-	CRF_SlottingMenu
+	CLB_SlottingMenu
 }
 
-class CRF_SlottingMenuUI: ChimeraMenuBase
+class CLB_SlottingMenuUI: ChimeraMenuBase
 {
 	protected Widget m_wRoot;
 	protected ImageWidget m_wPreview;
@@ -12,9 +12,9 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	protected ImageWidget m_wAAR;
 	protected SCR_ListBoxComponent m_cPlayerListBoxComponent;
 	protected SCR_ListBoxComponent m_cUnslotPlayerListBoxComponent;
-	protected CRF_ListboxComponent m_cSlotListBoxComponent;
-	protected CRF_ListboxComponent m_cOrbatListBoxComponent;
-	protected CRF_Gamemode m_Gamemode;
+	protected CLB_ListboxComponent m_cSlotListBoxComponent;
+	protected CLB_ListboxComponent m_cOrbatListBoxComponent;
+	protected CLB_Gamemode m_Gamemode;
 	protected SCR_ChatPanel m_ChatPanel;
 	protected SCR_ButtonTextComponent m_wAdvanceButton;
 	protected SCR_ButtonTextComponent m_wPreviewButton;
@@ -43,7 +43,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
 		
 		m_wRoot = GetRootWidget();
-		m_Gamemode = CRF_Gamemode.Cast(GetGame().GetGameMode());
+		m_Gamemode = CLB_Gamemode.Cast(GetGame().GetGameMode());
 		
 		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 		
@@ -68,7 +68,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		m_wGame = ImageWidget.Cast(m_wRoot.FindAnyWidget("GameBorder"));
 		m_wAAR = ImageWidget.Cast(m_wRoot.FindAnyWidget("AARBorder"));
 		
-		int gameState = CRF_Gamemode.Cast(GetGame().GetGameMode()).m_GamemodState; 
+		int gameState = CLB_Gamemode.Cast(GetGame().GetGameMode()).m_GamemodeState; 
 		switch(gameState)
 		{
 			case 0: {m_wPreview.SetColor(Color.FromRGBA(122, 0, 0, 255));	 break;}
@@ -89,7 +89,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		m_wRoot.FindAnyWidget("SlottingPhases").SetOpacity(0);
 		FrameWidget.Cast(m_wRoot.FindAnyWidget("AdvanceFrame")).SetOpacity(0);
 		
-		if(m_Gamemode.m_GamemodState == CRF_GamemodeState.GAME)
+		if(m_Gamemode.m_GamemodeState == CLB_GamemodeState.GAME)
 			gameButton.SetEnabled(true);
 		
 		SCR_ButtonTextComponent.Cast(gameButton.FindHandler(SCR_ButtonTextComponent)).m_OnClicked.Insert(EnterGame);
@@ -98,8 +98,8 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		SCR_ButtonTextComponent.Cast(advanceButton.FindHandler(SCR_ButtonTextComponent)).m_OnClicked.Insert(AdvanceMenu);
 		
 		m_cPlayerListBoxComponent = SCR_ListBoxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("PlayerList")).FindHandler(SCR_ListBoxComponent));
-		m_cOrbatListBoxComponent = CRF_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("OrbatList")).FindHandler(CRF_ListboxComponent));
-		m_cUnslotPlayerListBoxComponent = CRF_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("UnslotPlayerList")).FindHandler(CRF_ListboxComponent));
+		m_cOrbatListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("OrbatList")).FindHandler(CLB_ListboxComponent));
+		m_cUnslotPlayerListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("UnslotPlayerList")).FindHandler(CLB_ListboxComponent));
 		
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag());
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).SetImage(1);
@@ -110,15 +110,86 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag());
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).SetImage(1);
 		
-		EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(CRF_Gamemode.GetInstance().m_iAttackerRatio.ToString());
-		EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(CRF_Gamemode.GetInstance().m_iDefenderRatio.ToString());
+		bool RatioBoxOneFilled = false;
+		bool RatioBoxTwoFilled = false;	
+		CLB_Gamemode gamemode = CLB_Gamemode.GetInstance();
+		
+		if(gamemode.m_iBluforRatio > 0)
+		{
+			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iBluforRatio.ToString());
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(168, 110, 207, 33));
+			TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("BLU");
+			RatioBoxOneFilled = true;
+		}
+		
+		if(gamemode.m_iOpforRatio > 0)
+		{
+			if(!RatioBoxOneFilled)
+			{
+				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iOpforRatio.ToString());
+				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(238, 49, 47, 33));
+				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("OPF");
+				RatioBoxOneFilled = true;
+			} else {
+				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iOpforRatio.ToString());
+				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(Color.FromRGBA(238, 49, 47, 33));
+				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText("OPF");
+				RatioBoxTwoFilled = true;
+			}
+		}
+		
+		if(gamemode.m_iIndforRatio > 0 && !RatioBoxTwoFilled)
+		{
+			if(!RatioBoxOneFilled)
+			{
+				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iIndforRatio.ToString());
+				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(0, 177, 79, 33));
+				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("IND");
+				RatioBoxOneFilled = true;
+			} else {
+				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iIndforRatio.ToString());
+				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(Color.FromRGBA(0, 177, 79, 33));
+				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText("IND");
+				RatioBoxTwoFilled = true;
+			}
+		}
+		
+		if(gamemode.m_iCivillianRatio > 0 && !RatioBoxTwoFilled)
+		{
+			if(!RatioBoxOneFilled)
+			{
+				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetText(gamemode.m_iCivillianRatio.ToString());
+				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetColor(Color.FromRGBA(168, 110, 207, 33));
+				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetText("CIV");
+				RatioBoxOneFilled = true;
+			} else {
+				EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetText(gamemode.m_iCivillianRatio.ToString());
+				ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetColor(Color.FromRGBA(168, 110, 207, 33));
+				TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetText("CIV");
+				RatioBoxTwoFilled = true;
+			}
+		}
+		
+		if (RatioBoxOneFilled && !RatioBoxTwoFilled)
+		{
+			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1")).SetVisible(false);
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Image")).SetVisible(false);
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1IntImage")).SetVisible(false);
+			TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox1Text")).SetVisible(false);
+			EditBoxWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2")).SetVisible(false);
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Image")).SetVisible(false);
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2IntImage")).SetVisible(false);
+			TextWidget.Cast(m_wRoot.FindAnyWidget("RatioBox2Text")).SetVisible(false);
+			ImageWidget.Cast(m_wRoot.FindAnyWidget("FinalImage")).SetVisible(false);
+			TextWidget.Cast(m_wRoot.FindAnyWidget("Final")).SetVisible(false);
+		}
 		
 		m_wRoot.FindAnyWidget("BluforBGSelect").SetColor(Color.FromRGBA(34, 196, 244, 33));
 		m_wRoot.FindAnyWidget("OpforBGSelect").SetColor(Color.FromRGBA(238, 49, 47, 33));
 		m_wRoot.FindAnyWidget("IndforBGSelect").SetColor(Color.FromRGBA(0, 177, 79, 33));
 		m_wRoot.FindAnyWidget("CivBGSelect").SetColor(Color.FromRGBA(168, 110, 207, 33));
 		
-		m_cSlotListBoxComponent = CRF_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CRF_ListboxComponent));
+		m_cSlotListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CLB_ListboxComponent));
 		InitSlots();
 		if(m_iBluforSlots > 0)
 		{
@@ -166,7 +237,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	
 	void EnterGame()
 	{
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SlottingMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_SlottingMenu);
 		SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(GetGame().GetPlayerController().GetPlayerId());
 	}
 	
@@ -276,17 +347,17 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 				continue;
 			int groupIndex = m_cSlotListBoxComponent.AddItemGroup(null, group);
 			int orbatGroupIndex = m_cOrbatListBoxComponent.AddItemGroup(null, group, "{55D48B298362DA71}UI/Listbox/GroupListBoxOrbatElementNonAdmin.layout");
-			m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetGroupWidget().SetColor(group.GetFaction().GetFactionColor());
-			m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetGroupUnderline().SetColor(group.GetFaction().GetFactionColor());
-			m_cOrbatListBoxComponent.GetCRFElementComponent(orbatGroupIndex).GetGroupUnderline().SetColor(group.GetFaction().GetFactionColor());
+			m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetGroupWidget().SetColor(group.GetFaction().GetFactionColor());
+			m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetGroupUnderline().SetColor(group.GetFaction().GetFactionColor());
+			m_cOrbatListBoxComponent.GetCLBElementComponent(orbatGroupIndex).GetGroupUnderline().SetColor(group.GetFaction().GetFactionColor());
 			
 			if(SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId()))
 			{	
-				m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetLockButton().m_OnClicked.Insert(LockGroupSlotsDelayed);
+				m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetLockButton().m_OnClicked.Insert(LockGroupSlotsDelayed);
 				if(m_Gamemode.m_aGroupLockedStatus.Get(i))
-					m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).SetLockImage("{564794579B2DB679}UI/Textures/Editor/Attributes/Attribute_Locked.edds", "lockimage");
+					m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).SetLockImage("{564794579B2DB679}UI/Textures/Editor/Attributes/Attribute_Locked.edds", "lockimage");
 			}
-			m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetGroupIcon().Update(SCR_GroupIdentityComponent.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aGroupRplIDs.Get(i))).GetEntity().FindComponent(SCR_GroupIdentityComponent)).GetMilitarySymbol());
+			m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetGroupIcon().Update(SCR_GroupIdentityComponent.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aGroupRplIDs.Get(i))).GetEntity().FindComponent(SCR_GroupIdentityComponent)).GetMilitarySymbol());
 			for(int g = 0; g < m_Gamemode.m_aEntitySlots.Count(); g++)
 			{
 				RplId currentGroupId = m_Gamemode.m_aPlayerGroupIDs.Get(g);
@@ -314,41 +385,41 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 				if(m_Gamemode.m_aSlots.Get(g) > 0)
 				{
 					if(GetGame().GetPlayerManager().IsPlayerConnected(m_Gamemode.m_aSlots.Get(g)))
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
 					else
 					{
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).GetDisconnectWidget().SetVisible(true);
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).GetDisconnectWidget().SetVisible(true);
 					}
 				}
-				m_cSlotListBoxComponent.GetCRFElementComponent(index).GetSlotButton().m_OnClicked.Insert(SelectSlotDelay);				
+				m_cSlotListBoxComponent.GetCLBElementComponent(index).GetSlotButton().m_OnClicked.Insert(SelectSlotDelay);				
 				
 				if(m_Gamemode.m_aEntitySlotTypes.Get(g) == 0 && m_Gamemode.m_aSlots.Get(g) > 0)
 				{
 					int orbatIndex = m_cOrbatListBoxComponent.AddItemSlot(null , m_Gamemode.m_aEntitySlots.Get(g), "{BD36FFAE9AB69175}UI/Listbox/PlayerSlotListboxOrbatElementNonAdmin.layout");
 					if(GetGame().GetPlayerManager().IsPlayerConnected(m_Gamemode.m_aSlots.Get(g)))
-						m_cOrbatListBoxComponent.GetCRFElementComponent(orbatIndex).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
+						m_cOrbatListBoxComponent.GetCLBElementComponent(orbatIndex).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
 					else
 					{
-						m_cOrbatListBoxComponent.GetCRFElementComponent(orbatIndex).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
-						m_cOrbatListBoxComponent.GetCRFElementComponent(orbatIndex).GetDisconnectWidget().SetVisible(true);
+						m_cOrbatListBoxComponent.GetCLBElementComponent(orbatIndex).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
+						m_cOrbatListBoxComponent.GetCLBElementComponent(orbatIndex).GetDisconnectWidget().SetVisible(true);
 					}
-					m_cOrbatListBoxComponent.GetCRFElementComponent(orbatIndex).GetSlotButton().SetVisible(false);
+					m_cOrbatListBoxComponent.GetCLBElementComponent(orbatIndex).GetSlotButton().SetVisible(false);
 					
 					if(leadersInGroup == 0)
 					{
-						m_cOrbatListBoxComponent.GetCRFElementComponent(orbatGroupIndex).SetRoleImage(m_Gamemode.m_aSlotIcons.Get(g), "groupRoleName");
-						m_cOrbatListBoxComponent.GetCRFElementComponent(orbatGroupIndex).SetGroupIconColor(SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aPlayerGroupIDs.Get(g))).GetEntity()).GetFaction().GetFactionColor());
+						m_cOrbatListBoxComponent.GetCLBElementComponent(orbatGroupIndex).SetRoleImage(m_Gamemode.m_aSlotIcons.Get(g), "groupRoleName");
+						m_cOrbatListBoxComponent.GetCLBElementComponent(orbatGroupIndex).SetGroupIconColor(SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aPlayerGroupIDs.Get(g))).GetEntity()).GetFaction().GetFactionColor());
 					}
 					leadersInGroup++;
 				}
 			
 				if(SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId()))
 				{	
-					m_cSlotListBoxComponent.GetCRFElementComponent(index).GetLockButton().m_OnClicked.Insert(LockSlotDelay);
-					m_cSlotListBoxComponent.GetCRFElementComponent(index).GetKickButton().m_OnClicked.Insert(KickSlotDelay);
+					m_cSlotListBoxComponent.GetCLBElementComponent(index).GetLockButton().m_OnClicked.Insert(LockSlotDelay);
+					m_cSlotListBoxComponent.GetCLBElementComponent(index).GetKickButton().m_OnClicked.Insert(KickSlotDelay);
 					if(m_Gamemode.m_aSlots.Get(g) == -1)
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetLockImage("{564794579B2DB679}UI/Textures/Editor/Attributes/Attribute_Locked.edds", "lockimage");
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetLockImage("{564794579B2DB679}UI/Textures/Editor/Attributes/Attribute_Locked.edds", "lockimage");
 				}
 			}
 			if(leadersInGroup == 0)	
@@ -388,7 +459,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	
 	void KickSlot()
 	{
-		SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID), 0);
+		SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID), 0);
 	}
 	
 	void LockGroupSlotsDelayed()
@@ -398,28 +469,28 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	
 	void LockGroupSlots()
 	{
-		int groupRplID = RplComponent.Cast(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id();
+		int groupRplID = RplComponent.Cast(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id();
 		if(!m_Gamemode.m_aGroupLockedStatus.Get(m_Gamemode.m_aGroupRplIDs.Find(groupRplID)))
 		{
 			for(int i = 0; i < m_Gamemode.m_aEntitySlots.Count(); i++)
 			{
-				if(m_Gamemode.m_aPlayerGroupIDs.Get(i) == RplComponent.Cast(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id())
+				if(m_Gamemode.m_aPlayerGroupIDs.Get(i) == RplComponent.Cast(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id())
 				{
 					SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(i, -1);	
 				}
 			}
-			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetGroupLocked(m_Gamemode.m_aGroupRplIDs.Find(RplComponent.Cast(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id()), true);
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetGroupLocked(m_Gamemode.m_aGroupRplIDs.Find(RplComponent.Cast(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id()), true);
 		}
 		else
 		{
 			for(int i = 0; i < m_Gamemode.m_aEntitySlots.Count(); i++)
 			{
-				if(m_Gamemode.m_aPlayerGroupIDs.Get(i) == RplComponent.Cast(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id())
+				if(m_Gamemode.m_aPlayerGroupIDs.Get(i) == RplComponent.Cast(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id())
 				{
 					SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(i, 0);	
 				}
 			}
-			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetGroupLocked(m_Gamemode.m_aGroupRplIDs.Find(RplComponent.Cast(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id()), false);
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetGroupLocked(m_Gamemode.m_aGroupRplIDs.Find(RplComponent.Cast(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).group.FindComponent(RplComponent)).Id()), false);
 		}
 	}
 	
@@ -431,16 +502,16 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	
 	void LockSlot()
 	{
-		if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID)) == -1)
-			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID), 0);
+		if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID)) == -1)
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID), 0);
 		else
-			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCRFElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID), -1);
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aEntitySlots.Find(m_cSlotListBoxComponent.GetCLBElementComponent(m_cSlotListBoxComponent.GetSelectedItem()).entityID), -1);
 	}
 	
 	void OpenSlottingMenu()
 	{
-		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CRF_SlottingMenu);
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_PreviewMenu);
+		GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_SlottingMenu);
+		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_PreviewMenu);
 	}
 	
 	void AdvanceMenu()
@@ -626,7 +697,7 @@ class CRF_SlottingMenuUI: ChimeraMenuBase
 	
 	void SelectSlot()
 	{
-		CRF_ListBoxElementComponent comp = CRF_ListBoxElementComponent.Cast(m_cSlotListBoxComponent.GetElementComponent(m_cSlotListBoxComponent.GetSelectedItem()));
+		CLB_ListBoxElementComponent comp = CLB_ListBoxElementComponent.Cast(m_cSlotListBoxComponent.GetElementComponent(m_cSlotListBoxComponent.GetSelectedItem()));
 		int index = m_Gamemode.m_aEntitySlots.Find(comp.entityID);
 		if(index == -1)
 			return;

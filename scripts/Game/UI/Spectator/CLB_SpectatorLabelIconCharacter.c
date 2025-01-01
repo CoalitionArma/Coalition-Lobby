@@ -1,11 +1,11 @@
-class CRF_SpectatorLabelIconCharacter : CRF_SpectatorLabelIcon
+class CLB_SpectatorLabelIconCharacter : CLB_SpectatorLabelIcon
 {
 	protected bool m_bDead = false;
 	protected bool m_bWounded = false;
 	protected SCR_ChimeraCharacter m_eChimeraCharacter;
 	protected SCR_CharacterControllerComponent m_ControllerComponent;
 	protected SCR_EditableCharacterComponent m_EditableCharacterComponent;
-	protected CRF_Gamemode m_Gamemode;
+	protected CLB_Gamemode m_Gamemode;
 	
 	protected ImageWidget m_wSpectatorLabelIconBackground;
 	protected ImageWidget m_wSpectatorLabelIconCircle;
@@ -27,7 +27,7 @@ class CRF_SpectatorLabelIconCharacter : CRF_SpectatorLabelIcon
 		m_wSpectatorLabelIconWounded = ImageWidget.Cast(w.FindAnyWidget("SpectatorLabelIconWounded"));
 		m_wSpectatorLabelIconCircleSmall = ImageWidget.Cast(w.FindAnyWidget("SpectatorLabelIconCircleSmall"));
 		m_wOverlayCircle = OverlayWidget.Cast(w.FindAnyWidget("OverlayCircle"));
-		m_Gamemode = CRF_Gamemode.GetInstance();
+		m_Gamemode = CLB_Gamemode.GetInstance();
 		
 		super.HandlerAttached(w);
 	}

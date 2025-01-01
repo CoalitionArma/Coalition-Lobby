@@ -1,8 +1,8 @@
-class CRF_PlayableCharacterClass: ScriptComponentClass
+class CLB_PlayableCharacterClass: ScriptComponentClass
 {
 }
 
-class CRF_PlayableCharacter : ScriptComponent
+class CLB_PlayableCharacter : ScriptComponent
 {
 	[Attribute()]
 	protected string m_sName;
@@ -49,7 +49,7 @@ class CRF_PlayableCharacter : ScriptComponent
 		
 		SetEventMask(owner, EntityEvent.FIXEDFRAME);
 		
-		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 		{
 			m_bIsSpectator = true;
 			
@@ -103,11 +103,11 @@ class CRF_PlayableCharacter : ScriptComponent
 		{
 			SCR_AIGroup playableGroup = SCR_AIGroup.Cast(ChimeraAIControlComponent.Cast(owner.FindComponent(ChimeraAIControlComponent)).GetControlAIAgent().GetParentGroup());
 			if(playableGroup)
-				CRF_Gamemode.GetInstance().AddPlayableEntity(owner);
+				CLB_Gamemode.GetInstance().AddPlayableEntity(owner);
 		}
 			
 		//Sets location and all the physics BS on all machines
-		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 		{
 			owner.GetPhysics().EnableGravity(false);
 			owner.SetOrigin("0 10000 0");

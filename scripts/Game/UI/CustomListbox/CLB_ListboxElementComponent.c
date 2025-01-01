@@ -1,4 +1,4 @@
-class CRF_ListBoxElementComponent: SCR_ListBoxElementComponent
+class CLB_ListBoxElementComponent: SCR_ListBoxElementComponent
 {
 	SCR_AIGroup group;
 	RplId entityID;
