@@ -501,7 +501,7 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			}
 			if(leadersInGroup == 0)	
 				m_cOrbatListBoxComponent.RemoveItem(orbatGroupIndex);
-			if(playersInGroup == 0 && !SCR_Global.IsAdmin(SCR_PlayerController.GetLocalPlayerId()))
+			if(playersInGroup == 0)
 				m_cSlotListBoxComponent.RemoveItem(groupIndex);
 		}
 		if(m_Gamemode.m_aSlots.Find(m_iSelectedPlayerID) != -1)
