@@ -125,10 +125,22 @@ class CLB_Gamemode : SCR_BaseGameMode
 	
 	IEntity m_eGamemodeEntity;
 	
+	//
+	protected ref array<CLB_GamemodeComponent> m_aAdditionalCLBGamemodeComponents = {};
+	
 	override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
 		m_eGamemodeEntity = owner;
+		
+		array<Managed> additionalComponents = new array<Managed>();
+		int count = owner.FindComponents(CLB_GamemodeComponent, additionalComponents);
+		m_aAdditionalCLBGamemodeComponents.Clear();
+		for (int i = 0; i < count; i++)
+		{
+			CLB_GamemodeComponent comp = CLB_GamemodeComponent.Cast(additionalComponents[i]);
+			m_aAdditionalCLBGamemodeComponents.Insert(comp);
+		}
 	}
 	
 	static CLB_Gamemode GetInstance()
@@ -480,6 +492,12 @@ class CLB_Gamemode : SCR_BaseGameMode
 	{
 		if(!GetGame().GetPlayerController() || RplSession.Mode() == RplMode.Dedicated)
 			return;
+		
+		if(Replication.IsServer())
+		{
+			foreach (CLB_GamemodeComponent component : m_aAdditionalCLBGamemodeComponents)
+				component.OnGamemodeStateChanged();
+		}
 		
 		OpenMenu();
 	}
