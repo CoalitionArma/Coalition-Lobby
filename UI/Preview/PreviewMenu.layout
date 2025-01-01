@@ -58,7 +58,7 @@ FrameWidgetClass {
       OffsetBottom 0
      }
      "Z Order" 2
-     Text "CRF S&D98 Stupid name this is | By Salami"
+     Text "CLB S&D98 Stupid name this is | By Salami"
      "Font Size" 100
      "Vertical Alignment" Center
     }

@@ -1,4 +1,4 @@
-class CRF_SpectatorLabelIcon : SCR_ScriptedWidgetComponent
+class CLB_SpectatorLabelIcon : SCR_ScriptedWidgetComponent
 {	
 	IEntity m_eEntity;
 	

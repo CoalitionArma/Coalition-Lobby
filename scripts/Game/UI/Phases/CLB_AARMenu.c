@@ -1,10 +1,10 @@
 modded enum ChimeraMenuPreset : ScriptMenuPresetEnum
 {
-	CRF_AARMenu
+	CLB_AARMenu
 }
 
 
-class CRF_AARMenuUI: ChimeraMenuBase
+class CLB_AARMenuUI: ChimeraMenuBase
 {
 	protected Widget m_wRoot;
 	protected ImageWidget m_wPreview;
@@ -13,9 +13,9 @@ class CRF_AARMenuUI: ChimeraMenuBase
 	protected ImageWidget m_wAAR;
 	protected SCR_ChatPanel m_ChatPanel;
 	protected SCR_MapEntity m_MapEntity;
-	protected CRF_Gamemode m_Gamemode;
+	protected CLB_Gamemode m_Gamemode;
 	protected SCR_ListBoxComponent m_cPlayerListBoxComponent;
-	protected CRF_ListboxComponent m_cSlotListBoxComponent;
+	protected CLB_ListboxComponent m_cSlotListBoxComponent;
 	protected int m_iBluforSlots = 0;
 	protected int m_iOpforSlots = 0;
 	protected int m_iIndforSlots = 0;
@@ -26,7 +26,7 @@ class CRF_AARMenuUI: ChimeraMenuBase
 	protected int m_iAliveCivSlots = 0;
 	protected Faction m_fSelectedFaction;
 	protected ButtonWidget m_wBackButton;
-	protected ref array<ref CRF_MissionDescriptor> m_aActiveDescriptors = {};
+	protected ref array<ref CLB_MissionDescriptor> m_aActiveDescriptors = {};
 	protected SCR_ListBoxComponent m_cMissionDescriptionListBoxComponent;
 	protected Widget m_wFactions;
 	protected Widget m_wMissionDescription;
@@ -63,7 +63,7 @@ class CRF_AARMenuUI: ChimeraMenuBase
 		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 		
 		m_wRoot = GetRootWidget();
-		m_Gamemode = CRF_Gamemode.Cast(GetGame().GetGameMode());
+		m_Gamemode = CLB_Gamemode.Cast(GetGame().GetGameMode());
 		m_wFactions = m_wRoot.FindAnyWidget("Factions");
 		m_wMissionDescription = m_wRoot.FindAnyWidget("DescriptionList");
 		m_wRoleFrame = m_wRoot.FindAnyWidget("RoleList");
@@ -84,7 +84,7 @@ class CRF_AARMenuUI: ChimeraMenuBase
 		TextWidget.Cast(m_wRoot.FindAnyWidget("WeatherText")).SetText("Weather: " + currentStateName);
 		
 		m_cPlayerListBoxComponent = SCR_ListBoxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("PlayerList")).FindHandler(SCR_ListBoxComponent));
-		m_cSlotListBoxComponent = CRF_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CRF_ListboxComponent));
+		m_cSlotListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CLB_ListboxComponent));
 		
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag());
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).SetImage(1);
@@ -146,7 +146,7 @@ class CRF_AARMenuUI: ChimeraMenuBase
 		missionDescriptionText.SetText("");
 		m_cMissionDescriptionListBoxComponent.Clear();
 		m_aActiveDescriptors.Clear();
-		foreach(ref CRF_MissionDescriptor description : m_Gamemode.m_aMissionDescriptors)
+		foreach(ref CLB_MissionDescriptor description : m_Gamemode.m_aMissionDescriptors)
 		{
 				m_cMissionDescriptionListBoxComponent.AddItem(description.m_sTitle, null, "{A564FC959554A1B9}UI/Listbox/DescriptionListboxElementNoIcon.layout");
 				m_aActiveDescriptors.Insert(description);
@@ -256,9 +256,9 @@ class CRF_AARMenuUI: ChimeraMenuBase
 			if(m_Gamemode.m_aGroupLockedStatus.Get(i) && (!SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId())))
 				continue;
 			int groupIndex = m_cSlotListBoxComponent.AddItemGroup(null, group);
-			m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetGroupWidget().SetColor(group.GetFaction().GetFactionColor());
-			m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetGroupUnderline().SetColor(group.GetFaction().GetFactionColor());
-			m_cSlotListBoxComponent.GetCRFElementComponent(groupIndex).GetGroupIcon().Update(SCR_GroupIdentityComponent.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aGroupRplIDs.Get(i))).GetEntity().FindComponent(SCR_GroupIdentityComponent)).GetMilitarySymbol());
+			m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetGroupWidget().SetColor(group.GetFaction().GetFactionColor());
+			m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetGroupUnderline().SetColor(group.GetFaction().GetFactionColor());
+			m_cSlotListBoxComponent.GetCLBElementComponent(groupIndex).GetGroupIcon().Update(SCR_GroupIdentityComponent.Cast(RplComponent.Cast(Replication.FindItem(m_Gamemode.m_aGroupRplIDs.Get(i))).GetEntity().FindComponent(SCR_GroupIdentityComponent)).GetMilitarySymbol());
 			for(int g = 0; g < m_Gamemode.m_aEntitySlots.Count(); g++)
 			{
 				RplId currentGroupId = m_Gamemode.m_aPlayerGroupIDs.Get(g);
@@ -277,28 +277,28 @@ class CRF_AARMenuUI: ChimeraMenuBase
 				if(!m_Gamemode.m_aEntityDeathStatus.Get(g))
 				{
 					if(GetGame().GetPlayerManager().IsPlayerConnected(m_Gamemode.m_aSlots.Get(g)))
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
 					else
 					{
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).GetDisconnectWidget().SetVisible(true);
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).GetDisconnectWidget().SetVisible(true);
 					}
 				}		
 				else
 				{
 					if(GetGame().GetPlayerManager().IsPlayerConnected(m_Gamemode.m_aSlots.Get(g)))
 					{
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).GetDeathWidget().SetVisible(true);
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetPlayerText(GetGame().GetPlayerManager().GetPlayerName(m_Gamemode.m_aSlots.Get(g)));
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).GetDeathWidget().SetVisible(true);
 					}
 					else
 					{
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).GetDisconnectWidget().SetVisible(true);
-						m_cSlotListBoxComponent.GetCRFElementComponent(index).GetDeathWidget().SetVisible(true);
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).SetPlayerText(m_Gamemode.m_aSlotPlayerNames.Get(g));
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).GetDisconnectWidget().SetVisible(true);
+						m_cSlotListBoxComponent.GetCLBElementComponent(index).GetDeathWidget().SetVisible(true);
 					}
 				}
-				m_cSlotListBoxComponent.GetCRFElementComponent(index).GetSlotButton().SetEnabled(false);	
+				m_cSlotListBoxComponent.GetCLBElementComponent(index).GetSlotButton().SetEnabled(false);	
 
 				playersInGroup++;
 			}
@@ -417,7 +417,7 @@ class CRF_AARMenuUI: ChimeraMenuBase
 		{
 			Widget parentWidget = cursorWidget.GetParent();
 			float leftFactionX = FrameSlot.GetPosX(m_wLeftFaction);
-			if(parentWidget == m_wFactions || parentWidget == m_wMissionDescription || parentWidget == m_wRoleFrame || parentWidget == m_wLeftFaction || cursorWidget.FindHandler(CRF_ListBoxElementComponent))
+			if(parentWidget == m_wFactions || parentWidget == m_wMissionDescription || parentWidget == m_wRoleFrame || parentWidget == m_wLeftFaction || cursorWidget.FindHandler(CLB_ListBoxElementComponent))
 			{
 				leftFactionX += tDelta * 2400.0;
 				if (leftFactionX > -14)

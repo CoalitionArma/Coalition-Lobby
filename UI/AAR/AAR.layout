@@ -19,7 +19,7 @@ FrameWidgetClass {
     SCR_ListBoxComponent "{566C9415BAA54E1B}" {
      Enabled 0
     }
-    CRF_ListboxComponent "{62F200F00CBEE8F9}" {
+    CLB_ListboxComponent "{62F200F00CBEE8F9}" {
     }
    }
    {
@@ -138,7 +138,7 @@ FrameWidgetClass {
       OffsetBottom 24.632
      }
      "Z Order" 2
-     Text "CRF S&D98 Stupid name this is | By Salami"
+     Text "CLB S&D98 Stupid name this is | By Salami"
      "Font Size" 100
      "Vertical Alignment" Center
     }
@@ -569,7 +569,7 @@ FrameWidgetClass {
         SCR_ListBoxComponent "{566C9415BAA54E1B}" {
          Enabled 0
         }
-        CRF_ListboxComponent "{62F200F00CBEE8F9}" {
+        CLB_ListboxComponent "{62F200F00CBEE8F9}" {
         }
        }
        {

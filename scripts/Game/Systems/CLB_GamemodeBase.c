@@ -1,8 +1,8 @@
-class CRF_GamemodeClass: SCR_BaseGameModeClass
+class CLB_GamemodeClass: SCR_BaseGameModeClass
 {
 };
 
-enum CRF_GamemodeState
+enum CLB_GamemodeState
 {
 	INITIAL,
 	SLOTTING,
@@ -10,7 +10,7 @@ enum CRF_GamemodeState
 	AAR
 }
 
-enum CRF_SlottingState
+enum CLB_SlottingState
 {
 	LEADERSANDMEDICS,
 	SPECIALTIES,
@@ -18,7 +18,7 @@ enum CRF_SlottingState
 }
 
 [BaseContainerProps()]
-class CRF_MissionDescriptor
+class CLB_MissionDescriptor
 {
 	[Attribute("")]
 	string m_sTitle;
@@ -33,13 +33,13 @@ class CRF_MissionDescriptor
 	bool m_bShowForAnyFaction;
 }
 
-class CRF_Gamemode : SCR_BaseGameMode
+class CLB_Gamemode : SCR_BaseGameMode
 {
 	[RplProp(onRplName: "OnGamemodeStateChanged")]
-	int m_GamemodState = CRF_GamemodeState.INITIAL;
+	int m_GamemodeState = CLB_GamemodeState.INITIAL;
 	
 	[RplProp()]
-	int m_SlottingState = CRF_SlottingState.LEADERSANDMEDICS;
+	int m_SlottingState = CLB_SlottingState.LEADERSANDMEDICS;
 	
 	//Stores when a player is talking
 	[RplProp()]
@@ -104,18 +104,24 @@ class CRF_Gamemode : SCR_BaseGameMode
 	RplId m_rSpectatorGroup;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("3", category: "CRF Gamemode")]
-	int m_iAttackerRatio;
+	[Attribute("1", "auto", "", category: "CRF Gamemode Slotting")]
+	int m_iFactionOneRatio;
 	
 	//This just is what is auto set in the slotting UI for ratio calculation
-	[Attribute("2", category: "CRF Gamemode")]
-	int m_iDefenderRatio;
+	[Attribute("", uiwidget: UIWidgets.ComboBox, enums: {ParamEnum("", ""), ParamEnum("BLU", "BLU"), ParamEnum("OPF", "OPF"), ParamEnum("IND", "IND"), ParamEnum("CIV", "CIV")}, category: "CRF Gamemode Slotting")]
+	string m_sFactionOneKey;
+	
+	//This just is what is auto set in the slotting UI for ratio calculation
+	[Attribute("1", "auto", "", category: "CRF Gamemode Slotting")]
+	int m_iFactionTwoRatio;
+	
+	//This just is what is auto set in the slotting UI for ratio calculation
+	[Attribute("", uiwidget: UIWidgets.ComboBox, enums: {ParamEnum("", ""), ParamEnum("BLU", "BLU"), ParamEnum("OPF", "OPF"), ParamEnum("IND", "IND"), ParamEnum("CIV", "CIV")}, category: "CRF Gamemode Slotting")]
+	string m_sFactionTwoKey;
 	
 	//Descriptions on the left in briefing
-	[Attribute("", category: "CRF Gamemode")]
-	ref	array<ref CRF_MissionDescriptor> m_aMissionDescriptors;
-	
-	protected ref array<CRF_GamemodeComponent> m_aAdditionalCRFGamemodeComponents = {};
+	[Attribute("", category: "CLB Gamemode Descriptors")]
+	ref	array<ref CLB_MissionDescriptor> m_aMissionDescriptors;
 	
 	IEntity m_eGamemodeEntity;
 	
@@ -123,22 +129,13 @@ class CRF_Gamemode : SCR_BaseGameMode
 	{
 		super.EOnInit(owner);
 		m_eGamemodeEntity = owner;
-		array<Managed> additionalComponents = new array<Managed>();
-		int count = owner.FindComponents(CRF_GamemodeComponent, additionalComponents);
-
-		m_aAdditionalCRFGamemodeComponents.Clear();
-		for (int i = 0; i < count; i++)
-		{
-			CRF_GamemodeComponent comp = CRF_GamemodeComponent.Cast(additionalComponents[i]);
-			m_aAdditionalCRFGamemodeComponents.Insert(comp);
-		}
 	}
 	
-	static CRF_Gamemode GetInstance()
+	static CLB_Gamemode GetInstance()
 	{
 		BaseGameMode gameMode = GetGame().GetGameMode();
 		if (gameMode)
-			return CRF_Gamemode.Cast(gameMode);
+			return CLB_Gamemode.Cast(gameMode);
 		else
 			return null;
 	}
@@ -152,7 +149,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 	
 	void SetPlayerSpectator(int playerId, IEntity playerEntity)
 	{
-		if(playerEntity.GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		if(playerEntity.GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 			SpawnInitialEntity(playerId);
 	}
 	
@@ -161,7 +158,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		EntitySpawnParams spawnParams = new EntitySpawnParams();
 		spawnParams.TransformMode = ETransformMode.WORLD;
 		spawnParams.Transform[3] = "0 10000 0";
-		IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
+		IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
 		GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerID);
 		SCR_AIGroup currentGroup = SCR_GroupsManagerComponent.GetInstance().GetPlayerGroup(playerID);
 		if(currentGroup)
@@ -209,7 +206,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 	//Called to enter the actual game, just puts the player into a slot or spectator.
 	void EnterGame(int playerID)
 	{
-		if(m_aSlots.Find(playerID) == -1 && GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		if(m_aSlots.Find(playerID) == -1 && GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 			SpawnInitialEntity(playerID);
 		
 		if(m_aSlots.Find(playerID) == -1)
@@ -222,7 +219,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		
 		IEntity oldEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID);
 		RplId oldGroup = RplId.Invalid();
-		if(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		if(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 			oldGroup = m_aActivePlayerGroupsIDs.Get(m_aGroupRplIDs.Find(m_aPlayerGroupIDs.Get(m_aEntitySlots.Find(RplComponent.Cast(GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID).FindComponent(RplComponent)).Id()))));
 		SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerID)).SetInitialMainEntity(RplComponent.Cast(Replication.FindItem(m_aEntitySlots.Get(m_aSlots.Find(playerID)))).GetEntity());
 		if(oldGroup != RplId.Invalid())
@@ -233,7 +230,7 @@ class CRF_Gamemode : SCR_BaseGameMode
 		else
 			SCR_AIGroup.Cast(RplComponent.Cast(Replication.FindItem(m_aActivePlayerGroupsIDs.Get(m_aGroupRplIDs.Find(m_aPlayerGroupIDs.Get(m_aSlots.Find(playerID)))))).GetEntity()).AddPlayer(playerID);
 		
-		if(oldEntity.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CRF_InitialEntity.et")
+		if(oldEntity.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 			GetGame().GetCallqueue().CallLater(DeleteOldEntity, 100, false, oldEntity);
 	}
 	
@@ -295,14 +292,14 @@ class CRF_Gamemode : SCR_BaseGameMode
 		int index = m_aSlots.Insert(0);
 		m_aEntitySlots.Insert(RplComponent.Cast(entity.FindComponent(RplComponent)).Id());
 		m_aPlayerGroupIDs.Insert(RplComponent.Cast(SCR_AIGroup.Cast(ChimeraAIControlComponent.Cast(entity.FindComponent(ChimeraAIControlComponent)).GetControlAIAgent().GetParentGroup()).FindComponent(RplComponent)).Id());
-		m_aSlotNames.Insert(CRF_PlayableCharacter.Cast(entity.FindComponent(CRF_PlayableCharacter)).GetName());
+		m_aSlotNames.Insert(CLB_PlayableCharacter.Cast(entity.FindComponent(CLB_PlayableCharacter)).GetName());
 		m_aSlotPrefabs.Insert(entity.GetPrefabData().GetPrefabName());
 		m_aSlotIcons.Insert(SCR_EditableCharacterComponent.Cast(entity.FindComponent(SCR_EditableCharacterComponent)).GetInfo().GetIconPath());
 		m_aEntityDeathStatus.Insert(false);
 		m_aSlotPlayerNames.Insert("");
-		if(CRF_PlayableCharacter.Cast(entity.FindComponent(CRF_PlayableCharacter)).IsLeader())
+		if(CLB_PlayableCharacter.Cast(entity.FindComponent(CLB_PlayableCharacter)).IsLeader())
 			m_aEntitySlotTypes.Insert(0);
-		else if(CRF_PlayableCharacter.Cast(entity.FindComponent(CRF_PlayableCharacter)).IsSpecialty())
+		else if(CLB_PlayableCharacter.Cast(entity.FindComponent(CLB_PlayableCharacter)).IsSpecialty())
 			m_aEntitySlotTypes.Insert(1);
 		else
 			m_aEntitySlotTypes.Insert(2);
@@ -440,14 +437,14 @@ class CRF_Gamemode : SCR_BaseGameMode
 			topMenu.Close();
 		GetGame().GetMenuManager().CloseAllMenus();
 		//Opens menu based on current game state : )
-		switch(m_GamemodState)
+		switch(m_GamemodeState)
 		{
-			case CRF_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_PreviewMenu);	break;}
-			case CRF_GamemodeState.SLOTTING:{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_SlottingMenu);		break;}
-			case CRF_GamemodeState.GAME: 	{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(SCR_PlayerController.GetLocalPlayerId());		break;}
-			case CRF_GamemodeState.AAR: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CRF_AARMenu);			break;}
+			case CLB_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_PreviewMenu);	break;}
+			case CLB_GamemodeState.SLOTTING:{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SlottingMenu);		break;}
+			case CLB_GamemodeState.GAME: 	{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(SCR_PlayerController.GetLocalPlayerId());		break;}
+			case CLB_GamemodeState.AAR: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_AARMenu);			break;}
 		}
-		if(m_GamemodState != CRF_GamemodeState.GAME)
+		if(m_GamemodeState != CLB_GamemodeState.GAME)
 		{
 			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
 			if(SCR_PlayerController.Cast(GetGame().GetPlayerController()).m_iFPS)
@@ -471,10 +468,10 @@ class CRF_Gamemode : SCR_BaseGameMode
 	//Advances the overall gamemode state
 	void AdvanceGamemodeState()
 	{
-		if(m_GamemodState == CRF_GamemodeState.AAR)
+		if(m_GamemodeState == CLB_GamemodeState.AAR)
 			return;
 		
-		m_GamemodState += 1;
+		m_GamemodeState += 1;
 		Replication.BumpMe();
 		OnGamemodeStateChanged();
 	}
@@ -484,13 +481,6 @@ class CRF_Gamemode : SCR_BaseGameMode
 		if(!GetGame().GetPlayerController() || RplSession.Mode() == RplMode.Dedicated)
 			return;
 		
-		if(Replication.IsServer())
-		{
-			foreach (CRF_GamemodeComponent component : m_aAdditionalCRFGamemodeComponents)
-			{
-				component.OnGamemodeStateChanged();
-			}
-		}
 		OpenMenu();
 	}
 }
@@ -507,6 +497,6 @@ modded class SCR_ManualCamera
 		MenuBase topMenu = m_MenuManager.GetTopMenu();
 		
 		// WHY IT'S HARDCODED?
-		return topMenu && (!topMenu.IsInherited(EditorMenuUI) && !topMenu.IsInherited(CRF_SpectatorMenuUI));
+		return topMenu && (!topMenu.IsInherited(EditorMenuUI) && !topMenu.IsInherited(CLB_SpectatorMenuUI));
 	}
 };
