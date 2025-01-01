@@ -10,9 +10,84 @@ CRF_Gamemode : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/GameMode_Plain.et" {
  m_bAllowFactionChange 0
  m_aMissionDescriptors {
   CRF_MissionDescriptor "{632771FB5C619E1C}" {
-   m_sTitle "test"
-   m_sTextData "test"
+   m_sTitle "Welcome / How to Play"
+   m_sTextData "Welcome to a COALITION Session."\
+   ""\
+   "If this is your first time here, please join the discord:"\
+   "Escape -> Server Message -> Join Discord"\
+   ""\
+   "COALITION hosts one-life missions every Friday. Each session will have, at minimum, 3 missions a night."\
+   ""\
+   "Anyone can join the mission, but after a mission starts, join in progress (JIP) is disabled and you must wait until the next mission to take part."\
+   ""\
+   "If the mission has not started yet, please take time to familiarize yourself with the rest of the briefing and then hold U to select a slot."\
+   ""\
+   ""\
+   ""
    m_bShowForAnyFaction 1
+  }
+  CRF_MissionDescriptor "{64425053BDE568A1}" {
+   m_sTitle "Custom Controls"
+   m_sTextData "Custom Controls (Keyboard/Controller)"\
+   ""\
+   "WHILE ALIVE:"\
+   "Hold U / Hold View - Open Lobby"\
+   "HOME / Menu + D-pad Right - Squad Settings"\
+   "CTRL + Home / Menu + D-pad Left - Personal Squad Settings"\
+   "F9 / Menu + D-pad Up - Toggle Side Ready"\
+   "LCtrl + Space / RB + A Button - Place Static Weapon"\
+   "LCtrl + X / RB + B Button - Cancel Static Weapon"\
+   ""\
+   "IN SPECTATOR:"\
+   "L / Y Button - Toggle spectator/alive chat"\
+   "N / 2x D-pad Right - Enable night vision "\
+   ""\
+   "CHAT COMMANDS:"\
+   "/a <message> - Message admins"
+   m_bShowForAnyFaction 1
+  }
+  CRF_MissionDescriptor "{644250503DF684C0}" {
+   m_sTitle "Mission: Situation"
+   m_sTextData "Add background info about the mission. "\
+   ""\
+   "BLUFOR Composition: Armored/Infantry/Mechanized/Etc.."\
+   "BLUFOR Assets:"\
+   ""\
+   "OPFOR Composition: Armored/Infantry/Mechanized/Etc.."\
+   "OPFOR Assets:"\
+   ""\
+   "Time:"\
+   ""\
+   "Weather:"
+   m_bShowForAnyFaction 1
+  }
+  CRF_MissionDescriptor "{64425051F2E00216}" {
+   m_sTitle "BLUFOR Objectives"
+   m_sTextData "If BLUFOR is playable, add mission objectives in bullet point list. Add details for each if you feel necessary, but keep it concise."
+   m_aFactionKeys {
+    "BLUFOR"
+   }
+  }
+  CRF_MissionDescriptor "{64425051B9B5AF67}" {
+   m_sTitle "OPFOR Objectives"
+   m_sTextData "If OPFOR is playable, add mission objectives in bullet point list. Add details for each if you feel necessary, but keep it concise."
+   m_aFactionKeys {
+    "OPFOR"
+   }
+  }
+  CRF_MissionDescriptor "{644250519BE30999}" {
+   m_sTitle "INDFOR Objectives"
+   m_sTextData "If INDFOR is playable, add mission objectives in bullet point list. Add details for each if you feel necessary, but keep it concise."
+   m_aFactionKeys {
+    "INDFOR"
+   }
+  }
+  CRF_MissionDescriptor "{6442505149CF6C93}" {
+   m_sTitle "Administration"
+   m_sTextData "Place any meta or technical information that players should know here. Otherwise, leave empty."
+   m_aFactionKeys {
+    "BLUFOR" "OPFOR" "INDFOR"
+   }
   }
  }
  {
