@@ -503,12 +503,13 @@ FrameWidgetClass {
     OverlayWidgetClass "{62F03D881157A4D2}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
      Name "PlayersList"
      Slot FrameWidgetSlot "{62F0125F18C6CEA2}" {
+      Anchor 0 0 1 0
       PositionX 7.612
       OffsetLeft 7.612
       PositionY 46.939
       OffsetTop 46.939
-      SizeX 190.81
-      OffsetRight -198.422
+      SizeX -14.63
+      OffsetRight 7.018
       SizeY 526.2
       OffsetBottom -573.139
      }
@@ -522,30 +523,30 @@ FrameWidgetClass {
     ImageWidgetClass "{62F03D881157A4D5}" {
      Name "PlayersHeader"
      Slot FrameWidgetSlot "{62F0124AA12818CD}" {
-      Anchor 0 0 1 1
+      Anchor 0 0 1 0
       PositionX 0
       OffsetLeft 0
       PositionY 0
       OffsetTop 0
       SizeX 0
       OffsetRight 0
-      SizeY 0
-      OffsetBottom 540
+      SizeY 39.96
+      OffsetBottom -39.96
      }
      Color 0.017 0.017 0.017 1
     }
     TextWidgetClass "{62F03D881157A4D4}" {
      Name "PlayersText"
      Slot FrameWidgetSlot "{62F01245493B2589}" {
-      Anchor 0 0 1 1
+      Anchor 0 0 1 0
       PositionX 5.076
       OffsetLeft 5.076
       PositionY 5
       OffsetTop 5
       SizeX -107.225
       OffsetRight 102.149
-      SizeY -550
-      OffsetBottom 545
+      SizeY 29.96
+      OffsetBottom -34.96
      }
      Text "Players"
     }
@@ -584,13 +585,14 @@ FrameWidgetClass {
     OverlayWidgetClass "{62F03D881157CD72}" : "{94CAAE4A601195D3}UI/layouts/ListBox/ListBox.layout" {
      Name "DescriptionList"
      Slot FrameWidgetSlot "{62F0125F18C6CEA2}" {
+      Anchor 0 0 1 0
       PositionX 5.735
       OffsetLeft 5.735
-      PositionY 43.982
-      OffsetTop 43.982
-      SizeX 405.586
-      OffsetRight -411.321
-      SizeY 529.157
+      PositionY 72.963
+      OffsetTop 72.963
+      SizeX -15.128
+      OffsetRight 9.393
+      SizeY 500.176
       OffsetBottom -573.139
      }
      {
@@ -603,29 +605,30 @@ FrameWidgetClass {
     ImageWidgetClass "{62F03D881157CD73}" {
      Name "MissionHeader"
      Slot FrameWidgetSlot "{62F0124AA12818CD}" {
-      Anchor 0 0 1 1
+      Anchor 0 0 1 0
       PositionX 0
       OffsetLeft 0
       PositionY 0
       OffsetTop 0
       SizeX 0
       OffsetRight 0
-      SizeY 0
-      OffsetBottom 540
+      SizeY 39.96
+      OffsetBottom -39.96
      }
      Color 0.017 0.017 0.017 1
     }
     TextWidgetClass "{62F03D881157CD70}" {
      Name "MissionText"
      Slot FrameWidgetSlot "{62F01245493B2589}" {
-      Anchor 0 0 1 1
+      Anchor 0 0 1 0
       PositionX 0
-      PositionY 0
+      OffsetLeft 0
+      PositionY 5
       OffsetTop 5
-      SizeX -320
+      SizeX 0
       OffsetRight 0
-      SizeY -550
-      OffsetBottom 545
+      SizeY 29.96
+      OffsetBottom -34.96
      }
      Text "Mission Description"
      "Horizontal Alignment" Center
@@ -634,15 +637,15 @@ FrameWidgetClass {
     ButtonWidgetClass "{62F06D427631DA2F}" {
      Name "BackButton"
      Slot FrameWidgetSlot "{62F06D427631DA08}" {
-      Anchor 0 0 1 1
-      PositionX 332.62
-      OffsetLeft 332.62
-      PositionY 43.291
-      OffsetTop 43.291
-      SizeX -341.745
-      OffsetRight 9.125
-      SizeY -550
-      OffsetBottom 506.709
+      Anchor 0 0 1 0
+      PositionX 332.6
+      OffsetLeft 332.6
+      PositionY 43.497
+      OffsetTop 43.497
+      SizeX -341.851
+      OffsetRight 9.251
+      SizeY 29.578
+      OffsetBottom -73.075
      }
      Color 0.105 0.105 0.105 0
      components {
@@ -664,15 +667,15 @@ FrameWidgetClass {
     RichTextWidgetClass "{62F06D4239BB1138}" {
      Name "DescriptionInfo"
      Slot FrameWidgetSlot "{62F06D4239BB111D}" {
-      Anchor 0 0 1 1
-      PositionX 8.386
-      OffsetLeft 8.386
-      PositionY 49.63
-      OffsetTop 49.63
-      SizeX -16.23
-      OffsetRight 7.844
-      SizeY -68.462
-      OffsetBottom 18.832
+      Anchor 0.02 0.132 0.963 0.988
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
      }
      Text ""
      Wrap 1
