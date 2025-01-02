@@ -501,9 +501,25 @@ class CLB_Gamemode : SCR_BaseGameMode
 		{
 			foreach (CLB_GamemodeComponent component : m_aAdditionalCLBGamemodeComponents)
 				component.OnGamemodeStateChanged();
+			
+			if(m_GamemodeState == CLB_GamemodeState.AAR)
+				EnterAAR();
 		}
 		
 		OpenMenu();
+	}
+	
+	void EnterAAR()
+	{
+		ref array<int> players = {};
+		GetGame().GetPlayerManager().GetAllPlayers(players);
+		foreach(int player: players)
+		{
+			if(GetGame().GetPlayerManager().GetPlayerControlledEntity(player).GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
+				continue;
+			
+			SpawnInitialEntity(player);
+		}
 	}
 }
 
