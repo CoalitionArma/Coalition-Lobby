@@ -104,116 +104,14 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 		m_cSlotListBoxComponent = CLB_ListboxComponent.Cast(OverlayWidget.Cast(m_wRoot.FindAnyWidget("RoleList")).FindHandler(CLB_ListboxComponent));
 		InitSlots();
 		
-		CRF_GearScriptGamemodeComponent gsComp = CRF_GearScriptGamemodeComponent.GetInstance();	
-		ResourceName icon;
-	
-		if(m_iBluforSlots > 0)
-		{
-			if(gsComp)
-			{	
-				ResourceName gearScriptResource = gsComp.GetGearScriptResource("BLUFOR");
-				if(!gearScriptResource.IsEmpty())
-				{
-					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
-					if(gearConfig)
-					{
-						if(!gearConfig.m_FactionIcon.IsEmpty())
-							icon = gearConfig.m_FactionIcon;
-						else
-							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag();
-					};
-				};
-			} else {
-				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag();
-			};
-			
-			m_wRoot.FindAnyWidget("BluforButton").SetVisible(true);
-			m_wRoot.FindAnyWidget("BluforBGSelect").SetVisible(true);
-				
-			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).LoadImageTexture(1, icon);
-			m_wRoot.FindAnyWidget("BluforBGSelect").SetColor(Color.FromRGBA(34, 196, 244, 33));
-		};
-		
-		if(m_iOpforSlots > 0)
-		{
-			if(gsComp)
-			{	
-				ResourceName gearScriptResource = gsComp.GetGearScriptResource("OPFOR");
-				if(!gearScriptResource.IsEmpty())
-				{
-					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
-					if(gearConfig)
-					{
-						if(!gearConfig.m_FactionIcon.IsEmpty())
-							icon = gearConfig.m_FactionIcon;
-						else
-							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag();
-					};
-				};
-			} else {
-				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag();
-			};
-			
-			m_wRoot.FindAnyWidget("OpforButton").SetVisible(true);
-			m_wRoot.FindAnyWidget("OpforBGSelect").SetVisible(true);	
-			
-			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagOpfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag());
-			m_wRoot.FindAnyWidget("OpforBGSelect").SetColor(Color.FromRGBA(238, 49, 47, 33));
-		};
-		
-		if(m_iIndforSlots > 0)
-		{
-			if(gsComp)
-			{	
-				ResourceName gearScriptResource = gsComp.GetGearScriptResource("INDFOR");
-				if(!gearScriptResource.IsEmpty())
-				{
-					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
-					if(gearConfig)
-					{
-						if(!gearConfig.m_FactionIcon.IsEmpty())
-							icon = gearConfig.m_FactionIcon;
-						else
-							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag();
-					};
-				};
-			} else {
-				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag();
-			};
-			
-			m_wRoot.FindAnyWidget("IndforButton").SetVisible(true);
-			m_wRoot.FindAnyWidget("IndforBGSelect").SetVisible(true);	
-				
-			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagIndfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag());
-			m_wRoot.FindAnyWidget("IndforBGSelect").SetColor(Color.FromRGBA(0, 177, 79, 33));
-		};
-		
-		if(m_iCivSlots > 0)
-		{
-			if(gsComp)
-			{	
-				ResourceName gearScriptResource = gsComp.GetGearScriptResource("CIV");
-				if(!gearScriptResource.IsEmpty())
-				{
-					CRF_GearScriptConfig gearConfig = CRF_GearScriptConfig.Cast(BaseContainerTools.CreateInstanceFromContainer(BaseContainerTools.LoadContainer(gearScriptResource).GetResource().ToBaseContainer()));
-					if(gearConfig)
-					{
-						if(!gearConfig.m_FactionIcon.IsEmpty())
-							icon = gearConfig.m_FactionIcon;
-						else
-							icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag();
-					};
-				};
-			} else {
-				icon = SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag();
-			};
-			
-			m_wRoot.FindAnyWidget("CivButton").SetVisible(true);
-			m_wRoot.FindAnyWidget("CivBGSelect").SetVisible(true);	
-				
-			ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag());
-			m_wRoot.FindAnyWidget("CivBGSelect").SetColor(Color.FromRGBA(168, 110, 207, 33));
-		};	
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("BLUFOR")).GetFactionFlag());
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagBlufor")).SetImage(1);
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagOpfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("OPFOR")).GetFactionFlag());
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagOpfor")).SetImage(1);
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagIndfor")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("INDFOR")).GetFactionFlag());
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagIndfor")).SetImage(1);
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag());
+		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).SetImage(1);
 		
 		CLB_Gamemode gamemode = CLB_Gamemode.GetInstance();
 		

@@ -44,8 +44,8 @@ class CLB_SpectatorMenuUI: ChimeraMenuBase
 		if (m_ChatPanel)
         	m_ChatPanel.OnUpdateChat(tDelta);
 		
-		SCR_NotificationSenderComponent sender = SCR_NotificationSenderComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_NotificationSenderComponent));
-		sender.SetKillFeedTypeDeadLocal();
+//		SCR_NotificationSenderComponent sender = SCR_NotificationSenderComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_NotificationSenderComponent));
+//		sender.SetKillFeedTypeDeadLocal();
 	}
 	
 	override void OnMenuClose()
@@ -55,8 +55,8 @@ class CLB_SpectatorMenuUI: ChimeraMenuBase
 		GetGame().GetInputManager().RemoveActionListener("VONDirect", EActionTrigger.DOWN, Action_VONon);
 		GetGame().GetInputManager().RemoveActionListener("VONDirect", EActionTrigger.UP, Action_VONOff);
 		
-		SCR_NotificationSenderComponent sender = SCR_NotificationSenderComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_NotificationSenderComponent));
-		sender.SetKillFeedTypeNoneLocal();
+//		SCR_NotificationSenderComponent sender = SCR_NotificationSenderComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_NotificationSenderComponent));
+//		sender.SetKillFeedTypeNoneLocal();
 	}
 
 	//From RL
