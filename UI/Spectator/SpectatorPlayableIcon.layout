@@ -1,10 +1,6 @@
 FrameWidgetClass {
  Name "PlayableIconFrame"
  Clipping False
- components {
-  PS_SpectatorPlayableIcon "{5F34C8D046BABFCD}" {
-  }
- }
  {
   PanelWidgetClass "{5F34C8DCD5E715FD}" {
    Name "PanelLabel"
@@ -44,14 +40,16 @@ FrameWidgetClass {
   ImageWidgetClass "{5F34C8DCD5E715F9}" {
    Name "PlayableIcon"
    Slot FrameWidgetSlot "{5EE8948CA93791EA}" {
+    PositionX 0
     OffsetLeft 0
+    PositionY 0
     OffsetTop 0
-    SizeX 64
-    OffsetRight -64
-    SizeY 64
-    OffsetBottom -64
+    SizeX 55.495
+    OffsetRight -55.495
+    SizeY 55.495
+    OffsetBottom -55.495
    }
-   Texture "{F3A9B47F55BE8D2B}UI/Textures/Icons/PS_Atlas_x64.imageset"
+   Texture "{F3A9B47F55BE8D2B}UI/data/PS_Atlas_x64.imageset"
    Image "Player"
    Size 64 64
   }
