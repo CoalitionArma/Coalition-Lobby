@@ -691,18 +691,20 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 	{
 		CLB_ListBoxElementComponent comp = CLB_ListBoxElementComponent.Cast(m_cSlotListBoxComponent.GetElementComponent(m_cSlotListBoxComponent.GetSelectedItem()));
 		bool isAdmin = SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId());
-		bool slotNotLeaderOrMedic = m_Gamemode.m_SlottingState == 0 && m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0;
-		bool slotNotSpecialtyOrLM = m_Gamemode.m_SlottingState == 1 && m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0 && m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 1;
+		bool leaderAndMedicPhase = m_Gamemode.m_SlottingState == 0;
+		bool slotNotLeaderOrMedic = m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0;
+		bool specialtyPhase = m_Gamemode.m_SlottingState == 1;
+		bool slotNotSpecialtyOrLM = m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0 && m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 1;
 		int index = m_Gamemode.m_aEntitySlots.Find(comp.entityID);
 		if (index == -1)
 			return;
 		
 		// Return if leaders and medics phase but the slot is not leader or medic
-		if (slotNotLeaderOrMedic && !isAdmin) 
+		if (leaderAndMedicPhase && slotNotLeaderOrMedic && !isAdmin) 
 			return;
 			
 		// Return if Specialties phase but the slot is not a specialty or leader/medic
-		if (slotNotSpecialtyOrLM && !isAdmin)
+		if (specialtyPhase && slotNotSpecialtyOrLM && !isAdmin)
 			return;
 		
 		if (m_iSelectedPlayerID > 0 && isAdmin)
