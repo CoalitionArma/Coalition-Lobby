@@ -690,30 +690,35 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 	void SelectSlot()
 	{
 		CLB_ListBoxElementComponent comp = CLB_ListBoxElementComponent.Cast(m_cSlotListBoxComponent.GetElementComponent(m_cSlotListBoxComponent.GetSelectedItem()));
+		bool isAdmin = SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId());
+		bool leaderAndMedicPhase = m_Gamemode.m_SlottingState == 0;
+		bool slotNotLeaderOrMedic = m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0;
+		bool specialtyPhase = m_Gamemode.m_SlottingState == 1;
+		bool slotNotSpecialtyOrLM = m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0 && m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 1;
 		int index = m_Gamemode.m_aEntitySlots.Find(comp.entityID);
-		if(index == -1)
+		if (index == -1)
 			return;
-		if(m_Gamemode.m_SlottingState == 0)
-			if(m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0)
-				return;
-			
-		if(m_Gamemode.m_SlottingState == 1)
-			if(m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 0 && m_Gamemode.m_aEntitySlotTypes.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) != 1)
-				return;
 		
-		if(m_iSelectedPlayerID > 0 && SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId()))
+		// Return if leaders and medics phase but the slot is not leader or medic
+		if (leaderAndMedicPhase && slotNotLeaderOrMedic && !isAdmin) 
+			return;
+			
+		// Return if Specialties phase but the slot is not a specialty or leader/medic
+		if (specialtyPhase && slotNotSpecialtyOrLM && !isAdmin)
+			return;
+		
+		if (m_iSelectedPlayerID > 0 && isAdmin)
 		{
-			if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == m_iSelectedPlayerID)
+			if (m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == m_iSelectedPlayerID)
 			{
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(index, 0);
 				m_iSelectedPlayerID = 0;
 				m_cPlayerListBoxComponent.SetItemSelected(m_cPlayerListBoxComponent.GetSelectedItem(), false, false, false);
 				return;
-			}
-			else if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == 0)
-			{
-				if(m_Gamemode.m_aSlots.Find(m_iSelectedPlayerID) != -1)
+			} else if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == 0) {
+				if (m_Gamemode.m_aSlots.Find(m_iSelectedPlayerID) != -1)
 					SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aSlots.Find(m_iSelectedPlayerID), 0);
+				
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(index, m_iSelectedPlayerID);
 				m_iSelectedPlayerID = 0;
 				m_cPlayerListBoxComponent.SetItemSelected(m_cPlayerListBoxComponent.GetSelectedItem(), false, false, false);
@@ -721,14 +726,12 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			}
 		}
 		
-		if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == GetGame().GetPlayerController().GetPlayerId())
+		if (m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == GetGame().GetPlayerController().GetPlayerId())
 		{
 			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(index, 0);
 			return;
-		}
-		else if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == 0)
-		{
-			if(m_Gamemode.m_aSlots.Find(GetGame().GetPlayerController().GetPlayerId()) != -1)
+		} else if(m_Gamemode.m_aSlots.Get(m_Gamemode.m_aEntitySlots.Find(comp.entityID)) == 0) {
+			if (m_Gamemode.m_aSlots.Find(GetGame().GetPlayerController().GetPlayerId()) != -1)
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(m_Gamemode.m_aSlots.Find(GetGame().GetPlayerController().GetPlayerId()), 0);
 			
 			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetSlot(index, GetGame().GetPlayerController().GetPlayerId());
