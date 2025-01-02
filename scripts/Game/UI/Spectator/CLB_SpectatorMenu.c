@@ -9,20 +9,30 @@ class CLB_SpectatorMenuUI: ChimeraMenuBase
 	protected ref array<ref CLB_SpectatorLabelIconCharacter> m_aSpectatorIcons = {};
 	protected CLB_Gamemode m_Gamemode;
 	protected SCR_ChatPanel m_ChatPanel;
+	protected SCR_MapEntity m_MapEntity;
+	protected bool m_bIsMapOpened = false;
+	protected Widget m_wRoot;
+	protected FrameWidget m_wMapFrame;
 	
 	override void OnMenuOpen()
 	{
 		Widget wChatPanel = GetRootWidget().FindAnyWidget("ChatPanel");
+		m_wRoot = GetRootWidget();
 		if (wChatPanel)
 			m_ChatPanel = SCR_ChatPanel.Cast(wChatPanel.FindHandler(SCR_ChatPanel));
 		m_Gamemode = CLB_Gamemode.GetInstance();
+		m_wMapFrame = FrameWidget.Cast(m_wRoot.FindAnyWidget("MapFrame"));
 		GetGame().GetInputManager().AddActionListener("ChatToggle", EActionTrigger.DOWN, Action_OnChatToggleAction);
 		GetGame().GetInputManager().AddActionListener("MenuBack", EActionTrigger.DOWN, Action_Exit);
 		GetGame().GetInputManager().AddActionListener("VONDirect", EActionTrigger.DOWN, Action_VONon);
 		GetGame().GetInputManager().AddActionListener("VONDirect", EActionTrigger.UP, Action_VONOff);
+		GetGame().GetInputManager().AddActionListener("GadgetMap", EActionTrigger.DOWN, Action_ToggleMap);
 	}
 	override void OnMenuUpdate(float tDelta)
 	{
+		if (m_MapEntity.IsOpen())
+			GetGame().GetInputManager().ActivateContext("MapContext");
+		
 		foreach(RplId entityID: m_Gamemode.m_aEntitySlots)
 		{
 			if(!Replication.FindItem(entityID))
@@ -46,6 +56,14 @@ class CLB_SpectatorMenuUI: ChimeraMenuBase
 		
 //		SCR_NotificationSenderComponent sender = SCR_NotificationSenderComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_NotificationSenderComponent));
 //		sender.SetKillFeedTypeDeadLocal();
+	}
+	
+	override void OnMenuInit()
+	{		
+		m_wRoot = GetRootWidget();
+		if (!m_MapEntity)
+			m_MapEntity = SCR_MapEntity.GetMapInstance();
+		m_wRoot.FindAnyWidget("MapFrame").SetVisible(false);
 	}
 	
 	override void OnMenuClose()
@@ -134,5 +152,46 @@ class CLB_SpectatorMenuUI: ChimeraMenuBase
 	void OpenPauseMenuWrap()
 	{
 		ArmaReforgerScripted.OpenPauseMenu();
+	}
+	
+	//More RL code
+	void Action_ToggleMap()
+	{
+		if (!m_MapEntity.IsOpen()) OpenMap();
+		else CloseMap();
+	}
+	
+	void OpenMap()
+	{
+		SCR_ManualCamera camera = SCR_ManualCamera.Cast(GetGame().GetCameraManager().CurrentCamera());
+		if (camera)
+			camera.SetInputEnabled(false);
+		
+		m_wMapFrame.SetVisible(true);
+		
+		// WUT?
+		SCR_WidgetHelper.RemoveAllChildren(GetRootWidget().FindAnyWidget("ToolMenuHoriz"));
+		
+		BaseGameMode gameMode = GetGame().GetGameMode();
+		if (!gameMode)
+			return;
+		
+		SCR_MapConfigComponent configComp = SCR_MapConfigComponent.Cast(gameMode.FindComponent(SCR_MapConfigComponent));
+		if (!configComp)
+			return;
+		
+		MapConfiguration mapConfigFullscreen = m_MapEntity.SetupMapConfig(EMapEntityMode.FULLSCREEN, configComp.GetEditorMapConfig(), m_wMapFrame);
+		m_MapEntity.OpenMap(mapConfigFullscreen);
+	}
+	
+	void CloseMap()
+	{
+		SCR_ManualCamera camera = SCR_ManualCamera.Cast(GetGame().GetCameraManager().CurrentCamera());
+		if (camera)
+			camera.SetInputEnabled(true);
+		
+		m_wMapFrame.SetVisible(false);
+		
+		m_MapEntity.CloseMap();
 	}
 } 
