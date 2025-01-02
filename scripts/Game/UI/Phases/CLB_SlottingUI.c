@@ -175,7 +175,7 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			TextWidget.Cast(m_wRoot.FindAnyWidget("Final")).SetVisible(false);
 		}
 		
-		Print(m_iBluforSlots);
+		//Print(m_iBluforSlots);
 		
 		if(m_iBluforSlots > 0)
 		{
