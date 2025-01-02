@@ -1,10 +1,6 @@
 FrameWidgetClass {
  Name "SpectatorLabelIconFrame"
  Clipping False
- components {
-  PS_SpectatorLabelIcon "{5F34C8DE03BF1CFC}" {
-  }
- }
  {
   PanelWidgetClass "{5EE8948F20BE168B}" {
    Name "SpectatorLabel"
@@ -44,14 +40,16 @@ FrameWidgetClass {
   ImageWidgetClass "{5EE8948EC9B919B8}" {
    Name "SpectatorLabelIcon"
    Slot FrameWidgetSlot "{5EE8948CA93791EA}" {
+    PositionX 0
     OffsetLeft 0
+    PositionY 0
     OffsetTop 0
-    SizeX 64
-    OffsetRight -64
-    SizeY 64
-    OffsetBottom -64
+    SizeX 47.42
+    OffsetRight -47.42
+    SizeY 47.42
+    OffsetBottom -47.42
    }
-   Texture "{F3A9B47F55BE8D2B}UI/Textures/Icons/PS_Atlas_x64.imageset"
+   Texture "{F3A9B47F55BE8D2B}UI/data/PS_Atlas_x64.imageset"
    Image "Circle"
    Size 64 64
   }
