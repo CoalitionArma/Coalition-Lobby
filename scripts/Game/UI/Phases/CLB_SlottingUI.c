@@ -698,7 +698,7 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			return;
 		
 		// Return if leaders and medics phase but the slot is not leader or medic
-		if (slotNotLeadersOrMedic && !isAdmin) 
+		if (slotNotLeaderOrMedic && !isAdmin) 
 			return;
 			
 		// Return if Specialties phase but the slot is not a specialty or leader/medic
