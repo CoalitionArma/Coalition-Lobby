@@ -326,9 +326,9 @@ class CLB_Gamemode : SCR_BaseGameMode
 		Replication.BumpMe();
 	}
 	
-	void RemovePlayableEntity(IEntity entity)
+	void RemovePlayableEntity(RplId entityID)
 	{
-		int index = m_aEntitySlots.Find(RplComponent.Cast(entity.FindComponent(RplComponent)).Id());
+		int index = m_aEntitySlots.Find(entityID);
 		m_aSlots.RemoveOrdered(index);
 		m_aPlayerGroupIDs.RemoveOrdered(index);
 		m_aSlotNames.RemoveOrdered(index);
@@ -338,7 +338,8 @@ class CLB_Gamemode : SCR_BaseGameMode
 		m_aSlotPlayerNames.RemoveOrdered(index);
 		m_aEntitySlotTypes.RemoveOrdered(index);
 		m_aEntitySlots.RemoveOrdered(index);
-		SCR_EntityHelper.DeleteEntityAndChildren(entity);
+		if(Replication.FindItem(entityID))
+			SCR_EntityHelper.DeleteEntityAndChildren(RplComponent.Cast(Replication.FindItem(entityID)).GetEntity());
 		m_iSlotChanges++;
 		Replication.BumpMe();
 	}
@@ -453,10 +454,10 @@ class CLB_Gamemode : SCR_BaseGameMode
 		//Opens menu based on current game state : )
 		switch(m_GamemodeState)
 		{
-			case CLB_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_PreviewMenu);	break;}
-			case CLB_GamemodeState.SLOTTING:{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SlottingMenu);		break;}
-			case CLB_GamemodeState.GAME: 	{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(SCR_PlayerController.GetLocalPlayerId());		break;}
-			case CLB_GamemodeState.AAR: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_AARMenu);			break;}
+			case CLB_GamemodeState.INITIAL: 	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_PreviewMenu);											break;}
+			case CLB_GamemodeState.SLOTTING:	{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SlottingMenu);											break;}
+			case CLB_GamemodeState.GAME: 		{SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterGame(SCR_PlayerController.GetLocalPlayerId());		break;}
+			case CLB_GamemodeState.AAR: 		{GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_AARMenu);												break;}
 		}
 		if(m_GamemodeState != CLB_GamemodeState.GAME)
 		{
