@@ -61,6 +61,20 @@ class CLB_PlayableCharacter : ScriptComponent
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
 		super.EOnFixedFrame(owner, timeSlice);
+		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
+		{
+			owner.GetPhysics().EnableGravity(false);
+			owner.SetOrigin("0 10000 0");
+			Physics physics = owner.GetPhysics();
+			if (physics)
+			{
+				physics.SetVelocity("0 0 0");
+				physics.SetAngularVelocity("0 0 0");
+				physics.SetMass(0);
+				physics.SetDamping(1, 1);
+				physics.SetActive(ActiveState.INACTIVE);
+			}
+		}	
 		if(SCR_PlayerController.GetLocalControlledEntity() != owner)
 			return;
 		

@@ -1,0 +1,18 @@
+SCR_AIGroup : "{350C8DE227E3C030}Prefabs/Groups/BLUFOR/BLUFOR_PL.et" {
+ coords 2046.301 44.484 2063.705
+ m_faction "BLUFOR"
+ {
+  SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
+   coords 8.407 -1.341 -6.046
+   m_faction "BLUFOR"
+   m_bIsPlayable 1
+   {
+    SCR_AIGroup : "{F8B1BF99CF492650}Prefabs/Groups/BLUFOR/BLUFOR_FIreteam.et" {
+     coords -6.621 -1.278 -1.912
+     m_faction "BLUFOR"
+     m_bIsPlayable 1
+    }
+   }
+  }
+ }
+}

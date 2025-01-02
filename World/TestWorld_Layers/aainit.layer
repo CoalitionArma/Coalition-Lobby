@@ -1,0 +1,13 @@
+SCR_AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
+ coords 2048.405 45.518 2066.915
+}
+CLB_Gamemode GameMode_Lobby1 : "{25E59F270F06BAA4}Prefabs/MP/Modes/Plain/GameMode_Lobby.et" {
+ coords 2039.603 47.487 2075.064
+ m_sFactionOneKey "BLU"
+ m_sFactionTwoKey "OPF"
+ {
+  SCR_FactionManager FactionMangerLobby1 : "{C12782D0A2555AF8}Prefabs/MP/Modes/Plain/FactionMangerLobby.et" {
+   coords 0 0 0
+  }
+ }
+}

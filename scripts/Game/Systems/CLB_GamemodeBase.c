@@ -227,6 +227,7 @@ class CLB_Gamemode : SCR_BaseGameMode
 		if(m_aEntityDeathStatus.Get(m_aSlots.Find(playerID)))
 		{
 			SpawnInitialEntity(playerID);
+			return;
 		}
 		
 		IEntity oldEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerID);

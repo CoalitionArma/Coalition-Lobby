@@ -257,9 +257,9 @@ ButtonWidgetClass {
       FrameWidgetClass "{631F7CF5E5BFCB4C}" {
        Name "Disconnected"
        Slot OverlayWidgetSlot "{631F7CF5E5BFCB25}" {
-        HorizontalAlign 3
+        HorizontalAlign 0
         VerticalAlign 3
-        Padding 150 0 1350 0
+        Padding 550 0 0 0
        }
        "Is Visible" 0
        {
@@ -268,11 +268,11 @@ ButtonWidgetClass {
          Slot FrameWidgetSlot "{631F7CF5FB1BD72E}" {
           Anchor 0 0 1 1
           PositionX 463.393
-          OffsetLeft 463.393
+          OffsetLeft 50
           PositionY 0
           OffsetTop 0
           SizeX -469.999
-          OffsetRight 6.606
+          OffsetRight 0
           SizeY 0
           OffsetBottom 0
          }

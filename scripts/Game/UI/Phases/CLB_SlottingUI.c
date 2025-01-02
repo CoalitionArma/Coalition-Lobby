@@ -113,6 +113,15 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).LoadImageTexture(1, SCR_Faction.Cast(GetGame().GetFactionManager().GetFactionByKey("CIV")).GetFactionFlag());
 		ImageWidget.Cast(m_wRoot.FindAnyWidget("FlagCiv")).SetImage(1);
 		
+		m_wRoot.FindAnyWidget("BluforBGSelect").SetVisible(true);
+		m_wRoot.FindAnyWidget("BluforButton").SetVisible(true);
+		m_wRoot.FindAnyWidget("IndforBGSelect").SetVisible(true);
+		m_wRoot.FindAnyWidget("IndforButton").SetVisible(true);
+		m_wRoot.FindAnyWidget("OpforButton").SetVisible(true);
+		m_wRoot.FindAnyWidget("OpforBGSelect").SetVisible(true);
+		m_wRoot.FindAnyWidget("CivButton").SetVisible(true);
+		m_wRoot.FindAnyWidget("CivBGSelect").SetVisible(true);
+		
 		CLB_Gamemode gamemode = CLB_Gamemode.GetInstance();
 		
 		if (gamemode.m_iFactionOneRatio > 0 && !gamemode.m_sFactionOneKey.IsEmpty())
@@ -165,6 +174,8 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			ImageWidget.Cast(m_wRoot.FindAnyWidget("FinalImage")).SetVisible(false);
 			TextWidget.Cast(m_wRoot.FindAnyWidget("Final")).SetVisible(false);
 		}
+		
+		Print(m_iBluforSlots);
 		
 		if(m_iBluforSlots > 0)
 		{
@@ -311,6 +322,7 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 		{
 			int leadersInGroup = 0;
 			int playersInGroup = 0;
+			int deadPlayersInGroup = 0;
 			
 			if(!Replication.FindItem(m_Gamemode.m_aGroupRplIDs.Get(i)))
 				continue;
@@ -347,7 +359,10 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 					continue;
 				
 				if(m_Gamemode.m_aSlots.Get(g) == -2)
+				{
+					deadPlayersInGroup++;
 					continue;
+				}
 				
 				if(m_Gamemode.m_aSlots.Get(g) == 0 && m_Gamemode.m_aEntityDeathStatus.Get(g) == true)
 					continue;
@@ -399,7 +414,9 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 			}
 			if(leadersInGroup == 0)	
 				m_cOrbatListBoxComponent.RemoveItem(orbatGroupIndex);
-			if(playersInGroup == 0)
+			if(playersInGroup == 0 && !SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId()))
+				m_cSlotListBoxComponent.RemoveItem(groupIndex);
+			if(deadPlayersInGroup > 0 && playersInGroup == 0 && SCR_Global.IsAdmin(GetGame().GetPlayerController().GetPlayerId()))
 				m_cSlotListBoxComponent.RemoveItem(groupIndex);
 		}
 		if(m_Gamemode.m_aSlots.Find(m_iSelectedPlayerID) != -1)

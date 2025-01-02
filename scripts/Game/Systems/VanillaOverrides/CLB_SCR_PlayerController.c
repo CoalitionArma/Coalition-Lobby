@@ -165,7 +165,13 @@ modded class SCR_PlayerController
 			EnterSpectator();
 		else if(CLB_Gamemode.GetInstance().m_aEntityDeathStatus.Get(CLB_Gamemode.GetInstance().m_aSlots.Find(playerID)))
 			EnterSpectator();
-		if(m_iFPS)
+		if(m_iFPS == 0)
+		{
+			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
+			video.Set("MaxFps", 0);	
+			GetGame().UserSettingsChanged();
+		}
+		else
 		{
 			BaseContainer video = GetGame().GetEngineUserSettings().GetModule("VideoUserSettings");
 			video.Set("MaxFps", m_iFPS);	
@@ -201,10 +207,14 @@ modded class SCR_PlayerController
 		else
 			params.Transform = CLB_Gamemode.GetInstance().m_vGenericSpawn;
 		
+		m_bIsListening = false;
+		
+		if(SCR_EditorManagerEntity.GetInstance().IsOpened())
+			return;
+		
 		m_eCamera = GetGame().SpawnEntityPrefab(Resource.Load("{E1FF38EC8894C5F3}Prefabs/Editor/Camera/ManualCameraSpectate.et"), GetGame().GetWorld(), params);
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.CLB_SpectatorMenu);
 		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(m_eCamera));
-		m_bIsListening = false;
 	}
 	
 	//Opens the slotting menu for players in game
