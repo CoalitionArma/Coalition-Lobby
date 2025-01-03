@@ -74,6 +74,7 @@ ButtonWidgetClass {
           SizeY 35.557
           OffsetBottom -35.557
          }
+         Clipping Ancestor
          Color 1 1 1 0.706
          Text "RqandAlThor"
          "Min Font Size" 5
