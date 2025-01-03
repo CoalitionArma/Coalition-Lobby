@@ -171,7 +171,7 @@ class CLB_Gamemode : SCR_BaseGameMode
 		spawnParams.TransformMode = ETransformMode.WORLD;
 		spawnParams.Transform[3] = "0 10000 0";
 		IEntity initialEntity = GetGame().SpawnEntityPrefab(Resource.Load("{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et"),GetGame().GetWorld(),spawnParams);
-		GetGame().GetCallqueue().CallLater(SetPlayerEntity, 100, false, initialEntity, playerID);
+		GetGame().GetCallqueue().CallLater(SetPlayerEntity, 200, false, initialEntity, playerID);
 		SCR_AIGroup currentGroup = SCR_GroupsManagerComponent.GetInstance().GetPlayerGroup(playerID);
 		if(currentGroup)
 			currentGroup.RemovePlayer(playerID);
@@ -386,8 +386,8 @@ class CLB_Gamemode : SCR_BaseGameMode
 	override void OnPlayerConnected(int playerId)
 	{
 		super.OnPlayerConnected(playerId);
-		if(m_aSlots.Find(playerId) == -1)
-			SpawnInitialEntity(playerId);
+//		if(m_aSlots.Find(playerId) == -1)
+//			SpawnInitialEntity(playerId);
 		
 		if(m_aSlots.Find(playerId) != -1)
 		{

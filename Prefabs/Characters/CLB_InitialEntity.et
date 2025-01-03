@@ -24,9 +24,6 @@ SCR_ChimeraCharacter : "{37578B1666981FCE}Prefabs/Characters/Core/Character_Base
     }
    }
   }
-  SCR_VoNComponent "{520EA1D2F659C856}" {
-   Filename "{92582B3603EE5464}Sounds/VON/vonLobby.acp"
-  }
   CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
    WeaponSlotIndex 0
   }

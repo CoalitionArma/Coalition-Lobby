@@ -22,11 +22,36 @@ modded class SCR_PlayerController
 		InputManager inputManager = GetGame().GetInputManager();
 		if (!inputManager)
 			return;
-		
-		GetGame().GetCallqueue().CallLater(CLB_Gamemode.GetInstance().OpenMenu, 100, false);
-//		EnterGame(SCR_PlayerController.GetLocalPlayerId());
+
 		GetGame().GetInputManager().AddActionListener("CLB_OpenLobby", EActionTrigger.PRESSED, OpenMenu);
 		GetGame().GetInputManager().AddActionListener("CLB_EnterListening", EActionTrigger.PRESSED, Action_SetListening);
+		PlayerJoined();
+	}
+	
+	void PlayerJoined()
+	{
+		if (GetPlayerId() == 0)
+		{
+			GetGame().GetCallqueue().CallLater(PlayerJoined, 100, false);
+			return;
+		}
+		
+		if (CLB_Gamemode.GetInstance().m_aSlots.Find(GetPlayerId()) == -1)
+		{
+			Rpc(RpcDo_SetIntialEntity, GetPlayerId());
+			GetGame().GetCallqueue().CallLater(CLB_Gamemode.GetInstance().OpenMenu, 500, false);
+		}
+		else
+		{
+			Rpc(RpcDo_SetIntialEntity, GetPlayerId());
+			GetGame().GetCallqueue().CallLater(EnterGame, 500, false, GetPlayerId());
+		}
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_SetIntialEntity(int playerID)
+	{
+		CLB_Gamemode.GetInstance().SpawnInitialEntity(playerID);
 	}
 	
 	void Action_SetListening()
