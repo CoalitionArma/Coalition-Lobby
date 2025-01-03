@@ -195,7 +195,7 @@ class CLB_SlottingMenuUI: ChimeraMenuBase
 		else if(m_iCivSlots > 0)
 		{
 			m_fSelectedFaction = GetGame().GetFactionManager().GetFactionByKey("CIV");
-			SelectFactionOpfor();
+			SelectFactionCiv();
 		}
 		localSlotChanges = m_Gamemode.m_iSlotChanges;
 		UpdateSlots();
