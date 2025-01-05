@@ -123,6 +123,27 @@ class CLB_Gamemode : SCR_BaseGameMode
 	[Attribute("", category: "CLB Gamemode Descriptors")]
 	ref	array<ref CLB_MissionDescriptor> m_aMissionDescriptors;
 	
+	// Respawn Settings
+	[Attribute("0", "auto", "", category: "CRF Respawn")]
+	bool m_bRespawnEnabled;
+	[Attribute("0", "auto", "", category: "CRF Respawn")]
+	bool m_bWaveRespawn;
+	[Attribute("blutickets", UIWidgets.EditBox, "Amount of BLUFOR Tickets. 0 = unlimited/-1 = disabled", category: "CRF Respawn")]
+	int m_iBLUFORTickets;
+	[Attribute("bluspawnpoint", UIWidgets.EditBox, "BLUFOR spawn entity name", category: "CRF Respawn")]
+	string m_sBLUFORSpawnPoint;
+	[Attribute("opftickets", UIWidgets.EditBox, "Amount of OPFOR Tickets. 0 = unlimited/-1 = disabled", category: "CRF Respawn")]
+	int m_iOPFORTickets;
+	[Attribute("opfspawnpoint", UIWidgets.EditBox, "OPFOR spawn entity name", category: "CRF Respawn")]
+	string m_sOPFORSpawnPoint;	
+	[Attribute("indtickets", UIWidgets.EditBox, "Amount of INDFOR Tickets. 0 = unlimited/-1 = disabled", category: "CRF Respawn")]
+	int m_iINDFORTickets;
+	[Attribute("indspawnpoint", UIWidgets.EditBox, "INDFOR spawn entity name", category: "CRF Respawn")]
+	string m_sINDFORSpawnPoint;
+	
+	
+	
+	
 	IEntity m_eGamemodeEntity;
 	
 	//
