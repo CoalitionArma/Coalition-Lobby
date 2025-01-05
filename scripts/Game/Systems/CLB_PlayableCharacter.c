@@ -63,11 +63,11 @@ class CLB_PlayableCharacter : ScriptComponent
 		super.EOnFixedFrame(owner, timeSlice);
 		if(owner.GetPrefabData().GetPrefabName() == "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
 		{
-			owner.GetPhysics().EnableGravity(false);
 			owner.SetOrigin("0 10000 0");
 			Physics physics = owner.GetPhysics();
 			if (physics)
 			{
+				physics.EnableGravity(false);
 				physics.SetVelocity("0 0 0");
 				physics.SetAngularVelocity("0 0 0");
 				physics.SetMass(0);
