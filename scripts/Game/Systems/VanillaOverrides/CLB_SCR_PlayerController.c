@@ -91,7 +91,6 @@ modded class SCR_PlayerController
 	// Ask server to respawn player after timer ends
 	void RespawnWithTicket(int playerId)
 	{
-		//GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_RespawnMenu);
 		Rpc(RpcDo_RespawnWithTicket, playerId)	
 	}
 	

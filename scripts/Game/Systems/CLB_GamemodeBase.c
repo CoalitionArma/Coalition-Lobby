@@ -580,11 +580,6 @@ class CLB_Gamemode : SCR_BaseGameMode
 				}
 			}
 			
-			PrintFormat("Trying to spawn %1", faction);
-			PrintFormat(" Opfor Tickets: %1", m_iOPFORCurrentTickets);
-			PrintFormat(" Blufor Tickets: %1", m_iBLUFORCurrentTickets);
-			PrintFormat(" Indfor Tickets: %1", m_iINDFORCurrentTickets);
-			
 			vector finalSpawnLocation = vector.Zero;
 			EntitySpawnParams spawnParams = new EntitySpawnParams();
 			spawnParams.TransformMode = ETransformMode.WORLD;
