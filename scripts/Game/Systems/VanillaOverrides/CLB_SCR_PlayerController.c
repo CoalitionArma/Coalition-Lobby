@@ -88,6 +88,20 @@ modded class SCR_PlayerController
 		CLB_Gamemode.GetInstance().RespawnPlayer(playerID, prefab, position, groupID);
 	}
 	
+	// Ask server to respawn player after timer ends
+	void RespawnWithTicket(int playerId)
+	{
+		//GetGame().GetMenuManager().CloseMenuByPreset(ChimeraMenuPreset.CLB_RespawnMenu);
+		Rpc(RpcDo_RespawnWithTicket, playerId)	
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_RespawnWithTicket(int playerID)
+	{
+		CLB_Gamemode.GetInstance().RespawnPlayerTicket(playerID);
+	}
+	
+	
 	void UpdateCameraPos(vector cameraPos[4])
 	{
 		//Rpc(RpcDo_UpdateCameraPos, entityID, cameraPos);
@@ -281,4 +295,5 @@ modded class SCR_PlayerController
 	{
 		CLB_Gamemode.GetInstance().AdvanceSlottingState();
 	}
+	
 }
