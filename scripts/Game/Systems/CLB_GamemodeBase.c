@@ -199,6 +199,12 @@ class CLB_Gamemode : SCR_BaseGameMode
 		GetGame().GetCallqueue().CallLater(SetPlayerSpectator, 100, false, playerId, playerEntity);
 
 	}
+
+	void SetPlayerSpectator(int playerId, IEntity playerEntity)
+	{
+		if(playerEntity.GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
+			SpawnInitialEntity(playerId);
+	}
 	
 	void SpawnInitialEntity(int playerID)
 	{
@@ -478,22 +484,6 @@ class CLB_Gamemode : SCR_BaseGameMode
 			GetGame().GetCallqueue().CallLater(UpdateRespawnTimer, 1000, true);
 		}
 	}
-	
-	override void EOnEachFrame(float timeSlice)
-	{
-	   if (Replication.IsServer())
-	   {
-	       	if (m_GamemodeState != CLB_GamemodeState.GAME)
-				return;	
-			
-			if (m_iRespawnWaveCurrentTime == 0)
-			{
-				m_iRespawnWaveCurrentTime = m_iRespawnWaveTimer;
-			}
-			m_iRespawnWaveCurrentTime--;
-			
-	   }
-	}
 	//------------------------------------------------------------------------------------------------
 	void CheckTickets(int playerID)
 	{
@@ -531,12 +521,6 @@ class CLB_Gamemode : SCR_BaseGameMode
 		}
 		m_iRespawnWaveCurrentTime--;
 		Replication.BumpMe();
-	}
-	//------------------------------------------------------------------------------------------------
-	void SetPlayerSpectator(int playerId, IEntity playerEntity)
-	{
-		if(playerEntity.GetPrefabData().GetPrefabName() != "{59886ECB7BBAF5BC}Prefabs/Characters/CLB_InitialEntity.et")
-			SpawnInitialEntity(playerId);
 	}
 	//------------------------------------------------------------------------------------------------
 	void SendRespawnScreen(int playerId)
